@@ -1,0 +1,6 @@
+type Word {
+  id: ID! @id
+  translation: String!
+  writing: String! 
+  synonims: [Word]
+}

@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "commonjs",
+        "experimentalDecorators": true,
+        "noImplicitReturns": true,
+        "strictNullChecks": true,
+        "allowJs": true,
+        "declaration": false,
+        "noImplicitAny": false,
+        "downlevelIteration": true,
+        "sourceMap": true,
+        "lib": [
+            "esnext"
+        ],
+        "strict": false,
+        "types": [
+            "node"
+        ],
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "baseUrl": "src",
+        "rootDir": "src",
+        "outDir": "../dist"
+    },
+    "exclude": [
+        "node_modules",
+        "public",
+        "dist"
+    ]
+}

@@ -1,0 +1,8 @@
+
+
+type Word {
+    wordId: String!
+    translation: String!
+    writing: String!
+    synonims: [Word]
+}

@@ -1,0 +1,17 @@
+#
+# Word
+#
+input WordCreateInput {
+    translation: String!
+    writing: String!
+}
+input WordUpdateInput {
+    wordId: String!
+    translation: String
+    writing: String
+}
+
+input WordDeleteInput {
+    wordId: Int!
+}
+

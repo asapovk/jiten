@@ -1,0 +1,13 @@
+schema:
+  - "./src/scripts/importSchema.ts"
+documents: []
+config:
+  enumsAsTypes: "TRUE"
+generates:
+  ./src/generated/schema.d.ts:
+    plugins:
+      - "typescript-common"
+      - "typescript-client"
+      - "typescript-server"
+require:
+  - "ts-node/register"

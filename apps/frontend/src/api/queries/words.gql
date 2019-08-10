@@ -1,0 +1,6 @@
+query {
+    words {
+        writing
+        translation
+    }
+}

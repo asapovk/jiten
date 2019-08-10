@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        /* Basic Options */
+        "target": "ES2015" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
+        "module": "commonjs" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "noImplicitReturns": true,
+        "strictNullChecks": true,
+        "allowJs": true,
+        "declaration": false,
+        "sourceMap": false, /* Generates corresponding '.map' file. */
+        "jsx": "react",
+        "lib": [
+            "es2015",
+            "es7",
+            "es2018",
+            "dom",
+            "esnext"
+        ], /* Specify library files to be included in the compilation. */
+        "strict": false /* Enable all strict type-checking options. */,
+        "types": [
+            "node"
+        ] /* Type declaration files to be included in compilation. */,
+        "esModuleInterop": true,
+        "baseUrl": "./",
+        "rootDir": "src",
+        "outDir": "dist", /* Redirect output structure to the directory. */
+    },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "webpack.config.js",
+        "stuff"
+    ]
+}
