@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import { Fragment } from 'react'
 import { Flexbox, D2, Widget, T1 } from 'ui'
 
-const KanjiSingle = (props) => {
+const WordSingle = (props) => {
 
     const dummyText = `Lorem Ipsum is simply 
     dummy text of the printing and typesetting industry. 
@@ -15,6 +15,9 @@ const KanjiSingle = (props) => {
     Letraset sheets containing Lorem Ipsum passages, 
     and more recently with desktop publishing software like Aldus PageMaker including versions
      of Lorem Ipsum.`
+
+
+    console.log(props)
     return (
         <Fragment>
             <Widget>
@@ -30,4 +33,4 @@ const KanjiSingle = (props) => {
 
 }
 
-export default KanjiSingle
+export default WordSingle
