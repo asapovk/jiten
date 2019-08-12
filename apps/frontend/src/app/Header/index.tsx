@@ -12,9 +12,12 @@ const Header = () => {
     const modal = useRef<Modal>(null);
     const routes = getRoutes();
 
-    const rootLocation = "/mod/ebird/" + location.pathname.split("/")[3];
-    const currentRoute = routes.find(route => route.path == rootLocation);
-
+    const rootLocation = location.pathname
+    console.log(rootLocation)
+    const currentRoute = routes.find(route =>
+        route.path.split('/')[0] == rootLocation.split('/')[0]
+    );
+    console.log(currentRoute)
     const onActionClick = () => {
         if (currentRoute && currentRoute.addType === 'form') {
             // return FormActions.doCreate();

@@ -6,7 +6,7 @@ import { WordState } from './word/types';
 
 
 export interface ApplicationState {
-    user: WordState,
+    word: WordState,
 }
 
 export default store({

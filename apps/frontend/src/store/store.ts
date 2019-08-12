@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose, ReducersMapObject } from 'redux';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 /**
  * Redux devtools globals
@@ -23,7 +24,7 @@ export default (reducers: ReducersMapObject) => {
     return createStore(
         combineReducers(reducers),
         composeEnhancers(
-            applyMiddleware(thunk)
+            applyMiddleware(thunk, logger)
         )
     )
 }

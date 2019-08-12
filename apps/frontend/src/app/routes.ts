@@ -1,11 +1,12 @@
 import * as Pages from './Pages';
 import IconTypes from 'ui/core/Icon/types';
+import { fstat } from 'fs';
 
 interface Route {
     title: string
     icon: IconTypes.Type
     path: string
-    component: () => JSX.Element
+    component: (props: any) => JSX.Element
     onlyForAdmin: boolean
     searchable: boolean
     addAction?: string
@@ -13,41 +14,34 @@ interface Route {
         key: string
         render: any
     }[]
+    isSingle: boolean
     addType?: 'form' | 'modal'
 }
 
 const routes: Route[] = [
 
-    // {
-    //     title: 'Организации',
-    //     icon: 'home',
-    //     path: "/mod/ebird/orgs",
-    //     component: Pages.Org,
-    //     onlyForAdmin: true,
-    //     searchable: true,
-    //     addAction: 'Добавить организацию',
-    //     addType: 'form'
-    // },
-    // {
-    //     title: 'Приложения',
-    //     icon: 'applications',
-    //     path: "/mod/ebird/apps",
-    //     component: Pages.App,
-    //     onlyForAdmin: true,
-    //     searchable: true,
-    //     addAction: 'Добавить приложение',
-    //     addType: 'form'
-    // },
     {
-        title: 'Пользователи',
+        title: 'Слова',
         icon: 'users-add',
-        path: "/mod/ebird/users",
+        path: "/words",
         component: Pages.Word,
-        onlyForAdmin: true,
+        onlyForAdmin: false,
         searchable: true,
         addAction: 'Добавить пользователя',
-        addType: 'form'
+        addType: 'form',
+        isSingle: false
     },
+    {
+        title: 'Слова',
+        icon: 'users-add',
+        path: "/word/:name",
+        component: Pages.WordSingle,
+        onlyForAdmin: false,
+        searchable: true,
+        addAction: 'Добавить пользователя',
+        addType: 'form',
+        isSingle: true
+    }
 ]
 
 export default () => {

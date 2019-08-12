@@ -22,9 +22,9 @@ const Sidebar = (props: SidebarProps) => {
         <div css={css.sidebar}>
             <Flexbox column>
                 <ModuleDescription sidebarHidden={props.sidebarHidden} exit={props.exit} />
-                {routes.map(route => {
-                    const rootLocation = "/mod/ebird/" + location.pathname.split("/")[3];
-                    const active = rootLocation === route.path;
+                {routes.filter(route => !route.isSingle).map(route => {
+                    const rootLocation = location.pathname.split("/")[0];
+                    const active = rootLocation === route.path.split('/')[0];
 
                     return (
                         <Link key={route.path} to={route.path} css={css.link(active)}>

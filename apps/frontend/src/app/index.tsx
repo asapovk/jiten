@@ -23,13 +23,13 @@ const App = (props: any) => {
 
     const routes = getRoutes();
 
-    const rootLocation = "/mod/ebird/" + location.pathname.split("/")[3];
+    const rootLocation = location.pathname
     const currentRoute = routes.find(route => route.path == rootLocation);
 
-    if (!currentRoute) {
-        return <Redirect to="/mod/ebird/users" />
-    }
-
+    // if (!currentRoute) {
+    //     return <Redirect to="/mod/ebird/users" />
+    // }
+    console.log(routes)
     return (
         <div css={css.viewport}>
             <Sidebar
@@ -47,6 +47,7 @@ const App = (props: any) => {
                         key={route.path}
                         path={route.path}
                         component={route.component}
+                        exact
                     />
                 ))}
             </div>
