@@ -1,0 +1,25 @@
+query {
+    kanjis {
+        writing
+        on
+        kun
+        meaning
+        jlpt
+        strokes
+        imageUrl
+        usageFirst {
+            writing
+            translation
+        }
+        usageLast {
+            writing
+            translation
+        }
+        phonetics {
+            meaning
+            writing
+            on
+            kun
+        }
+    }
+}

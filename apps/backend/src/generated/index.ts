@@ -16,6 +16,7 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
+  kanji: (where?: KanjiWhereInput) => Promise<boolean>;
   word: (where?: WordWhereInput) => Promise<boolean>;
 }
 
@@ -38,6 +39,25 @@ export interface Prisma {
    * Queries
    */
 
+  kanji: (where: KanjiWhereUniqueInput) => KanjiNullablePromise;
+  kanjis: (args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Kanji>;
+  kanjisConnection: (args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => KanjiConnectionPromise;
   word: (where: WordWhereUniqueInput) => WordNullablePromise;
   words: (args?: {
     where?: WordWhereInput;
@@ -63,6 +83,22 @@ export interface Prisma {
    * Mutations
    */
 
+  createKanji: (data: KanjiCreateInput) => KanjiPromise;
+  updateKanji: (args: {
+    data: KanjiUpdateInput;
+    where: KanjiWhereUniqueInput;
+  }) => KanjiPromise;
+  updateManyKanjis: (args: {
+    data: KanjiUpdateManyMutationInput;
+    where?: KanjiWhereInput;
+  }) => BatchPayloadPromise;
+  upsertKanji: (args: {
+    where: KanjiWhereUniqueInput;
+    create: KanjiCreateInput;
+    update: KanjiUpdateInput;
+  }) => KanjiPromise;
+  deleteKanji: (where: KanjiWhereUniqueInput) => KanjiPromise;
+  deleteManyKanjis: (where?: KanjiWhereInput) => BatchPayloadPromise;
   createWord: (data: WordCreateInput) => WordPromise;
   updateWord: (args: {
     data: WordUpdateInput;
@@ -88,6 +124,9 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  kanji: (
+    where?: KanjiSubscriptionWhereInput
+  ) => KanjiSubscriptionPayloadSubscription;
   word: (
     where?: WordSubscriptionWhereInput
   ) => WordSubscriptionPayloadSubscription;
@@ -101,6 +140,24 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type KanjiOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "writing_ASC"
+  | "writing_DESC"
+  | "imageUrl_ASC"
+  | "imageUrl_DESC"
+  | "videoUrl_ASC"
+  | "videoUrl_DESC"
+  | "jlpt_ASC"
+  | "jlpt_DESC"
+  | "strokes_ASC"
+  | "strokes_DESC"
+  | "origin_ASC"
+  | "origin_DESC"
+  | "memo_ASC"
+  | "memo_DESC";
+
 export type WordOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -111,9 +168,133 @@ export type WordOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type WordWhereUniqueInput = AtLeastOne<{
+export type KanjiWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
+
+export interface KanjiWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  writing?: Maybe<String>;
+  writing_not?: Maybe<String>;
+  writing_in?: Maybe<String[] | String>;
+  writing_not_in?: Maybe<String[] | String>;
+  writing_lt?: Maybe<String>;
+  writing_lte?: Maybe<String>;
+  writing_gt?: Maybe<String>;
+  writing_gte?: Maybe<String>;
+  writing_contains?: Maybe<String>;
+  writing_not_contains?: Maybe<String>;
+  writing_starts_with?: Maybe<String>;
+  writing_not_starts_with?: Maybe<String>;
+  writing_ends_with?: Maybe<String>;
+  writing_not_ends_with?: Maybe<String>;
+  imageUrl?: Maybe<String>;
+  imageUrl_not?: Maybe<String>;
+  imageUrl_in?: Maybe<String[] | String>;
+  imageUrl_not_in?: Maybe<String[] | String>;
+  imageUrl_lt?: Maybe<String>;
+  imageUrl_lte?: Maybe<String>;
+  imageUrl_gt?: Maybe<String>;
+  imageUrl_gte?: Maybe<String>;
+  imageUrl_contains?: Maybe<String>;
+  imageUrl_not_contains?: Maybe<String>;
+  imageUrl_starts_with?: Maybe<String>;
+  imageUrl_not_starts_with?: Maybe<String>;
+  imageUrl_ends_with?: Maybe<String>;
+  imageUrl_not_ends_with?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  videoUrl_not?: Maybe<String>;
+  videoUrl_in?: Maybe<String[] | String>;
+  videoUrl_not_in?: Maybe<String[] | String>;
+  videoUrl_lt?: Maybe<String>;
+  videoUrl_lte?: Maybe<String>;
+  videoUrl_gt?: Maybe<String>;
+  videoUrl_gte?: Maybe<String>;
+  videoUrl_contains?: Maybe<String>;
+  videoUrl_not_contains?: Maybe<String>;
+  videoUrl_starts_with?: Maybe<String>;
+  videoUrl_not_starts_with?: Maybe<String>;
+  videoUrl_ends_with?: Maybe<String>;
+  videoUrl_not_ends_with?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  jlpt_not?: Maybe<Int>;
+  jlpt_in?: Maybe<Int[] | Int>;
+  jlpt_not_in?: Maybe<Int[] | Int>;
+  jlpt_lt?: Maybe<Int>;
+  jlpt_lte?: Maybe<Int>;
+  jlpt_gt?: Maybe<Int>;
+  jlpt_gte?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  strokes_not?: Maybe<Int>;
+  strokes_in?: Maybe<Int[] | Int>;
+  strokes_not_in?: Maybe<Int[] | Int>;
+  strokes_lt?: Maybe<Int>;
+  strokes_lte?: Maybe<Int>;
+  strokes_gt?: Maybe<Int>;
+  strokes_gte?: Maybe<Int>;
+  origin?: Maybe<String>;
+  origin_not?: Maybe<String>;
+  origin_in?: Maybe<String[] | String>;
+  origin_not_in?: Maybe<String[] | String>;
+  origin_lt?: Maybe<String>;
+  origin_lte?: Maybe<String>;
+  origin_gt?: Maybe<String>;
+  origin_gte?: Maybe<String>;
+  origin_contains?: Maybe<String>;
+  origin_not_contains?: Maybe<String>;
+  origin_starts_with?: Maybe<String>;
+  origin_not_starts_with?: Maybe<String>;
+  origin_ends_with?: Maybe<String>;
+  origin_not_ends_with?: Maybe<String>;
+  old_every?: Maybe<KanjiWhereInput>;
+  old_some?: Maybe<KanjiWhereInput>;
+  old_none?: Maybe<KanjiWhereInput>;
+  modern_every?: Maybe<KanjiWhereInput>;
+  modern_some?: Maybe<KanjiWhereInput>;
+  modern_none?: Maybe<KanjiWhereInput>;
+  memo?: Maybe<String>;
+  memo_not?: Maybe<String>;
+  memo_in?: Maybe<String[] | String>;
+  memo_not_in?: Maybe<String[] | String>;
+  memo_lt?: Maybe<String>;
+  memo_lte?: Maybe<String>;
+  memo_gt?: Maybe<String>;
+  memo_gte?: Maybe<String>;
+  memo_contains?: Maybe<String>;
+  memo_not_contains?: Maybe<String>;
+  memo_starts_with?: Maybe<String>;
+  memo_not_starts_with?: Maybe<String>;
+  memo_ends_with?: Maybe<String>;
+  memo_not_ends_with?: Maybe<String>;
+  usageFirst_every?: Maybe<WordWhereInput>;
+  usageFirst_some?: Maybe<WordWhereInput>;
+  usageFirst_none?: Maybe<WordWhereInput>;
+  usageLast_every?: Maybe<WordWhereInput>;
+  usageLast_some?: Maybe<WordWhereInput>;
+  usageLast_none?: Maybe<WordWhereInput>;
+  radicals_every?: Maybe<KanjiWhereInput>;
+  radicals_some?: Maybe<KanjiWhereInput>;
+  radicals_none?: Maybe<KanjiWhereInput>;
+  phonetics_every?: Maybe<KanjiWhereInput>;
+  phonetics_some?: Maybe<KanjiWhereInput>;
+  phonetics_none?: Maybe<KanjiWhereInput>;
+  AND?: Maybe<KanjiWhereInput[] | KanjiWhereInput>;
+  OR?: Maybe<KanjiWhereInput[] | KanjiWhereInput>;
+  NOT?: Maybe<KanjiWhereInput[] | KanjiWhereInput>;
+}
 
 export interface WordWhereInput {
   id?: Maybe<ID_Input>;
@@ -166,11 +347,90 @@ export interface WordWhereInput {
   NOT?: Maybe<WordWhereInput[] | WordWhereInput>;
 }
 
-export interface WordCreateInput {
+export type WordWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface KanjiCreateInput {
   id?: Maybe<ID_Input>;
-  translation: String;
   writing: String;
-  synonims?: Maybe<WordCreateManyInput>;
+  meaning?: Maybe<KanjiCreatemeaningInput>;
+  on?: Maybe<KanjiCreateonInput>;
+  kun?: Maybe<KanjiCreatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  old?: Maybe<KanjiCreateManyWithoutOldInput>;
+  modern?: Maybe<KanjiCreateManyWithoutModernInput>;
+  memo?: Maybe<String>;
+  usageFirst?: Maybe<WordCreateManyInput>;
+  usageLast?: Maybe<WordCreateManyInput>;
+  radicals?: Maybe<KanjiCreateManyWithoutRadicalsInput>;
+  phonetics?: Maybe<KanjiCreateManyWithoutPhoneticsInput>;
+}
+
+export interface KanjiCreatemeaningInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface KanjiCreateonInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface KanjiCreatekunInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface KanjiCreateManyWithoutOldInput {
+  create?: Maybe<KanjiCreateWithoutOldInput[] | KanjiCreateWithoutOldInput>;
+  connect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+}
+
+export interface KanjiCreateWithoutOldInput {
+  id?: Maybe<ID_Input>;
+  writing: String;
+  meaning?: Maybe<KanjiCreatemeaningInput>;
+  on?: Maybe<KanjiCreateonInput>;
+  kun?: Maybe<KanjiCreatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  modern?: Maybe<KanjiCreateManyWithoutModernInput>;
+  memo?: Maybe<String>;
+  usageFirst?: Maybe<WordCreateManyInput>;
+  usageLast?: Maybe<WordCreateManyInput>;
+  radicals?: Maybe<KanjiCreateManyWithoutRadicalsInput>;
+  phonetics?: Maybe<KanjiCreateManyWithoutPhoneticsInput>;
+}
+
+export interface KanjiCreateManyWithoutModernInput {
+  create?: Maybe<
+    KanjiCreateWithoutModernInput[] | KanjiCreateWithoutModernInput
+  >;
+  connect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+}
+
+export interface KanjiCreateWithoutModernInput {
+  id?: Maybe<ID_Input>;
+  writing: String;
+  meaning?: Maybe<KanjiCreatemeaningInput>;
+  on?: Maybe<KanjiCreateonInput>;
+  kun?: Maybe<KanjiCreatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  old?: Maybe<KanjiCreateManyWithoutOldInput>;
+  memo?: Maybe<String>;
+  usageFirst?: Maybe<WordCreateManyInput>;
+  usageLast?: Maybe<WordCreateManyInput>;
+  radicals?: Maybe<KanjiCreateManyWithoutRadicalsInput>;
+  phonetics?: Maybe<KanjiCreateManyWithoutPhoneticsInput>;
 }
 
 export interface WordCreateManyInput {
@@ -178,10 +438,182 @@ export interface WordCreateManyInput {
   connect?: Maybe<WordWhereUniqueInput[] | WordWhereUniqueInput>;
 }
 
-export interface WordUpdateInput {
-  translation?: Maybe<String>;
+export interface WordCreateInput {
+  id?: Maybe<ID_Input>;
+  translation: String;
+  writing: String;
+  synonims?: Maybe<WordCreateManyInput>;
+}
+
+export interface KanjiCreateManyWithoutRadicalsInput {
+  create?: Maybe<
+    KanjiCreateWithoutRadicalsInput[] | KanjiCreateWithoutRadicalsInput
+  >;
+  connect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+}
+
+export interface KanjiCreateWithoutRadicalsInput {
+  id?: Maybe<ID_Input>;
+  writing: String;
+  meaning?: Maybe<KanjiCreatemeaningInput>;
+  on?: Maybe<KanjiCreateonInput>;
+  kun?: Maybe<KanjiCreatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  old?: Maybe<KanjiCreateManyWithoutOldInput>;
+  modern?: Maybe<KanjiCreateManyWithoutModernInput>;
+  memo?: Maybe<String>;
+  usageFirst?: Maybe<WordCreateManyInput>;
+  usageLast?: Maybe<WordCreateManyInput>;
+  phonetics?: Maybe<KanjiCreateManyWithoutPhoneticsInput>;
+}
+
+export interface KanjiCreateManyWithoutPhoneticsInput {
+  create?: Maybe<
+    KanjiCreateWithoutPhoneticsInput[] | KanjiCreateWithoutPhoneticsInput
+  >;
+  connect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+}
+
+export interface KanjiCreateWithoutPhoneticsInput {
+  id?: Maybe<ID_Input>;
+  writing: String;
+  meaning?: Maybe<KanjiCreatemeaningInput>;
+  on?: Maybe<KanjiCreateonInput>;
+  kun?: Maybe<KanjiCreatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  old?: Maybe<KanjiCreateManyWithoutOldInput>;
+  modern?: Maybe<KanjiCreateManyWithoutModernInput>;
+  memo?: Maybe<String>;
+  usageFirst?: Maybe<WordCreateManyInput>;
+  usageLast?: Maybe<WordCreateManyInput>;
+  radicals?: Maybe<KanjiCreateManyWithoutRadicalsInput>;
+}
+
+export interface KanjiUpdateInput {
   writing?: Maybe<String>;
-  synonims?: Maybe<WordUpdateManyInput>;
+  meaning?: Maybe<KanjiUpdatemeaningInput>;
+  on?: Maybe<KanjiUpdateonInput>;
+  kun?: Maybe<KanjiUpdatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  old?: Maybe<KanjiUpdateManyWithoutOldInput>;
+  modern?: Maybe<KanjiUpdateManyWithoutModernInput>;
+  memo?: Maybe<String>;
+  usageFirst?: Maybe<WordUpdateManyInput>;
+  usageLast?: Maybe<WordUpdateManyInput>;
+  radicals?: Maybe<KanjiUpdateManyWithoutRadicalsInput>;
+  phonetics?: Maybe<KanjiUpdateManyWithoutPhoneticsInput>;
+}
+
+export interface KanjiUpdatemeaningInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface KanjiUpdateonInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface KanjiUpdatekunInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface KanjiUpdateManyWithoutOldInput {
+  create?: Maybe<KanjiCreateWithoutOldInput[] | KanjiCreateWithoutOldInput>;
+  delete?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  connect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  set?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  disconnect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  update?: Maybe<
+    | KanjiUpdateWithWhereUniqueWithoutOldInput[]
+    | KanjiUpdateWithWhereUniqueWithoutOldInput
+  >;
+  upsert?: Maybe<
+    | KanjiUpsertWithWhereUniqueWithoutOldInput[]
+    | KanjiUpsertWithWhereUniqueWithoutOldInput
+  >;
+  deleteMany?: Maybe<KanjiScalarWhereInput[] | KanjiScalarWhereInput>;
+  updateMany?: Maybe<
+    KanjiUpdateManyWithWhereNestedInput[] | KanjiUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface KanjiUpdateWithWhereUniqueWithoutOldInput {
+  where: KanjiWhereUniqueInput;
+  data: KanjiUpdateWithoutOldDataInput;
+}
+
+export interface KanjiUpdateWithoutOldDataInput {
+  writing?: Maybe<String>;
+  meaning?: Maybe<KanjiUpdatemeaningInput>;
+  on?: Maybe<KanjiUpdateonInput>;
+  kun?: Maybe<KanjiUpdatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  modern?: Maybe<KanjiUpdateManyWithoutModernInput>;
+  memo?: Maybe<String>;
+  usageFirst?: Maybe<WordUpdateManyInput>;
+  usageLast?: Maybe<WordUpdateManyInput>;
+  radicals?: Maybe<KanjiUpdateManyWithoutRadicalsInput>;
+  phonetics?: Maybe<KanjiUpdateManyWithoutPhoneticsInput>;
+}
+
+export interface KanjiUpdateManyWithoutModernInput {
+  create?: Maybe<
+    KanjiCreateWithoutModernInput[] | KanjiCreateWithoutModernInput
+  >;
+  delete?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  connect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  set?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  disconnect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  update?: Maybe<
+    | KanjiUpdateWithWhereUniqueWithoutModernInput[]
+    | KanjiUpdateWithWhereUniqueWithoutModernInput
+  >;
+  upsert?: Maybe<
+    | KanjiUpsertWithWhereUniqueWithoutModernInput[]
+    | KanjiUpsertWithWhereUniqueWithoutModernInput
+  >;
+  deleteMany?: Maybe<KanjiScalarWhereInput[] | KanjiScalarWhereInput>;
+  updateMany?: Maybe<
+    KanjiUpdateManyWithWhereNestedInput[] | KanjiUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface KanjiUpdateWithWhereUniqueWithoutModernInput {
+  where: KanjiWhereUniqueInput;
+  data: KanjiUpdateWithoutModernDataInput;
+}
+
+export interface KanjiUpdateWithoutModernDataInput {
+  writing?: Maybe<String>;
+  meaning?: Maybe<KanjiUpdatemeaningInput>;
+  on?: Maybe<KanjiUpdateonInput>;
+  kun?: Maybe<KanjiUpdatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  old?: Maybe<KanjiUpdateManyWithoutOldInput>;
+  memo?: Maybe<String>;
+  usageFirst?: Maybe<WordUpdateManyInput>;
+  usageLast?: Maybe<WordUpdateManyInput>;
+  radicals?: Maybe<KanjiUpdateManyWithoutRadicalsInput>;
+  phonetics?: Maybe<KanjiUpdateManyWithoutPhoneticsInput>;
 }
 
 export interface WordUpdateManyInput {
@@ -279,9 +711,277 @@ export interface WordUpdateManyDataInput {
   writing?: Maybe<String>;
 }
 
+export interface KanjiUpdateManyWithoutRadicalsInput {
+  create?: Maybe<
+    KanjiCreateWithoutRadicalsInput[] | KanjiCreateWithoutRadicalsInput
+  >;
+  delete?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  connect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  set?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  disconnect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  update?: Maybe<
+    | KanjiUpdateWithWhereUniqueWithoutRadicalsInput[]
+    | KanjiUpdateWithWhereUniqueWithoutRadicalsInput
+  >;
+  upsert?: Maybe<
+    | KanjiUpsertWithWhereUniqueWithoutRadicalsInput[]
+    | KanjiUpsertWithWhereUniqueWithoutRadicalsInput
+  >;
+  deleteMany?: Maybe<KanjiScalarWhereInput[] | KanjiScalarWhereInput>;
+  updateMany?: Maybe<
+    KanjiUpdateManyWithWhereNestedInput[] | KanjiUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface KanjiUpdateWithWhereUniqueWithoutRadicalsInput {
+  where: KanjiWhereUniqueInput;
+  data: KanjiUpdateWithoutRadicalsDataInput;
+}
+
+export interface KanjiUpdateWithoutRadicalsDataInput {
+  writing?: Maybe<String>;
+  meaning?: Maybe<KanjiUpdatemeaningInput>;
+  on?: Maybe<KanjiUpdateonInput>;
+  kun?: Maybe<KanjiUpdatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  old?: Maybe<KanjiUpdateManyWithoutOldInput>;
+  modern?: Maybe<KanjiUpdateManyWithoutModernInput>;
+  memo?: Maybe<String>;
+  usageFirst?: Maybe<WordUpdateManyInput>;
+  usageLast?: Maybe<WordUpdateManyInput>;
+  phonetics?: Maybe<KanjiUpdateManyWithoutPhoneticsInput>;
+}
+
+export interface KanjiUpdateManyWithoutPhoneticsInput {
+  create?: Maybe<
+    KanjiCreateWithoutPhoneticsInput[] | KanjiCreateWithoutPhoneticsInput
+  >;
+  delete?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  connect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  set?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  disconnect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  update?: Maybe<
+    | KanjiUpdateWithWhereUniqueWithoutPhoneticsInput[]
+    | KanjiUpdateWithWhereUniqueWithoutPhoneticsInput
+  >;
+  upsert?: Maybe<
+    | KanjiUpsertWithWhereUniqueWithoutPhoneticsInput[]
+    | KanjiUpsertWithWhereUniqueWithoutPhoneticsInput
+  >;
+  deleteMany?: Maybe<KanjiScalarWhereInput[] | KanjiScalarWhereInput>;
+  updateMany?: Maybe<
+    KanjiUpdateManyWithWhereNestedInput[] | KanjiUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface KanjiUpdateWithWhereUniqueWithoutPhoneticsInput {
+  where: KanjiWhereUniqueInput;
+  data: KanjiUpdateWithoutPhoneticsDataInput;
+}
+
+export interface KanjiUpdateWithoutPhoneticsDataInput {
+  writing?: Maybe<String>;
+  meaning?: Maybe<KanjiUpdatemeaningInput>;
+  on?: Maybe<KanjiUpdateonInput>;
+  kun?: Maybe<KanjiUpdatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  old?: Maybe<KanjiUpdateManyWithoutOldInput>;
+  modern?: Maybe<KanjiUpdateManyWithoutModernInput>;
+  memo?: Maybe<String>;
+  usageFirst?: Maybe<WordUpdateManyInput>;
+  usageLast?: Maybe<WordUpdateManyInput>;
+  radicals?: Maybe<KanjiUpdateManyWithoutRadicalsInput>;
+}
+
+export interface KanjiUpsertWithWhereUniqueWithoutPhoneticsInput {
+  where: KanjiWhereUniqueInput;
+  update: KanjiUpdateWithoutPhoneticsDataInput;
+  create: KanjiCreateWithoutPhoneticsInput;
+}
+
+export interface KanjiScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  writing?: Maybe<String>;
+  writing_not?: Maybe<String>;
+  writing_in?: Maybe<String[] | String>;
+  writing_not_in?: Maybe<String[] | String>;
+  writing_lt?: Maybe<String>;
+  writing_lte?: Maybe<String>;
+  writing_gt?: Maybe<String>;
+  writing_gte?: Maybe<String>;
+  writing_contains?: Maybe<String>;
+  writing_not_contains?: Maybe<String>;
+  writing_starts_with?: Maybe<String>;
+  writing_not_starts_with?: Maybe<String>;
+  writing_ends_with?: Maybe<String>;
+  writing_not_ends_with?: Maybe<String>;
+  imageUrl?: Maybe<String>;
+  imageUrl_not?: Maybe<String>;
+  imageUrl_in?: Maybe<String[] | String>;
+  imageUrl_not_in?: Maybe<String[] | String>;
+  imageUrl_lt?: Maybe<String>;
+  imageUrl_lte?: Maybe<String>;
+  imageUrl_gt?: Maybe<String>;
+  imageUrl_gte?: Maybe<String>;
+  imageUrl_contains?: Maybe<String>;
+  imageUrl_not_contains?: Maybe<String>;
+  imageUrl_starts_with?: Maybe<String>;
+  imageUrl_not_starts_with?: Maybe<String>;
+  imageUrl_ends_with?: Maybe<String>;
+  imageUrl_not_ends_with?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  videoUrl_not?: Maybe<String>;
+  videoUrl_in?: Maybe<String[] | String>;
+  videoUrl_not_in?: Maybe<String[] | String>;
+  videoUrl_lt?: Maybe<String>;
+  videoUrl_lte?: Maybe<String>;
+  videoUrl_gt?: Maybe<String>;
+  videoUrl_gte?: Maybe<String>;
+  videoUrl_contains?: Maybe<String>;
+  videoUrl_not_contains?: Maybe<String>;
+  videoUrl_starts_with?: Maybe<String>;
+  videoUrl_not_starts_with?: Maybe<String>;
+  videoUrl_ends_with?: Maybe<String>;
+  videoUrl_not_ends_with?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  jlpt_not?: Maybe<Int>;
+  jlpt_in?: Maybe<Int[] | Int>;
+  jlpt_not_in?: Maybe<Int[] | Int>;
+  jlpt_lt?: Maybe<Int>;
+  jlpt_lte?: Maybe<Int>;
+  jlpt_gt?: Maybe<Int>;
+  jlpt_gte?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  strokes_not?: Maybe<Int>;
+  strokes_in?: Maybe<Int[] | Int>;
+  strokes_not_in?: Maybe<Int[] | Int>;
+  strokes_lt?: Maybe<Int>;
+  strokes_lte?: Maybe<Int>;
+  strokes_gt?: Maybe<Int>;
+  strokes_gte?: Maybe<Int>;
+  origin?: Maybe<String>;
+  origin_not?: Maybe<String>;
+  origin_in?: Maybe<String[] | String>;
+  origin_not_in?: Maybe<String[] | String>;
+  origin_lt?: Maybe<String>;
+  origin_lte?: Maybe<String>;
+  origin_gt?: Maybe<String>;
+  origin_gte?: Maybe<String>;
+  origin_contains?: Maybe<String>;
+  origin_not_contains?: Maybe<String>;
+  origin_starts_with?: Maybe<String>;
+  origin_not_starts_with?: Maybe<String>;
+  origin_ends_with?: Maybe<String>;
+  origin_not_ends_with?: Maybe<String>;
+  memo?: Maybe<String>;
+  memo_not?: Maybe<String>;
+  memo_in?: Maybe<String[] | String>;
+  memo_not_in?: Maybe<String[] | String>;
+  memo_lt?: Maybe<String>;
+  memo_lte?: Maybe<String>;
+  memo_gt?: Maybe<String>;
+  memo_gte?: Maybe<String>;
+  memo_contains?: Maybe<String>;
+  memo_not_contains?: Maybe<String>;
+  memo_starts_with?: Maybe<String>;
+  memo_not_starts_with?: Maybe<String>;
+  memo_ends_with?: Maybe<String>;
+  memo_not_ends_with?: Maybe<String>;
+  AND?: Maybe<KanjiScalarWhereInput[] | KanjiScalarWhereInput>;
+  OR?: Maybe<KanjiScalarWhereInput[] | KanjiScalarWhereInput>;
+  NOT?: Maybe<KanjiScalarWhereInput[] | KanjiScalarWhereInput>;
+}
+
+export interface KanjiUpdateManyWithWhereNestedInput {
+  where: KanjiScalarWhereInput;
+  data: KanjiUpdateManyDataInput;
+}
+
+export interface KanjiUpdateManyDataInput {
+  writing?: Maybe<String>;
+  meaning?: Maybe<KanjiUpdatemeaningInput>;
+  on?: Maybe<KanjiUpdateonInput>;
+  kun?: Maybe<KanjiUpdatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  memo?: Maybe<String>;
+}
+
+export interface KanjiUpsertWithWhereUniqueWithoutRadicalsInput {
+  where: KanjiWhereUniqueInput;
+  update: KanjiUpdateWithoutRadicalsDataInput;
+  create: KanjiCreateWithoutRadicalsInput;
+}
+
+export interface KanjiUpsertWithWhereUniqueWithoutModernInput {
+  where: KanjiWhereUniqueInput;
+  update: KanjiUpdateWithoutModernDataInput;
+  create: KanjiCreateWithoutModernInput;
+}
+
+export interface KanjiUpsertWithWhereUniqueWithoutOldInput {
+  where: KanjiWhereUniqueInput;
+  update: KanjiUpdateWithoutOldDataInput;
+  create: KanjiCreateWithoutOldInput;
+}
+
+export interface KanjiUpdateManyMutationInput {
+  writing?: Maybe<String>;
+  meaning?: Maybe<KanjiUpdatemeaningInput>;
+  on?: Maybe<KanjiUpdateonInput>;
+  kun?: Maybe<KanjiUpdatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  memo?: Maybe<String>;
+}
+
+export interface WordUpdateInput {
+  translation?: Maybe<String>;
+  writing?: Maybe<String>;
+  synonims?: Maybe<WordUpdateManyInput>;
+}
+
 export interface WordUpdateManyMutationInput {
   translation?: Maybe<String>;
   writing?: Maybe<String>;
+}
+
+export interface KanjiSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<KanjiWhereInput>;
+  AND?: Maybe<KanjiSubscriptionWhereInput[] | KanjiSubscriptionWhereInput>;
+  OR?: Maybe<KanjiSubscriptionWhereInput[] | KanjiSubscriptionWhereInput>;
+  NOT?: Maybe<KanjiSubscriptionWhereInput[] | KanjiSubscriptionWhereInput>;
 }
 
 export interface WordSubscriptionWhereInput {
@@ -297,6 +997,228 @@ export interface WordSubscriptionWhereInput {
 
 export interface NodeNode {
   id: ID_Output;
+}
+
+export interface Kanji {
+  id: ID_Output;
+  writing: String;
+  meaning: String[];
+  on: String[];
+  kun: String[];
+  imageUrl?: String;
+  videoUrl?: String;
+  jlpt?: Int;
+  strokes?: Int;
+  origin?: String;
+  memo?: String;
+}
+
+export interface KanjiPromise extends Promise<Kanji>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  writing: () => Promise<String>;
+  meaning: () => Promise<String[]>;
+  on: () => Promise<String[]>;
+  kun: () => Promise<String[]>;
+  imageUrl: () => Promise<String>;
+  videoUrl: () => Promise<String>;
+  jlpt: () => Promise<Int>;
+  strokes: () => Promise<Int>;
+  origin: () => Promise<String>;
+  old: <T = FragmentableArray<Kanji>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  modern: <T = FragmentableArray<Kanji>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  memo: () => Promise<String>;
+  usageFirst: <T = FragmentableArray<Word>>(args?: {
+    where?: WordWhereInput;
+    orderBy?: WordOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageLast: <T = FragmentableArray<Word>>(args?: {
+    where?: WordWhereInput;
+    orderBy?: WordOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  radicals: <T = FragmentableArray<Kanji>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  phonetics: <T = FragmentableArray<Kanji>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface KanjiSubscription
+  extends Promise<AsyncIterator<Kanji>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  writing: () => Promise<AsyncIterator<String>>;
+  meaning: () => Promise<AsyncIterator<String[]>>;
+  on: () => Promise<AsyncIterator<String[]>>;
+  kun: () => Promise<AsyncIterator<String[]>>;
+  imageUrl: () => Promise<AsyncIterator<String>>;
+  videoUrl: () => Promise<AsyncIterator<String>>;
+  jlpt: () => Promise<AsyncIterator<Int>>;
+  strokes: () => Promise<AsyncIterator<Int>>;
+  origin: () => Promise<AsyncIterator<String>>;
+  old: <T = Promise<AsyncIterator<KanjiSubscription>>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  modern: <T = Promise<AsyncIterator<KanjiSubscription>>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  memo: () => Promise<AsyncIterator<String>>;
+  usageFirst: <T = Promise<AsyncIterator<WordSubscription>>>(args?: {
+    where?: WordWhereInput;
+    orderBy?: WordOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageLast: <T = Promise<AsyncIterator<WordSubscription>>>(args?: {
+    where?: WordWhereInput;
+    orderBy?: WordOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  radicals: <T = Promise<AsyncIterator<KanjiSubscription>>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  phonetics: <T = Promise<AsyncIterator<KanjiSubscription>>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface KanjiNullablePromise
+  extends Promise<Kanji | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  writing: () => Promise<String>;
+  meaning: () => Promise<String[]>;
+  on: () => Promise<String[]>;
+  kun: () => Promise<String[]>;
+  imageUrl: () => Promise<String>;
+  videoUrl: () => Promise<String>;
+  jlpt: () => Promise<Int>;
+  strokes: () => Promise<Int>;
+  origin: () => Promise<String>;
+  old: <T = FragmentableArray<Kanji>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  modern: <T = FragmentableArray<Kanji>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  memo: () => Promise<String>;
+  usageFirst: <T = FragmentableArray<Word>>(args?: {
+    where?: WordWhereInput;
+    orderBy?: WordOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageLast: <T = FragmentableArray<Word>>(args?: {
+    where?: WordWhereInput;
+    orderBy?: WordOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  radicals: <T = FragmentableArray<Kanji>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  phonetics: <T = FragmentableArray<Kanji>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface Word {
@@ -354,25 +1276,25 @@ export interface WordNullablePromise
   }) => T;
 }
 
-export interface WordConnection {
+export interface KanjiConnection {
   pageInfo: PageInfo;
-  edges: WordEdge[];
+  edges: KanjiEdge[];
 }
 
-export interface WordConnectionPromise
-  extends Promise<WordConnection>,
+export interface KanjiConnectionPromise
+  extends Promise<KanjiConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<WordEdge>>() => T;
-  aggregate: <T = AggregateWordPromise>() => T;
+  edges: <T = FragmentableArray<KanjiEdge>>() => T;
+  aggregate: <T = AggregateKanjiPromise>() => T;
 }
 
-export interface WordConnectionSubscription
-  extends Promise<AsyncIterator<WordConnection>>,
+export interface KanjiConnectionSubscription
+  extends Promise<AsyncIterator<KanjiConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<WordEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateWordSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<KanjiEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateKanjiSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -396,6 +1318,60 @@ export interface PageInfoSubscription
   hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
   startCursor: () => Promise<AsyncIterator<String>>;
   endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface KanjiEdge {
+  node: Kanji;
+  cursor: String;
+}
+
+export interface KanjiEdgePromise extends Promise<KanjiEdge>, Fragmentable {
+  node: <T = KanjiPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface KanjiEdgeSubscription
+  extends Promise<AsyncIterator<KanjiEdge>>,
+    Fragmentable {
+  node: <T = KanjiSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateKanji {
+  count: Int;
+}
+
+export interface AggregateKanjiPromise
+  extends Promise<AggregateKanji>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateKanjiSubscription
+  extends Promise<AsyncIterator<AggregateKanji>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface WordConnection {
+  pageInfo: PageInfo;
+  edges: WordEdge[];
+}
+
+export interface WordConnectionPromise
+  extends Promise<WordConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<WordEdge>>() => T;
+  aggregate: <T = AggregateWordPromise>() => T;
+}
+
+export interface WordConnectionSubscription
+  extends Promise<AsyncIterator<WordConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<WordEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateWordSubscription>() => T;
 }
 
 export interface WordEdge {
@@ -445,6 +1421,77 @@ export interface BatchPayloadSubscription
   extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface KanjiSubscriptionPayload {
+  mutation: MutationType;
+  node: Kanji;
+  updatedFields: String[];
+  previousValues: KanjiPreviousValues;
+}
+
+export interface KanjiSubscriptionPayloadPromise
+  extends Promise<KanjiSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = KanjiPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = KanjiPreviousValuesPromise>() => T;
+}
+
+export interface KanjiSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<KanjiSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = KanjiSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = KanjiPreviousValuesSubscription>() => T;
+}
+
+export interface KanjiPreviousValues {
+  id: ID_Output;
+  writing: String;
+  meaning: String[];
+  on: String[];
+  kun: String[];
+  imageUrl?: String;
+  videoUrl?: String;
+  jlpt?: Int;
+  strokes?: Int;
+  origin?: String;
+  memo?: String;
+}
+
+export interface KanjiPreviousValuesPromise
+  extends Promise<KanjiPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  writing: () => Promise<String>;
+  meaning: () => Promise<String[]>;
+  on: () => Promise<String[]>;
+  kun: () => Promise<String[]>;
+  imageUrl: () => Promise<String>;
+  videoUrl: () => Promise<String>;
+  jlpt: () => Promise<Int>;
+  strokes: () => Promise<Int>;
+  origin: () => Promise<String>;
+  memo: () => Promise<String>;
+}
+
+export interface KanjiPreviousValuesSubscription
+  extends Promise<AsyncIterator<KanjiPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  writing: () => Promise<AsyncIterator<String>>;
+  meaning: () => Promise<AsyncIterator<String[]>>;
+  on: () => Promise<AsyncIterator<String[]>>;
+  kun: () => Promise<AsyncIterator<String[]>>;
+  imageUrl: () => Promise<AsyncIterator<String>>;
+  videoUrl: () => Promise<AsyncIterator<String>>;
+  jlpt: () => Promise<AsyncIterator<Int>>;
+  strokes: () => Promise<AsyncIterator<Int>>;
+  origin: () => Promise<AsyncIterator<String>>;
+  memo: () => Promise<AsyncIterator<String>>;
 }
 
 export interface WordSubscriptionPayload {
@@ -524,6 +1571,10 @@ export type Long = string;
 export const models: Model[] = [
   {
     name: "Word",
+    embedded: false
+  },
+  {
+    name: "Kanji",
     embedded: false
   }
 ];

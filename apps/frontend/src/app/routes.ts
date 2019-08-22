@@ -41,6 +41,29 @@ const routes: Route[] = [
         addAction: 'Добавить пользователя',
         addType: 'form',
         isSingle: true
+    },
+
+    {
+        title: 'Кандзи',
+        icon: 'users-add',
+        path: "/kanji",
+        component: Pages.Kanji,
+        onlyForAdmin: false,
+        searchable: true,
+        addAction: 'Добавить пользователя',
+        addType: 'form',
+        isSingle: false
+    },
+    {
+        title: 'Кандзи',
+        icon: 'users-add',
+        path: "/kanji/:name",
+        component: Pages.KanjiSingle,
+        onlyForAdmin: false,
+        searchable: true,
+        addAction: 'Добавить пользователя',
+        addType: 'form',
+        isSingle: true
     }
 ]
 

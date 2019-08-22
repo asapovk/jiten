@@ -1,10 +1,12 @@
 import { Reducer } from 'redux';
 import { KanjiState, KanjiTypes } from './types';
+import KanjiSingle from 'src/app/Pages/Word/single';
 
 // Type-safe initialState!
 const initialState: KanjiState = {
     isFetching: false,
-    kanji: []
+    kanji: [],
+    kanjiSingle: null
 }
 
 const reducer: Reducer<KanjiState> = (state = initialState, action) => {

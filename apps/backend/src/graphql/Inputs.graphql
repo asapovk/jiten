@@ -15,3 +15,36 @@ input WordDeleteInput {
     wordId: Int!
 }
 
+#
+# Kanji
+#
+input KanjiCreateInput {
+    writing: String!
+    meaning: [String]!
+    on: [String]
+    kun: [String]
+    imageUrl: String,
+    videoUrl: String,
+    jlpt: Int,
+    strokes: Int,
+    origin: String,
+    memo: String,
+}
+input KanjiUpdateInput {
+    kanjiId: String!
+    writing: String!
+    meaning: [String]!
+    on: [String]
+    kun: [String]
+    imageUrl: String,
+    videoUrl: String,
+    jlpt: Int,
+    strokes: Int,
+    origin: String,
+    memo: String,
+}
+
+input KanjiDeleteInput {
+    kanjiId: Int!
+}
+

@@ -2,6 +2,8 @@ import api from "src/api";
 import { utils } from 'ui';
 import store from "..";
 import { KanjiState, KanjiTypes } from './types';
+import { Kanji } from '../../../../backend/src/generated/schema'
+
 
 namespace Kanji {
     export const fetch = async () => {
@@ -11,13 +13,13 @@ namespace Kanji {
                 type: KanjiTypes.FETCH
             });
 
-            const kanjiResponse: { kanji: any[] } = await api({
+            const kanjiResponse: { kanjis: Kanji[] } = await api({
                 name: "kanji"
             });
 
             store.dispatch({
                 type: KanjiTypes.FETCH_SUCCESS,
-                payload: kanjiResponse.kanji
+                payload: kanjiResponse.kanjis
             });
 
         } catch (error) {
@@ -32,6 +34,16 @@ namespace Kanji {
                 payload: { error: error.message }
             });
         }
+    }
+    export const fetchSingle = async ({ }) => {
+        try {
+            store.dispatch({
+                type: KanjiTypes.FETCH_SINGLE
+            });
+        } catch (error) {
+
+        }
+
     }
 
     export const kanjiCreate = (kanji: any) => {

@@ -2,7 +2,11 @@
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-export const typeDefs = /* GraphQL */ `type AggregateWord {
+export const typeDefs = /* GraphQL */ `type AggregateKanji {
+  count: Int!
+}
+
+type AggregateWord {
   count: Int!
 }
 
@@ -10,9 +14,685 @@ type BatchPayload {
   count: Long!
 }
 
+type Kanji {
+  id: ID!
+  writing: String!
+  meaning: [String!]!
+  on: [String!]!
+  kun: [String!]!
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  old(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji!]
+  modern(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji!]
+  memo: String
+  usageFirst(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Word!]
+  usageLast(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Word!]
+  radicals(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji!]
+  phonetics(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji!]
+}
+
+type KanjiConnection {
+  pageInfo: PageInfo!
+  edges: [KanjiEdge]!
+  aggregate: AggregateKanji!
+}
+
+input KanjiCreateInput {
+  id: ID
+  writing: String!
+  meaning: KanjiCreatemeaningInput
+  on: KanjiCreateonInput
+  kun: KanjiCreatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  old: KanjiCreateManyWithoutOldInput
+  modern: KanjiCreateManyWithoutModernInput
+  memo: String
+  usageFirst: WordCreateManyInput
+  usageLast: WordCreateManyInput
+  radicals: KanjiCreateManyWithoutRadicalsInput
+  phonetics: KanjiCreateManyWithoutPhoneticsInput
+}
+
+input KanjiCreatekunInput {
+  set: [String!]
+}
+
+input KanjiCreateManyWithoutModernInput {
+  create: [KanjiCreateWithoutModernInput!]
+  connect: [KanjiWhereUniqueInput!]
+}
+
+input KanjiCreateManyWithoutOldInput {
+  create: [KanjiCreateWithoutOldInput!]
+  connect: [KanjiWhereUniqueInput!]
+}
+
+input KanjiCreateManyWithoutPhoneticsInput {
+  create: [KanjiCreateWithoutPhoneticsInput!]
+  connect: [KanjiWhereUniqueInput!]
+}
+
+input KanjiCreateManyWithoutRadicalsInput {
+  create: [KanjiCreateWithoutRadicalsInput!]
+  connect: [KanjiWhereUniqueInput!]
+}
+
+input KanjiCreatemeaningInput {
+  set: [String!]
+}
+
+input KanjiCreateonInput {
+  set: [String!]
+}
+
+input KanjiCreateWithoutModernInput {
+  id: ID
+  writing: String!
+  meaning: KanjiCreatemeaningInput
+  on: KanjiCreateonInput
+  kun: KanjiCreatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  old: KanjiCreateManyWithoutOldInput
+  memo: String
+  usageFirst: WordCreateManyInput
+  usageLast: WordCreateManyInput
+  radicals: KanjiCreateManyWithoutRadicalsInput
+  phonetics: KanjiCreateManyWithoutPhoneticsInput
+}
+
+input KanjiCreateWithoutOldInput {
+  id: ID
+  writing: String!
+  meaning: KanjiCreatemeaningInput
+  on: KanjiCreateonInput
+  kun: KanjiCreatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  modern: KanjiCreateManyWithoutModernInput
+  memo: String
+  usageFirst: WordCreateManyInput
+  usageLast: WordCreateManyInput
+  radicals: KanjiCreateManyWithoutRadicalsInput
+  phonetics: KanjiCreateManyWithoutPhoneticsInput
+}
+
+input KanjiCreateWithoutPhoneticsInput {
+  id: ID
+  writing: String!
+  meaning: KanjiCreatemeaningInput
+  on: KanjiCreateonInput
+  kun: KanjiCreatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  old: KanjiCreateManyWithoutOldInput
+  modern: KanjiCreateManyWithoutModernInput
+  memo: String
+  usageFirst: WordCreateManyInput
+  usageLast: WordCreateManyInput
+  radicals: KanjiCreateManyWithoutRadicalsInput
+}
+
+input KanjiCreateWithoutRadicalsInput {
+  id: ID
+  writing: String!
+  meaning: KanjiCreatemeaningInput
+  on: KanjiCreateonInput
+  kun: KanjiCreatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  old: KanjiCreateManyWithoutOldInput
+  modern: KanjiCreateManyWithoutModernInput
+  memo: String
+  usageFirst: WordCreateManyInput
+  usageLast: WordCreateManyInput
+  phonetics: KanjiCreateManyWithoutPhoneticsInput
+}
+
+type KanjiEdge {
+  node: Kanji!
+  cursor: String!
+}
+
+enum KanjiOrderByInput {
+  id_ASC
+  id_DESC
+  writing_ASC
+  writing_DESC
+  imageUrl_ASC
+  imageUrl_DESC
+  videoUrl_ASC
+  videoUrl_DESC
+  jlpt_ASC
+  jlpt_DESC
+  strokes_ASC
+  strokes_DESC
+  origin_ASC
+  origin_DESC
+  memo_ASC
+  memo_DESC
+}
+
+type KanjiPreviousValues {
+  id: ID!
+  writing: String!
+  meaning: [String!]!
+  on: [String!]!
+  kun: [String!]!
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  memo: String
+}
+
+input KanjiScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  writing: String
+  writing_not: String
+  writing_in: [String!]
+  writing_not_in: [String!]
+  writing_lt: String
+  writing_lte: String
+  writing_gt: String
+  writing_gte: String
+  writing_contains: String
+  writing_not_contains: String
+  writing_starts_with: String
+  writing_not_starts_with: String
+  writing_ends_with: String
+  writing_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  videoUrl: String
+  videoUrl_not: String
+  videoUrl_in: [String!]
+  videoUrl_not_in: [String!]
+  videoUrl_lt: String
+  videoUrl_lte: String
+  videoUrl_gt: String
+  videoUrl_gte: String
+  videoUrl_contains: String
+  videoUrl_not_contains: String
+  videoUrl_starts_with: String
+  videoUrl_not_starts_with: String
+  videoUrl_ends_with: String
+  videoUrl_not_ends_with: String
+  jlpt: Int
+  jlpt_not: Int
+  jlpt_in: [Int!]
+  jlpt_not_in: [Int!]
+  jlpt_lt: Int
+  jlpt_lte: Int
+  jlpt_gt: Int
+  jlpt_gte: Int
+  strokes: Int
+  strokes_not: Int
+  strokes_in: [Int!]
+  strokes_not_in: [Int!]
+  strokes_lt: Int
+  strokes_lte: Int
+  strokes_gt: Int
+  strokes_gte: Int
+  origin: String
+  origin_not: String
+  origin_in: [String!]
+  origin_not_in: [String!]
+  origin_lt: String
+  origin_lte: String
+  origin_gt: String
+  origin_gte: String
+  origin_contains: String
+  origin_not_contains: String
+  origin_starts_with: String
+  origin_not_starts_with: String
+  origin_ends_with: String
+  origin_not_ends_with: String
+  memo: String
+  memo_not: String
+  memo_in: [String!]
+  memo_not_in: [String!]
+  memo_lt: String
+  memo_lte: String
+  memo_gt: String
+  memo_gte: String
+  memo_contains: String
+  memo_not_contains: String
+  memo_starts_with: String
+  memo_not_starts_with: String
+  memo_ends_with: String
+  memo_not_ends_with: String
+  AND: [KanjiScalarWhereInput!]
+  OR: [KanjiScalarWhereInput!]
+  NOT: [KanjiScalarWhereInput!]
+}
+
+type KanjiSubscriptionPayload {
+  mutation: MutationType!
+  node: Kanji
+  updatedFields: [String!]
+  previousValues: KanjiPreviousValues
+}
+
+input KanjiSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: KanjiWhereInput
+  AND: [KanjiSubscriptionWhereInput!]
+  OR: [KanjiSubscriptionWhereInput!]
+  NOT: [KanjiSubscriptionWhereInput!]
+}
+
+input KanjiUpdateInput {
+  writing: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  old: KanjiUpdateManyWithoutOldInput
+  modern: KanjiUpdateManyWithoutModernInput
+  memo: String
+  usageFirst: WordUpdateManyInput
+  usageLast: WordUpdateManyInput
+  radicals: KanjiUpdateManyWithoutRadicalsInput
+  phonetics: KanjiUpdateManyWithoutPhoneticsInput
+}
+
+input KanjiUpdatekunInput {
+  set: [String!]
+}
+
+input KanjiUpdateManyDataInput {
+  writing: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  memo: String
+}
+
+input KanjiUpdateManyMutationInput {
+  writing: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  memo: String
+}
+
+input KanjiUpdateManyWithoutModernInput {
+  create: [KanjiCreateWithoutModernInput!]
+  delete: [KanjiWhereUniqueInput!]
+  connect: [KanjiWhereUniqueInput!]
+  set: [KanjiWhereUniqueInput!]
+  disconnect: [KanjiWhereUniqueInput!]
+  update: [KanjiUpdateWithWhereUniqueWithoutModernInput!]
+  upsert: [KanjiUpsertWithWhereUniqueWithoutModernInput!]
+  deleteMany: [KanjiScalarWhereInput!]
+  updateMany: [KanjiUpdateManyWithWhereNestedInput!]
+}
+
+input KanjiUpdateManyWithoutOldInput {
+  create: [KanjiCreateWithoutOldInput!]
+  delete: [KanjiWhereUniqueInput!]
+  connect: [KanjiWhereUniqueInput!]
+  set: [KanjiWhereUniqueInput!]
+  disconnect: [KanjiWhereUniqueInput!]
+  update: [KanjiUpdateWithWhereUniqueWithoutOldInput!]
+  upsert: [KanjiUpsertWithWhereUniqueWithoutOldInput!]
+  deleteMany: [KanjiScalarWhereInput!]
+  updateMany: [KanjiUpdateManyWithWhereNestedInput!]
+}
+
+input KanjiUpdateManyWithoutPhoneticsInput {
+  create: [KanjiCreateWithoutPhoneticsInput!]
+  delete: [KanjiWhereUniqueInput!]
+  connect: [KanjiWhereUniqueInput!]
+  set: [KanjiWhereUniqueInput!]
+  disconnect: [KanjiWhereUniqueInput!]
+  update: [KanjiUpdateWithWhereUniqueWithoutPhoneticsInput!]
+  upsert: [KanjiUpsertWithWhereUniqueWithoutPhoneticsInput!]
+  deleteMany: [KanjiScalarWhereInput!]
+  updateMany: [KanjiUpdateManyWithWhereNestedInput!]
+}
+
+input KanjiUpdateManyWithoutRadicalsInput {
+  create: [KanjiCreateWithoutRadicalsInput!]
+  delete: [KanjiWhereUniqueInput!]
+  connect: [KanjiWhereUniqueInput!]
+  set: [KanjiWhereUniqueInput!]
+  disconnect: [KanjiWhereUniqueInput!]
+  update: [KanjiUpdateWithWhereUniqueWithoutRadicalsInput!]
+  upsert: [KanjiUpsertWithWhereUniqueWithoutRadicalsInput!]
+  deleteMany: [KanjiScalarWhereInput!]
+  updateMany: [KanjiUpdateManyWithWhereNestedInput!]
+}
+
+input KanjiUpdateManyWithWhereNestedInput {
+  where: KanjiScalarWhereInput!
+  data: KanjiUpdateManyDataInput!
+}
+
+input KanjiUpdatemeaningInput {
+  set: [String!]
+}
+
+input KanjiUpdateonInput {
+  set: [String!]
+}
+
+input KanjiUpdateWithoutModernDataInput {
+  writing: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  old: KanjiUpdateManyWithoutOldInput
+  memo: String
+  usageFirst: WordUpdateManyInput
+  usageLast: WordUpdateManyInput
+  radicals: KanjiUpdateManyWithoutRadicalsInput
+  phonetics: KanjiUpdateManyWithoutPhoneticsInput
+}
+
+input KanjiUpdateWithoutOldDataInput {
+  writing: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  modern: KanjiUpdateManyWithoutModernInput
+  memo: String
+  usageFirst: WordUpdateManyInput
+  usageLast: WordUpdateManyInput
+  radicals: KanjiUpdateManyWithoutRadicalsInput
+  phonetics: KanjiUpdateManyWithoutPhoneticsInput
+}
+
+input KanjiUpdateWithoutPhoneticsDataInput {
+  writing: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  old: KanjiUpdateManyWithoutOldInput
+  modern: KanjiUpdateManyWithoutModernInput
+  memo: String
+  usageFirst: WordUpdateManyInput
+  usageLast: WordUpdateManyInput
+  radicals: KanjiUpdateManyWithoutRadicalsInput
+}
+
+input KanjiUpdateWithoutRadicalsDataInput {
+  writing: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  old: KanjiUpdateManyWithoutOldInput
+  modern: KanjiUpdateManyWithoutModernInput
+  memo: String
+  usageFirst: WordUpdateManyInput
+  usageLast: WordUpdateManyInput
+  phonetics: KanjiUpdateManyWithoutPhoneticsInput
+}
+
+input KanjiUpdateWithWhereUniqueWithoutModernInput {
+  where: KanjiWhereUniqueInput!
+  data: KanjiUpdateWithoutModernDataInput!
+}
+
+input KanjiUpdateWithWhereUniqueWithoutOldInput {
+  where: KanjiWhereUniqueInput!
+  data: KanjiUpdateWithoutOldDataInput!
+}
+
+input KanjiUpdateWithWhereUniqueWithoutPhoneticsInput {
+  where: KanjiWhereUniqueInput!
+  data: KanjiUpdateWithoutPhoneticsDataInput!
+}
+
+input KanjiUpdateWithWhereUniqueWithoutRadicalsInput {
+  where: KanjiWhereUniqueInput!
+  data: KanjiUpdateWithoutRadicalsDataInput!
+}
+
+input KanjiUpsertWithWhereUniqueWithoutModernInput {
+  where: KanjiWhereUniqueInput!
+  update: KanjiUpdateWithoutModernDataInput!
+  create: KanjiCreateWithoutModernInput!
+}
+
+input KanjiUpsertWithWhereUniqueWithoutOldInput {
+  where: KanjiWhereUniqueInput!
+  update: KanjiUpdateWithoutOldDataInput!
+  create: KanjiCreateWithoutOldInput!
+}
+
+input KanjiUpsertWithWhereUniqueWithoutPhoneticsInput {
+  where: KanjiWhereUniqueInput!
+  update: KanjiUpdateWithoutPhoneticsDataInput!
+  create: KanjiCreateWithoutPhoneticsInput!
+}
+
+input KanjiUpsertWithWhereUniqueWithoutRadicalsInput {
+  where: KanjiWhereUniqueInput!
+  update: KanjiUpdateWithoutRadicalsDataInput!
+  create: KanjiCreateWithoutRadicalsInput!
+}
+
+input KanjiWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  writing: String
+  writing_not: String
+  writing_in: [String!]
+  writing_not_in: [String!]
+  writing_lt: String
+  writing_lte: String
+  writing_gt: String
+  writing_gte: String
+  writing_contains: String
+  writing_not_contains: String
+  writing_starts_with: String
+  writing_not_starts_with: String
+  writing_ends_with: String
+  writing_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  videoUrl: String
+  videoUrl_not: String
+  videoUrl_in: [String!]
+  videoUrl_not_in: [String!]
+  videoUrl_lt: String
+  videoUrl_lte: String
+  videoUrl_gt: String
+  videoUrl_gte: String
+  videoUrl_contains: String
+  videoUrl_not_contains: String
+  videoUrl_starts_with: String
+  videoUrl_not_starts_with: String
+  videoUrl_ends_with: String
+  videoUrl_not_ends_with: String
+  jlpt: Int
+  jlpt_not: Int
+  jlpt_in: [Int!]
+  jlpt_not_in: [Int!]
+  jlpt_lt: Int
+  jlpt_lte: Int
+  jlpt_gt: Int
+  jlpt_gte: Int
+  strokes: Int
+  strokes_not: Int
+  strokes_in: [Int!]
+  strokes_not_in: [Int!]
+  strokes_lt: Int
+  strokes_lte: Int
+  strokes_gt: Int
+  strokes_gte: Int
+  origin: String
+  origin_not: String
+  origin_in: [String!]
+  origin_not_in: [String!]
+  origin_lt: String
+  origin_lte: String
+  origin_gt: String
+  origin_gte: String
+  origin_contains: String
+  origin_not_contains: String
+  origin_starts_with: String
+  origin_not_starts_with: String
+  origin_ends_with: String
+  origin_not_ends_with: String
+  old_every: KanjiWhereInput
+  old_some: KanjiWhereInput
+  old_none: KanjiWhereInput
+  modern_every: KanjiWhereInput
+  modern_some: KanjiWhereInput
+  modern_none: KanjiWhereInput
+  memo: String
+  memo_not: String
+  memo_in: [String!]
+  memo_not_in: [String!]
+  memo_lt: String
+  memo_lte: String
+  memo_gt: String
+  memo_gte: String
+  memo_contains: String
+  memo_not_contains: String
+  memo_starts_with: String
+  memo_not_starts_with: String
+  memo_ends_with: String
+  memo_not_ends_with: String
+  usageFirst_every: WordWhereInput
+  usageFirst_some: WordWhereInput
+  usageFirst_none: WordWhereInput
+  usageLast_every: WordWhereInput
+  usageLast_some: WordWhereInput
+  usageLast_none: WordWhereInput
+  radicals_every: KanjiWhereInput
+  radicals_some: KanjiWhereInput
+  radicals_none: KanjiWhereInput
+  phonetics_every: KanjiWhereInput
+  phonetics_some: KanjiWhereInput
+  phonetics_none: KanjiWhereInput
+  AND: [KanjiWhereInput!]
+  OR: [KanjiWhereInput!]
+  NOT: [KanjiWhereInput!]
+}
+
+input KanjiWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
+  createKanji(data: KanjiCreateInput!): Kanji!
+  updateKanji(data: KanjiUpdateInput!, where: KanjiWhereUniqueInput!): Kanji
+  updateManyKanjis(data: KanjiUpdateManyMutationInput!, where: KanjiWhereInput): BatchPayload!
+  upsertKanji(where: KanjiWhereUniqueInput!, create: KanjiCreateInput!, update: KanjiUpdateInput!): Kanji!
+  deleteKanji(where: KanjiWhereUniqueInput!): Kanji
+  deleteManyKanjis(where: KanjiWhereInput): BatchPayload!
   createWord(data: WordCreateInput!): Word!
   updateWord(data: WordUpdateInput!, where: WordWhereUniqueInput!): Word
   updateManyWords(data: WordUpdateManyMutationInput!, where: WordWhereInput): BatchPayload!
@@ -39,6 +719,9 @@ type PageInfo {
 }
 
 type Query {
+  kanji(where: KanjiWhereUniqueInput!): Kanji
+  kanjis(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji]!
+  kanjisConnection(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): KanjiConnection!
   word(where: WordWhereUniqueInput!): Word
   words(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Word]!
   wordsConnection(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WordConnection!
@@ -46,6 +729,7 @@ type Query {
 }
 
 type Subscription {
+  kanji(where: KanjiSubscriptionWhereInput): KanjiSubscriptionPayload
   word(where: WordSubscriptionWhereInput): WordSubscriptionPayload
 }
 

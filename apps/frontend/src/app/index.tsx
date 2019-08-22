@@ -46,7 +46,7 @@ const App = (props: any) => {
                     <Route
                         key={route.path}
                         path={route.path}
-                        component={route.component}
+                        render={(props) => <route.component  {...props} sidebarHidden={sidebarHidden} />}
                         exact
                     />
                 ))}

@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import { Flexbox, Table } from 'ui'
 import { useEffect, useCallback } from 'react'
-import { WordActions } from '../../../store/actions'
+import { KanjiActions } from '../../../store/actions'
 import { useMappedState } from 'redux-react-hook'
 import { ApplicationState } from '../../../store'
 import { Link } from 'react-router-dom'
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 const KanjiPage = (props) => {
 
     useEffect(() => {
-        WordActions.fetch()
+        KanjiActions.fetch()
     }, [])
 
     const mappedState = useCallback((state: ApplicationState) => ({
@@ -30,7 +30,7 @@ const KanjiPage = (props) => {
 
     return (
 
-        <Table data={words} columns={tableColumns} />
+        <Table data={kanji} columns={tableColumns} />
 
     )
 

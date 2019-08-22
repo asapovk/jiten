@@ -1,9 +1,25 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import { Fragment } from 'react'
+import { jsx, css } from '@emotion/core';
+import { Fragment, useEffect, useCallback } from 'react'
 import { Flexbox, D2, Widget, T1 } from 'ui'
+import { KanjiActions } from '../../../store/actions'
+import { useMappedState } from 'redux-react-hook'
+import { ApplicationState } from '../../../store'
+import { avatarStyles, avatarContainerStyles } from './styles'
 
-const WordSingle = (props) => {
+const KanjiSingle = (props) => {
+    const { sidebarHidden } = props
+
+    useEffect(() => {
+        KanjiActions.fetch()
+    }, [])
+    const mappedState = useCallback((state: ApplicationState) => ({
+        kanji: state.kanji.kanji
+    }), [])
+    const { kanji } = useMappedState(mappedState)
+
+    const stylesAvatar = avatarStyles()
+    const container = avatarContainerStyles(sidebarHidden)
 
     const dummyText = `Lorem Ipsum is simply 
     dummy text of the printing and typesetting industry. 
@@ -14,18 +30,24 @@ const WordSingle = (props) => {
     remaining essentially unchanged. It was popularised in the 1960s with the release of 
     Letraset sheets containing Lorem Ipsum passages, 
     and more recently with desktop publishing software like Aldus PageMaker including versions
-     of Lorem Ipsum.`
-
-
-    console.log(props)
+    of Lorem Ipsum.`
     return (
         <Fragment>
-            <Widget>
-                <Flexbox column p={20}>
-                    <D2 children={props.match.params.name} />
-                    <T1 children={dummyText} />
+            <Flexbox justifyContent={"space-around"}>
+                <div css={container}>
+                    <Widget>
+                        <div css={avatarStyles}>Hi</div>
+                    </Widget>
+                </div>
+                <Flexbox w={'50%'} h={1000}>
+                    <Widget>
+                        <Flexbox column p={20}>
+                            <D2 children={props.match.params.name} />
+                            <T1 children={dummyText} />
+                        </Flexbox>
+                    </Widget>
                 </Flexbox>
-            </Widget>
+            </Flexbox>
         </Fragment>
     )
 
@@ -33,4 +55,4 @@ const WordSingle = (props) => {
 
 }
 
-export default WordSingle
+export default KanjiSingle

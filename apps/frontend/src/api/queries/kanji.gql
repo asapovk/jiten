@@ -1,0 +1,8 @@
+query {
+    kanjis {
+        writing
+        on
+        kun
+        meaning
+    }
+}

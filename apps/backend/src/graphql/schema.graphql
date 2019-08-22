@@ -1,6 +1,5 @@
 #import * from "Types.graphql";
 #import * from "Inputs.graphql";
-#import * from "../generated/prisma.graphql"
 
 type WordMutation {
     create(input: WordCreateInput!): Word! 
@@ -8,10 +7,19 @@ type WordMutation {
     delete(input: WordDeleteInput!): Boolean! 
 }
 
+type KanjiMutation {
+    create(input: KanjiCreateInput!): Kanji! 
+    update(input: KanjiUpdateInput!): Kanji! 
+    delete(input: KanjiDeleteInput!): Boolean! 
+}
+
+
 type Query {
-    words: [Word!]!
+    words: [Word]!
+    kanjis: [Kanji]!
 }
 
 type Mutation {
     word: WordMutation!
+    kanji: KanjiMutation!
 }
