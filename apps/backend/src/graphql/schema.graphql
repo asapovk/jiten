@@ -17,6 +17,7 @@ type KanjiMutation {
 type Query {
     words: [Word]!
     kanjis: [Kanji]!
+    kanjiSingle (input: KanjiSingleInput!): Kanji!
 }
 
 type Mutation {

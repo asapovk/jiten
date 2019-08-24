@@ -2,7 +2,7 @@ import api from "src/api";
 import { utils } from 'ui';
 import store from "..";
 import { KanjiState, KanjiTypes } from './types';
-import { Kanji } from '../../../../backend/src/generated/schema'
+import { Kanji, KanjiSingleInput } from '../../../../backend/src/generated/schema'
 
 
 namespace Kanji {
@@ -35,12 +35,27 @@ namespace Kanji {
             });
         }
     }
-    export const fetchSingle = async ({ }) => {
+    export const fetchSingle = async (input: KanjiSingleInput) => {
         try {
             store.dispatch({
-                type: KanjiTypes.FETCH_SINGLE
+                type: KanjiTypes.FETCH_SINGLE,
+                payload: input
+            });
+
+            const kanjiSingleResponse: { kanjiSingle: Kanji } = await api({
+                name: "kanjiSingle",
+                variables: input
+            });
+
+            store.dispatch({
+                type: KanjiTypes.FETCH_SINGLE_SUCCESS,
+                payload: kanjiSingleResponse.kanjiSingle
             });
         } catch (error) {
+            store.dispatch({
+                type: KanjiTypes.FETCH_SINGLE_ERROR,
+                payload: error
+            });
 
         }
 

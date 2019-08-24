@@ -11,10 +11,10 @@ const KanjiSingle = (props) => {
     const { sidebarHidden } = props
 
     useEffect(() => {
-        KanjiActions.fetch()
+        KanjiActions.fetchSingle({ writing: props.match.params.name })
     }, [])
     const mappedState = useCallback((state: ApplicationState) => ({
-        kanji: state.kanji.kanji
+        kanji: state.kanji.kanjiSingle
     }), [])
     const { kanji } = useMappedState(mappedState)
 
@@ -33,13 +33,13 @@ const KanjiSingle = (props) => {
     of Lorem Ipsum.`
     return (
         <Fragment>
-            <Flexbox justifyContent={"space-around"}>
+            <Flexbox justifyContent={"flex-end"} mr={100} mt={50}>
                 <div css={container}>
                     <Widget>
-                        <div css={avatarStyles}>Hi</div>
+                        <div css={avatarStyles}><img src={kanji ? kanji.imageUrl || '' : ''} /></div>
                     </Widget>
                 </div>
-                <Flexbox w={'50%'} h={1000}>
+                <Flexbox w={'75%'} h={1000}>
                     <Widget>
                         <Flexbox column p={20}>
                             <D2 children={props.match.params.name} />

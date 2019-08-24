@@ -11,7 +11,7 @@ export const enum KanjiTypes {
     FETCH_SUCCESS = '@@kanji/FETCH_SUCCESS',
     FETCH_ERROR = '@@kanji/FETCH_ERROR',
 
-    FETCH_SINGLE = '@@kanji/FETCH',
+    FETCH_SINGLE = '@@kanji/FETCH_SINGLE',
     FETCH_SINGLE_SUCCESS = '@@kanji/FETCH_SINGLE_SUCCESS',
     FETCH_SINGLE_ERROR = '@@kanji/FETCH_SINGLE_ERROR',
 

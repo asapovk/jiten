@@ -1,5 +1,9 @@
-query {
-    kanjis {
+query kanjiSingle (
+    $writing: String!
+) {
+    kanjiSingle (input : {
+        writing: $writing
+    }) {
         writing
         on
         kun

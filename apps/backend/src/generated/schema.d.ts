@@ -1,5 +1,9 @@
 export type Maybe<T> = T | null;
 
+export interface KanjiSingleInput {
+  writing: string;
+}
+
 export interface WordCreateInput {
   translation: string;
 
@@ -76,6 +80,8 @@ export interface Query {
   words: (Maybe<Word>)[];
 
   kanjis: (Maybe<Kanji>)[];
+
+  kanjiSingle: Kanji;
 }
 
 export interface Word {
@@ -93,7 +99,7 @@ export interface Kanji {
 
   writing: string;
 
-  meaning: (Maybe<string>)[];
+  meaning?: Maybe<(Maybe<string>)[]>;
 
   on?: Maybe<(Maybe<string>)[]>;
 
@@ -150,6 +156,9 @@ export interface KanjiMutation {
 // Arguments
 // ====================================================
 
+export interface KanjiSingleQueryArgs {
+  input: KanjiSingleInput;
+}
 export interface CreateWordMutationArgs {
   input: WordCreateInput;
 }

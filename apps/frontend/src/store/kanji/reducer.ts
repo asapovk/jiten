@@ -10,8 +10,8 @@ const initialState: KanjiState = {
 }
 
 const reducer: Reducer<KanjiState> = (state = initialState, action) => {
-
-    switch (action.type) {
+    const { payload, type } = action
+    switch (type) {
 
         case KanjiTypes.FETCH: {
             return {
@@ -24,7 +24,7 @@ const reducer: Reducer<KanjiState> = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                kanji: action.payload,
+                kanji: payload,
             }
         }
 
@@ -35,10 +35,18 @@ const reducer: Reducer<KanjiState> = (state = initialState, action) => {
             }
         }
 
+        case KanjiTypes.FETCH_SINGLE_SUCCESS: {
+            return {
+                ...state,
+                isFetching: false,
+                kanjiSingle: payload
+            }
+        }
+
         case KanjiTypes.CREATE: {
             return {
                 ...state,
-                kanji: [action.payload.word].concat(state.kanji),
+                kanji: [payload.word].concat(state.kanji),
             }
         }
 
@@ -46,8 +54,8 @@ const reducer: Reducer<KanjiState> = (state = initialState, action) => {
             return {
                 ...state,
                 kanji: state.kanji.map(kanji => {
-                    if (kanji.kanjiId === action.payload.kanji.kanjiId) {
-                        return action.payload.kanji;
+                    if (kanji.kanjiId === payload.kanji.kanjiId) {
+                        return payload.kanji;
                     }
                     return kanji;
                 })
@@ -57,7 +65,7 @@ const reducer: Reducer<KanjiState> = (state = initialState, action) => {
         case KanjiTypes.DELETE: {
             return {
                 ...state,
-                users: state.kanji.filter(kanji => kanji.kanjiId !== action.payload.kanjiId),
+                users: state.kanji.filter(kanji => kanji.kanjiId !== payload.kanjiId),
             }
         }
 

@@ -4,5 +4,6 @@ query {
         on
         kun
         meaning
+        imageUrl
     }
 }

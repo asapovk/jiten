@@ -48,3 +48,7 @@ input KanjiDeleteInput {
     kanjiId: Int!
 }
 
+
+input KanjiSingleInput {
+    writing: String!
+}
