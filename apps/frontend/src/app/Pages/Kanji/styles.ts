@@ -4,7 +4,7 @@ import { css } from '@emotion/core';
 export const avatarStyles = () => {
     return {
         height: 500,
-        width: 80
+        width: '100%'
     }
 }
 

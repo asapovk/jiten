@@ -1,5 +1,9 @@
-query {
-    words {
+query words (
+    $searchInput: String
+){
+    words (input: {
+       searchInput: $searchInput 
+    }) {
         writing
         translation
     }

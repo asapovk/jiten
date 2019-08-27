@@ -1,2 +1,2 @@
-export { default as word } from './word';
-export { default as kanji } from './kanji';
+export * from './word';
+export * from './kanji';

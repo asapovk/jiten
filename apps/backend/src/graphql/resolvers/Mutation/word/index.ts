@@ -1,9 +1,4 @@
-import createResolver from './create'
-import updateResolver from './update'
-import deleteResolver from './delete'
+export { default as createWord } from './create'
+//export { default as updateWord } from './update'
+//export { default as deleteWord } from './delete'
 
-export default () => ({ 
-    create: createResolver, 
-    update: updateResolver, 
-    delete: deleteResolver,
-})

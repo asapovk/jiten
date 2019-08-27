@@ -1,11 +1,36 @@
 
 
 type Word {
-    wordId: String!
-    translation: String!
-    writing: String!
-    synonims: [Word]
+  id: String!
+  translation: [String!]!
+  writing: String! 
+  synonims: [Word!] 
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  kanji: [Kanji!] 
+  patterns: [WordExample!]  
+  antipatterns:  [WordExample!] 
+  hiragana: String
+  usage: [WordUsage!]
 }
+
+type WordUsage {
+  id: String!
+  question: String!
+  answer: String!
+}
+
+type WordExample {
+  id: String!
+  original: String!
+  translation: String!
+}
+
+
+
+
+
 
 type Kanji {
     kanjiId: String!

@@ -1,9 +1,35 @@
 type Word {
   id: ID! @id
-  translation: String!
+  translation: [String!]! @scalarList(strategy: RELATION)
   writing: String! 
-  synonims: [Word] 
+  synonims: [Word!] 
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  kanji: [Kanji!] @relation(name: "KanjiOfWord" )
+  patterns: [WordExample!]  @relation(name: "WordPattern")
+  antipatterns:  [WordExample!]  @relation(name: "WordAntiPattern")
+  hiragana: String
+  usage: [WordUsage!] @relation(name: "WordUsage" )
 }
+
+type WordUsage {
+  id: ID! @id
+  question: String!
+  answer: String!
+}
+
+type WordExample {
+  id: ID! @id
+  original: String!
+  translation: String!
+}
+
+
+
+
+
+
 
 type Kanji {
     id: ID! @id

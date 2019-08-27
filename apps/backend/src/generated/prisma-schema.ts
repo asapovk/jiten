@@ -10,6 +10,14 @@ type AggregateWord {
   count: Int!
 }
 
+type AggregateWordExample {
+  count: Int!
+}
+
+type AggregateWordUsage {
+  count: Int!
+}
+
 type BatchPayload {
   count: Long!
 }
@@ -62,6 +70,11 @@ input KanjiCreateInput {
 
 input KanjiCreatekunInput {
   set: [String!]
+}
+
+input KanjiCreateManyInput {
+  create: [KanjiCreateInput!]
+  connect: [KanjiWhereUniqueInput!]
 }
 
 input KanjiCreateManyWithoutModernInput {
@@ -330,6 +343,25 @@ input KanjiSubscriptionWhereInput {
   NOT: [KanjiSubscriptionWhereInput!]
 }
 
+input KanjiUpdateDataInput {
+  writing: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  old: KanjiUpdateManyWithoutOldInput
+  modern: KanjiUpdateManyWithoutModernInput
+  memo: String
+  usageFirst: WordUpdateManyInput
+  usageLast: WordUpdateManyInput
+  radicals: KanjiUpdateManyWithoutRadicalsInput
+  phonetics: KanjiUpdateManyWithoutPhoneticsInput
+}
+
 input KanjiUpdateInput {
   writing: String
   meaning: KanjiUpdatemeaningInput
@@ -364,6 +396,18 @@ input KanjiUpdateManyDataInput {
   strokes: Int
   origin: String
   memo: String
+}
+
+input KanjiUpdateManyInput {
+  create: [KanjiCreateInput!]
+  update: [KanjiUpdateWithWhereUniqueNestedInput!]
+  upsert: [KanjiUpsertWithWhereUniqueNestedInput!]
+  delete: [KanjiWhereUniqueInput!]
+  connect: [KanjiWhereUniqueInput!]
+  set: [KanjiWhereUniqueInput!]
+  disconnect: [KanjiWhereUniqueInput!]
+  deleteMany: [KanjiScalarWhereInput!]
+  updateMany: [KanjiUpdateManyWithWhereNestedInput!]
 }
 
 input KanjiUpdateManyMutationInput {
@@ -512,6 +556,11 @@ input KanjiUpdateWithoutRadicalsDataInput {
   phonetics: KanjiUpdateManyWithoutPhoneticsInput
 }
 
+input KanjiUpdateWithWhereUniqueNestedInput {
+  where: KanjiWhereUniqueInput!
+  data: KanjiUpdateDataInput!
+}
+
 input KanjiUpdateWithWhereUniqueWithoutModernInput {
   where: KanjiWhereUniqueInput!
   data: KanjiUpdateWithoutModernDataInput!
@@ -530,6 +579,12 @@ input KanjiUpdateWithWhereUniqueWithoutPhoneticsInput {
 input KanjiUpdateWithWhereUniqueWithoutRadicalsInput {
   where: KanjiWhereUniqueInput!
   data: KanjiUpdateWithoutRadicalsDataInput!
+}
+
+input KanjiUpsertWithWhereUniqueNestedInput {
+  where: KanjiWhereUniqueInput!
+  update: KanjiUpdateDataInput!
+  create: KanjiCreateInput!
 }
 
 input KanjiUpsertWithWhereUniqueWithoutModernInput {
@@ -699,6 +754,18 @@ type Mutation {
   upsertWord(where: WordWhereUniqueInput!, create: WordCreateInput!, update: WordUpdateInput!): Word!
   deleteWord(where: WordWhereUniqueInput!): Word
   deleteManyWords(where: WordWhereInput): BatchPayload!
+  createWordExample(data: WordExampleCreateInput!): WordExample!
+  updateWordExample(data: WordExampleUpdateInput!, where: WordExampleWhereUniqueInput!): WordExample
+  updateManyWordExamples(data: WordExampleUpdateManyMutationInput!, where: WordExampleWhereInput): BatchPayload!
+  upsertWordExample(where: WordExampleWhereUniqueInput!, create: WordExampleCreateInput!, update: WordExampleUpdateInput!): WordExample!
+  deleteWordExample(where: WordExampleWhereUniqueInput!): WordExample
+  deleteManyWordExamples(where: WordExampleWhereInput): BatchPayload!
+  createWordUsage(data: WordUsageCreateInput!): WordUsage!
+  updateWordUsage(data: WordUsageUpdateInput!, where: WordUsageWhereUniqueInput!): WordUsage
+  updateManyWordUsages(data: WordUsageUpdateManyMutationInput!, where: WordUsageWhereInput): BatchPayload!
+  upsertWordUsage(where: WordUsageWhereUniqueInput!, create: WordUsageCreateInput!, update: WordUsageUpdateInput!): WordUsage!
+  deleteWordUsage(where: WordUsageWhereUniqueInput!): WordUsage
+  deleteManyWordUsages(where: WordUsageWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -725,19 +792,35 @@ type Query {
   word(where: WordWhereUniqueInput!): Word
   words(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Word]!
   wordsConnection(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WordConnection!
+  wordExample(where: WordExampleWhereUniqueInput!): WordExample
+  wordExamples(where: WordExampleWhereInput, orderBy: WordExampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordExample]!
+  wordExamplesConnection(where: WordExampleWhereInput, orderBy: WordExampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WordExampleConnection!
+  wordUsage(where: WordUsageWhereUniqueInput!): WordUsage
+  wordUsages(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage]!
+  wordUsagesConnection(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WordUsageConnection!
   node(id: ID!): Node
 }
 
 type Subscription {
   kanji(where: KanjiSubscriptionWhereInput): KanjiSubscriptionPayload
   word(where: WordSubscriptionWhereInput): WordSubscriptionPayload
+  wordExample(where: WordExampleSubscriptionWhereInput): WordExampleSubscriptionPayload
+  wordUsage(where: WordUsageSubscriptionWhereInput): WordUsageSubscriptionPayload
 }
 
 type Word {
   id: ID!
-  translation: String!
+  translation: [String!]!
   writing: String!
   synonims(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Word!]
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  kanji(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji!]
+  patterns(where: WordExampleWhereInput, orderBy: WordExampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordExample!]
+  antipatterns(where: WordExampleWhereInput, orderBy: WordExampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordExample!]
+  hiragana: String
+  usage(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage!]
 }
 
 type WordConnection {
@@ -748,9 +831,17 @@ type WordConnection {
 
 input WordCreateInput {
   id: ID
-  translation: String!
+  translation: WordCreatetranslationInput
   writing: String!
   synonims: WordCreateManyInput
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  kanji: KanjiCreateManyInput
+  patterns: WordExampleCreateManyInput
+  antipatterns: WordExampleCreateManyInput
+  hiragana: String
+  usage: WordUsageCreateManyInput
 }
 
 input WordCreateManyInput {
@@ -758,24 +849,247 @@ input WordCreateManyInput {
   connect: [WordWhereUniqueInput!]
 }
 
+input WordCreatetranslationInput {
+  set: [String!]
+}
+
 type WordEdge {
   node: Word!
   cursor: String!
 }
 
+type WordExample {
+  id: ID!
+  original: String!
+  translation: String!
+}
+
+type WordExampleConnection {
+  pageInfo: PageInfo!
+  edges: [WordExampleEdge]!
+  aggregate: AggregateWordExample!
+}
+
+input WordExampleCreateInput {
+  id: ID
+  original: String!
+  translation: String!
+}
+
+input WordExampleCreateManyInput {
+  create: [WordExampleCreateInput!]
+  connect: [WordExampleWhereUniqueInput!]
+}
+
+type WordExampleEdge {
+  node: WordExample!
+  cursor: String!
+}
+
+enum WordExampleOrderByInput {
+  id_ASC
+  id_DESC
+  original_ASC
+  original_DESC
+  translation_ASC
+  translation_DESC
+}
+
+type WordExamplePreviousValues {
+  id: ID!
+  original: String!
+  translation: String!
+}
+
+input WordExampleScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  original: String
+  original_not: String
+  original_in: [String!]
+  original_not_in: [String!]
+  original_lt: String
+  original_lte: String
+  original_gt: String
+  original_gte: String
+  original_contains: String
+  original_not_contains: String
+  original_starts_with: String
+  original_not_starts_with: String
+  original_ends_with: String
+  original_not_ends_with: String
+  translation: String
+  translation_not: String
+  translation_in: [String!]
+  translation_not_in: [String!]
+  translation_lt: String
+  translation_lte: String
+  translation_gt: String
+  translation_gte: String
+  translation_contains: String
+  translation_not_contains: String
+  translation_starts_with: String
+  translation_not_starts_with: String
+  translation_ends_with: String
+  translation_not_ends_with: String
+  AND: [WordExampleScalarWhereInput!]
+  OR: [WordExampleScalarWhereInput!]
+  NOT: [WordExampleScalarWhereInput!]
+}
+
+type WordExampleSubscriptionPayload {
+  mutation: MutationType!
+  node: WordExample
+  updatedFields: [String!]
+  previousValues: WordExamplePreviousValues
+}
+
+input WordExampleSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: WordExampleWhereInput
+  AND: [WordExampleSubscriptionWhereInput!]
+  OR: [WordExampleSubscriptionWhereInput!]
+  NOT: [WordExampleSubscriptionWhereInput!]
+}
+
+input WordExampleUpdateDataInput {
+  original: String
+  translation: String
+}
+
+input WordExampleUpdateInput {
+  original: String
+  translation: String
+}
+
+input WordExampleUpdateManyDataInput {
+  original: String
+  translation: String
+}
+
+input WordExampleUpdateManyInput {
+  create: [WordExampleCreateInput!]
+  update: [WordExampleUpdateWithWhereUniqueNestedInput!]
+  upsert: [WordExampleUpsertWithWhereUniqueNestedInput!]
+  delete: [WordExampleWhereUniqueInput!]
+  connect: [WordExampleWhereUniqueInput!]
+  set: [WordExampleWhereUniqueInput!]
+  disconnect: [WordExampleWhereUniqueInput!]
+  deleteMany: [WordExampleScalarWhereInput!]
+  updateMany: [WordExampleUpdateManyWithWhereNestedInput!]
+}
+
+input WordExampleUpdateManyMutationInput {
+  original: String
+  translation: String
+}
+
+input WordExampleUpdateManyWithWhereNestedInput {
+  where: WordExampleScalarWhereInput!
+  data: WordExampleUpdateManyDataInput!
+}
+
+input WordExampleUpdateWithWhereUniqueNestedInput {
+  where: WordExampleWhereUniqueInput!
+  data: WordExampleUpdateDataInput!
+}
+
+input WordExampleUpsertWithWhereUniqueNestedInput {
+  where: WordExampleWhereUniqueInput!
+  update: WordExampleUpdateDataInput!
+  create: WordExampleCreateInput!
+}
+
+input WordExampleWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  original: String
+  original_not: String
+  original_in: [String!]
+  original_not_in: [String!]
+  original_lt: String
+  original_lte: String
+  original_gt: String
+  original_gte: String
+  original_contains: String
+  original_not_contains: String
+  original_starts_with: String
+  original_not_starts_with: String
+  original_ends_with: String
+  original_not_ends_with: String
+  translation: String
+  translation_not: String
+  translation_in: [String!]
+  translation_not_in: [String!]
+  translation_lt: String
+  translation_lte: String
+  translation_gt: String
+  translation_gte: String
+  translation_contains: String
+  translation_not_contains: String
+  translation_starts_with: String
+  translation_not_starts_with: String
+  translation_ends_with: String
+  translation_not_ends_with: String
+  AND: [WordExampleWhereInput!]
+  OR: [WordExampleWhereInput!]
+  NOT: [WordExampleWhereInput!]
+}
+
+input WordExampleWhereUniqueInput {
+  id: ID
+}
+
 enum WordOrderByInput {
   id_ASC
   id_DESC
-  translation_ASC
-  translation_DESC
   writing_ASC
   writing_DESC
+  romaji_ASC
+  romaji_DESC
+  imageUrl_ASC
+  imageUrl_DESC
+  videoUrl_ASC
+  videoUrl_DESC
+  hiragana_ASC
+  hiragana_DESC
 }
 
 type WordPreviousValues {
   id: ID!
-  translation: String!
+  translation: [String!]!
   writing: String!
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  hiragana: String
 }
 
 input WordScalarWhereInput {
@@ -793,20 +1107,6 @@ input WordScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  translation: String
-  translation_not: String
-  translation_in: [String!]
-  translation_not_in: [String!]
-  translation_lt: String
-  translation_lte: String
-  translation_gt: String
-  translation_gte: String
-  translation_contains: String
-  translation_not_contains: String
-  translation_starts_with: String
-  translation_not_starts_with: String
-  translation_ends_with: String
-  translation_not_ends_with: String
   writing: String
   writing_not: String
   writing_in: [String!]
@@ -821,6 +1121,62 @@ input WordScalarWhereInput {
   writing_not_starts_with: String
   writing_ends_with: String
   writing_not_ends_with: String
+  romaji: String
+  romaji_not: String
+  romaji_in: [String!]
+  romaji_not_in: [String!]
+  romaji_lt: String
+  romaji_lte: String
+  romaji_gt: String
+  romaji_gte: String
+  romaji_contains: String
+  romaji_not_contains: String
+  romaji_starts_with: String
+  romaji_not_starts_with: String
+  romaji_ends_with: String
+  romaji_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  videoUrl: String
+  videoUrl_not: String
+  videoUrl_in: [String!]
+  videoUrl_not_in: [String!]
+  videoUrl_lt: String
+  videoUrl_lte: String
+  videoUrl_gt: String
+  videoUrl_gte: String
+  videoUrl_contains: String
+  videoUrl_not_contains: String
+  videoUrl_starts_with: String
+  videoUrl_not_starts_with: String
+  videoUrl_ends_with: String
+  videoUrl_not_ends_with: String
+  hiragana: String
+  hiragana_not: String
+  hiragana_in: [String!]
+  hiragana_not_in: [String!]
+  hiragana_lt: String
+  hiragana_lte: String
+  hiragana_gt: String
+  hiragana_gte: String
+  hiragana_contains: String
+  hiragana_not_contains: String
+  hiragana_starts_with: String
+  hiragana_not_starts_with: String
+  hiragana_ends_with: String
+  hiragana_not_ends_with: String
   AND: [WordScalarWhereInput!]
   OR: [WordScalarWhereInput!]
   NOT: [WordScalarWhereInput!]
@@ -845,20 +1201,40 @@ input WordSubscriptionWhereInput {
 }
 
 input WordUpdateDataInput {
-  translation: String
+  translation: WordUpdatetranslationInput
   writing: String
   synonims: WordUpdateManyInput
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  kanji: KanjiUpdateManyInput
+  patterns: WordExampleUpdateManyInput
+  antipatterns: WordExampleUpdateManyInput
+  hiragana: String
+  usage: WordUsageUpdateManyInput
 }
 
 input WordUpdateInput {
-  translation: String
+  translation: WordUpdatetranslationInput
   writing: String
   synonims: WordUpdateManyInput
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  kanji: KanjiUpdateManyInput
+  patterns: WordExampleUpdateManyInput
+  antipatterns: WordExampleUpdateManyInput
+  hiragana: String
+  usage: WordUsageUpdateManyInput
 }
 
 input WordUpdateManyDataInput {
-  translation: String
+  translation: WordUpdatetranslationInput
   writing: String
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  hiragana: String
 }
 
 input WordUpdateManyInput {
@@ -874,13 +1250,21 @@ input WordUpdateManyInput {
 }
 
 input WordUpdateManyMutationInput {
-  translation: String
+  translation: WordUpdatetranslationInput
   writing: String
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  hiragana: String
 }
 
 input WordUpdateManyWithWhereNestedInput {
   where: WordScalarWhereInput!
   data: WordUpdateManyDataInput!
+}
+
+input WordUpdatetranslationInput {
+  set: [String!]
 }
 
 input WordUpdateWithWhereUniqueNestedInput {
@@ -892,6 +1276,215 @@ input WordUpsertWithWhereUniqueNestedInput {
   where: WordWhereUniqueInput!
   update: WordUpdateDataInput!
   create: WordCreateInput!
+}
+
+type WordUsage {
+  id: ID!
+  question: String!
+  answer: String!
+}
+
+type WordUsageConnection {
+  pageInfo: PageInfo!
+  edges: [WordUsageEdge]!
+  aggregate: AggregateWordUsage!
+}
+
+input WordUsageCreateInput {
+  id: ID
+  question: String!
+  answer: String!
+}
+
+input WordUsageCreateManyInput {
+  create: [WordUsageCreateInput!]
+  connect: [WordUsageWhereUniqueInput!]
+}
+
+type WordUsageEdge {
+  node: WordUsage!
+  cursor: String!
+}
+
+enum WordUsageOrderByInput {
+  id_ASC
+  id_DESC
+  question_ASC
+  question_DESC
+  answer_ASC
+  answer_DESC
+}
+
+type WordUsagePreviousValues {
+  id: ID!
+  question: String!
+  answer: String!
+}
+
+input WordUsageScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  question: String
+  question_not: String
+  question_in: [String!]
+  question_not_in: [String!]
+  question_lt: String
+  question_lte: String
+  question_gt: String
+  question_gte: String
+  question_contains: String
+  question_not_contains: String
+  question_starts_with: String
+  question_not_starts_with: String
+  question_ends_with: String
+  question_not_ends_with: String
+  answer: String
+  answer_not: String
+  answer_in: [String!]
+  answer_not_in: [String!]
+  answer_lt: String
+  answer_lte: String
+  answer_gt: String
+  answer_gte: String
+  answer_contains: String
+  answer_not_contains: String
+  answer_starts_with: String
+  answer_not_starts_with: String
+  answer_ends_with: String
+  answer_not_ends_with: String
+  AND: [WordUsageScalarWhereInput!]
+  OR: [WordUsageScalarWhereInput!]
+  NOT: [WordUsageScalarWhereInput!]
+}
+
+type WordUsageSubscriptionPayload {
+  mutation: MutationType!
+  node: WordUsage
+  updatedFields: [String!]
+  previousValues: WordUsagePreviousValues
+}
+
+input WordUsageSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: WordUsageWhereInput
+  AND: [WordUsageSubscriptionWhereInput!]
+  OR: [WordUsageSubscriptionWhereInput!]
+  NOT: [WordUsageSubscriptionWhereInput!]
+}
+
+input WordUsageUpdateDataInput {
+  question: String
+  answer: String
+}
+
+input WordUsageUpdateInput {
+  question: String
+  answer: String
+}
+
+input WordUsageUpdateManyDataInput {
+  question: String
+  answer: String
+}
+
+input WordUsageUpdateManyInput {
+  create: [WordUsageCreateInput!]
+  update: [WordUsageUpdateWithWhereUniqueNestedInput!]
+  upsert: [WordUsageUpsertWithWhereUniqueNestedInput!]
+  delete: [WordUsageWhereUniqueInput!]
+  connect: [WordUsageWhereUniqueInput!]
+  set: [WordUsageWhereUniqueInput!]
+  disconnect: [WordUsageWhereUniqueInput!]
+  deleteMany: [WordUsageScalarWhereInput!]
+  updateMany: [WordUsageUpdateManyWithWhereNestedInput!]
+}
+
+input WordUsageUpdateManyMutationInput {
+  question: String
+  answer: String
+}
+
+input WordUsageUpdateManyWithWhereNestedInput {
+  where: WordUsageScalarWhereInput!
+  data: WordUsageUpdateManyDataInput!
+}
+
+input WordUsageUpdateWithWhereUniqueNestedInput {
+  where: WordUsageWhereUniqueInput!
+  data: WordUsageUpdateDataInput!
+}
+
+input WordUsageUpsertWithWhereUniqueNestedInput {
+  where: WordUsageWhereUniqueInput!
+  update: WordUsageUpdateDataInput!
+  create: WordUsageCreateInput!
+}
+
+input WordUsageWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  question: String
+  question_not: String
+  question_in: [String!]
+  question_not_in: [String!]
+  question_lt: String
+  question_lte: String
+  question_gt: String
+  question_gte: String
+  question_contains: String
+  question_not_contains: String
+  question_starts_with: String
+  question_not_starts_with: String
+  question_ends_with: String
+  question_not_ends_with: String
+  answer: String
+  answer_not: String
+  answer_in: [String!]
+  answer_not_in: [String!]
+  answer_lt: String
+  answer_lte: String
+  answer_gt: String
+  answer_gte: String
+  answer_contains: String
+  answer_not_contains: String
+  answer_starts_with: String
+  answer_not_starts_with: String
+  answer_ends_with: String
+  answer_not_ends_with: String
+  AND: [WordUsageWhereInput!]
+  OR: [WordUsageWhereInput!]
+  NOT: [WordUsageWhereInput!]
+}
+
+input WordUsageWhereUniqueInput {
+  id: ID
 }
 
 input WordWhereInput {
@@ -909,20 +1502,6 @@ input WordWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  translation: String
-  translation_not: String
-  translation_in: [String!]
-  translation_not_in: [String!]
-  translation_lt: String
-  translation_lte: String
-  translation_gt: String
-  translation_gte: String
-  translation_contains: String
-  translation_not_contains: String
-  translation_starts_with: String
-  translation_not_starts_with: String
-  translation_ends_with: String
-  translation_not_ends_with: String
   writing: String
   writing_not: String
   writing_in: [String!]
@@ -940,6 +1519,74 @@ input WordWhereInput {
   synonims_every: WordWhereInput
   synonims_some: WordWhereInput
   synonims_none: WordWhereInput
+  romaji: String
+  romaji_not: String
+  romaji_in: [String!]
+  romaji_not_in: [String!]
+  romaji_lt: String
+  romaji_lte: String
+  romaji_gt: String
+  romaji_gte: String
+  romaji_contains: String
+  romaji_not_contains: String
+  romaji_starts_with: String
+  romaji_not_starts_with: String
+  romaji_ends_with: String
+  romaji_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  videoUrl: String
+  videoUrl_not: String
+  videoUrl_in: [String!]
+  videoUrl_not_in: [String!]
+  videoUrl_lt: String
+  videoUrl_lte: String
+  videoUrl_gt: String
+  videoUrl_gte: String
+  videoUrl_contains: String
+  videoUrl_not_contains: String
+  videoUrl_starts_with: String
+  videoUrl_not_starts_with: String
+  videoUrl_ends_with: String
+  videoUrl_not_ends_with: String
+  kanji_every: KanjiWhereInput
+  kanji_some: KanjiWhereInput
+  kanji_none: KanjiWhereInput
+  patterns_every: WordExampleWhereInput
+  patterns_some: WordExampleWhereInput
+  patterns_none: WordExampleWhereInput
+  antipatterns_every: WordExampleWhereInput
+  antipatterns_some: WordExampleWhereInput
+  antipatterns_none: WordExampleWhereInput
+  hiragana: String
+  hiragana_not: String
+  hiragana_in: [String!]
+  hiragana_not_in: [String!]
+  hiragana_lt: String
+  hiragana_lte: String
+  hiragana_gt: String
+  hiragana_gte: String
+  hiragana_contains: String
+  hiragana_not_contains: String
+  hiragana_starts_with: String
+  hiragana_not_starts_with: String
+  hiragana_ends_with: String
+  hiragana_not_ends_with: String
+  usage_every: WordUsageWhereInput
+  usage_some: WordUsageWhereInput
+  usage_none: WordUsageWhereInput
   AND: [WordWhereInput!]
   OR: [WordWhereInput!]
   NOT: [WordWhereInput!]

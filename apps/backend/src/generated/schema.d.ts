@@ -5,21 +5,35 @@ export interface KanjiSingleInput {
 }
 
 export interface WordCreateInput {
-  translation: string;
+  translation: string[];
 
   writing: string;
+
+  romaji: string;
+
+  imageUrl?: Maybe<string>;
+
+  videoUrl?: Maybe<string>;
+
+  patterns?: Maybe<WordExampleCreateInput[]>;
+
+  antipatterns?: Maybe<WordExampleCreateInput[]>;
+
+  hiragana: string;
+
+  usage?: Maybe<WordUsageCreateInput[]>;
 }
 
-export interface WordUpdateInput {
-  wordId: string;
+export interface WordExampleCreateInput {
+  original: string;
 
-  translation?: Maybe<string>;
-
-  writing?: Maybe<string>;
+  translation: string;
 }
 
-export interface WordDeleteInput {
-  wordId: number;
+export interface WordUsageCreateInput {
+  question: string;
+
+  answer: string;
 }
 
 export interface KanjiCreateInput {
@@ -42,6 +56,40 @@ export interface KanjiCreateInput {
   origin?: Maybe<string>;
 
   memo?: Maybe<string>;
+}
+
+export interface WordUpdateInput {
+  id: string;
+
+  translation: string[];
+
+  writing: string;
+
+  romaji: string;
+
+  imageUrl?: Maybe<string>;
+
+  videoUrl?: Maybe<string>;
+
+  patterns?: Maybe<WordExampleUpdateInput[]>;
+
+  antipatterns?: Maybe<WordExampleUpdateInput[]>;
+
+  hiragana: string;
+
+  usage?: Maybe<WordUsageCreateInput[]>;
+}
+
+export interface WordExampleUpdateInput {
+  id: string;
+
+  original?: Maybe<string>;
+
+  translation?: Maybe<string>;
+}
+
+export interface WordDeleteInput {
+  id: number;
 }
 
 export interface KanjiUpdateInput {
@@ -85,13 +133,29 @@ export interface Query {
 }
 
 export interface Word {
-  wordId: string;
+  id: string;
 
-  translation: string;
+  translation: string[];
 
   writing: string;
 
-  synonims?: Maybe<(Maybe<Word>)[]>;
+  synonims?: Maybe<Word[]>;
+
+  romaji?: Maybe<string>;
+
+  imageUrl?: Maybe<string>;
+
+  videoUrl?: Maybe<string>;
+
+  kanji?: Maybe<Kanji[]>;
+
+  patterns?: Maybe<WordExample[]>;
+
+  antipatterns?: Maybe<WordExample[]>;
+
+  hiragana?: Maybe<string>;
+
+  usage?: Maybe<WordUsage[]>;
 }
 
 export interface Kanji {
@@ -130,10 +194,26 @@ export interface Kanji {
   phonetics?: Maybe<(Maybe<Kanji>)[]>;
 }
 
-export interface Mutation {
-  word: WordMutation;
+export interface WordExample {
+  id: string;
 
-  kanji: KanjiMutation;
+  original: string;
+
+  translation: string;
+}
+
+export interface WordUsage {
+  id: string;
+
+  question: string;
+
+  answer: string;
+}
+
+export interface Mutation {
+  createWord: Word;
+
+  createKanji: Kanji;
 }
 
 export interface WordMutation {
@@ -158,6 +238,12 @@ export interface KanjiMutation {
 
 export interface KanjiSingleQueryArgs {
   input: KanjiSingleInput;
+}
+export interface CreateWordMutationArgs {
+  input: WordCreateInput;
+}
+export interface CreateKanjiMutationArgs {
+  input: KanjiCreateInput;
 }
 export interface CreateWordMutationArgs {
   input: WordCreateInput;

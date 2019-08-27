@@ -1,13 +1,16 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Flexbox, Table } from 'ui'
-import { useEffect, useCallback } from 'react'
+import { Flexbox, Table, TextField, Button, Icon } from 'ui'
+import { useEffect, useCallback, useState } from 'react'
 import { WordActions } from '../../../store/actions'
 import { useMappedState } from 'redux-react-hook'
 import { ApplicationState } from '../../../store'
 import { Link } from 'react-router-dom'
 
 const WordPage = (props) => {
+
+
+    const [searchValue, setSearchValue] = useState('')
 
     useEffect(() => {
         WordActions.fetch()
@@ -27,10 +30,25 @@ const WordPage = (props) => {
         { title: 'Перевод', dataIndex: 'translation' },
         { title: 'Хирагана', dataIndex: 'hiragana' }
     ]
-
+    console.log(searchValue)
     return (
-
-        <Table data={words} columns={tableColumns} />
+        <Flexbox column>
+            <Flexbox>
+                <TextField
+                    size={'large'}
+                    onChange={(e) => {
+                        setSearchValue(e.target.value)
+                    }} />
+                <Button
+                    size={'large'}
+                    color={'brand-red'}
+                    onClick={}
+                >
+                    <Icon size={'1.8rem'} type={'search'} />
+                </Button>
+            </Flexbox>
+            <Table data={words} columns={tableColumns} />
+        </Flexbox>
 
     )
 

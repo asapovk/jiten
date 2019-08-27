@@ -32,14 +32,14 @@ const App = (props: any) => {
     console.log(routes)
     return (
         <div css={css.viewport}>
-            <Sidebar
+            {/*<Sidebar
                 sidebarHidden={sidebarHidden}
                 toggleSidebar={() => {
                     setSidebarHidden(!sidebarHidden);
                     localStorage.setItem("sb-visibility", (!sidebarHidden).toString())
                 }}
                 {...props}
-            />
+            />*/}
             <div css={css.body}>
                 <Header />
                 {routes.map(route => (

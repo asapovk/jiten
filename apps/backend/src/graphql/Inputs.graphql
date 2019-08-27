@@ -2,17 +2,58 @@
 # Word
 #
 input WordCreateInput {
-    translation: String!
-    writing: String!
-}
-input WordUpdateInput {
-    wordId: String!
-    translation: String
-    writing: String
+    translation: [String!]!
+    writing: String! 
+    romaji: String!
+    imageUrl: String
+    videoUrl: String
+    patterns: [WordExampleCreateInput!]  
+    antipatterns:  [WordExampleCreateInput!] 
+    hiragana: String!
+    usage: [WordUsageCreateInput!]
 }
 
+
+input WordUpdateInput {
+    id: String!
+    translation: [String!]!
+    writing: String! 
+    romaji: String!
+    imageUrl: String
+    videoUrl: String
+    patterns: [WordExampleUpdateInput!]  
+    antipatterns:  [WordExampleUpdateInput!] 
+    hiragana: String!
+    usage: [WordUsageCreateInput!]
+}
+
+input WordExampleCreateInput {
+    original: String!
+    translation: String!
+}
+
+input WordUsageCreateInput {
+    question: String!
+    answer: String!
+}
+
+
+
+input WordExampleUpdateInput {
+    id: String!
+    original: String
+    translation: String
+}
+
+input WordUsageUpdateInput {
+    id: String!
+    question: String
+    answer: String
+}
+
+
 input WordDeleteInput {
-    wordId: Int!
+    id: Int!
 }
 
 #

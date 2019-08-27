@@ -21,6 +21,6 @@ type Query {
 }
 
 type Mutation {
-    word: WordMutation!
-    kanji: KanjiMutation!
+    createWord (input: WordCreateInput!): Word!
+    createKanji (input: KanjiCreateInput!): Kanji!
 }

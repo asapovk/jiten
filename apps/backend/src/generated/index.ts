@@ -18,6 +18,8 @@ export type Maybe<T> = T | undefined | null;
 export interface Exists {
   kanji: (where?: KanjiWhereInput) => Promise<boolean>;
   word: (where?: WordWhereInput) => Promise<boolean>;
+  wordExample: (where?: WordExampleWhereInput) => Promise<boolean>;
+  wordUsage: (where?: WordUsageWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -77,6 +79,46 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => WordConnectionPromise;
+  wordExample: (
+    where: WordExampleWhereUniqueInput
+  ) => WordExampleNullablePromise;
+  wordExamples: (args?: {
+    where?: WordExampleWhereInput;
+    orderBy?: WordExampleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<WordExample>;
+  wordExamplesConnection: (args?: {
+    where?: WordExampleWhereInput;
+    orderBy?: WordExampleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => WordExampleConnectionPromise;
+  wordUsage: (where: WordUsageWhereUniqueInput) => WordUsageNullablePromise;
+  wordUsages: (args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<WordUsage>;
+  wordUsagesConnection: (args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => WordUsageConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
@@ -115,6 +157,40 @@ export interface Prisma {
   }) => WordPromise;
   deleteWord: (where: WordWhereUniqueInput) => WordPromise;
   deleteManyWords: (where?: WordWhereInput) => BatchPayloadPromise;
+  createWordExample: (data: WordExampleCreateInput) => WordExamplePromise;
+  updateWordExample: (args: {
+    data: WordExampleUpdateInput;
+    where: WordExampleWhereUniqueInput;
+  }) => WordExamplePromise;
+  updateManyWordExamples: (args: {
+    data: WordExampleUpdateManyMutationInput;
+    where?: WordExampleWhereInput;
+  }) => BatchPayloadPromise;
+  upsertWordExample: (args: {
+    where: WordExampleWhereUniqueInput;
+    create: WordExampleCreateInput;
+    update: WordExampleUpdateInput;
+  }) => WordExamplePromise;
+  deleteWordExample: (where: WordExampleWhereUniqueInput) => WordExamplePromise;
+  deleteManyWordExamples: (
+    where?: WordExampleWhereInput
+  ) => BatchPayloadPromise;
+  createWordUsage: (data: WordUsageCreateInput) => WordUsagePromise;
+  updateWordUsage: (args: {
+    data: WordUsageUpdateInput;
+    where: WordUsageWhereUniqueInput;
+  }) => WordUsagePromise;
+  updateManyWordUsages: (args: {
+    data: WordUsageUpdateManyMutationInput;
+    where?: WordUsageWhereInput;
+  }) => BatchPayloadPromise;
+  upsertWordUsage: (args: {
+    where: WordUsageWhereUniqueInput;
+    create: WordUsageCreateInput;
+    update: WordUsageUpdateInput;
+  }) => WordUsagePromise;
+  deleteWordUsage: (where: WordUsageWhereUniqueInput) => WordUsagePromise;
+  deleteManyWordUsages: (where?: WordUsageWhereInput) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -130,6 +206,12 @@ export interface Subscription {
   word: (
     where?: WordSubscriptionWhereInput
   ) => WordSubscriptionPayloadSubscription;
+  wordExample: (
+    where?: WordExampleSubscriptionWhereInput
+  ) => WordExampleSubscriptionPayloadSubscription;
+  wordUsage: (
+    where?: WordUsageSubscriptionWhereInput
+  ) => WordUsageSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -161,10 +243,32 @@ export type KanjiOrderByInput =
 export type WordOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "translation_ASC"
-  | "translation_DESC"
   | "writing_ASC"
-  | "writing_DESC";
+  | "writing_DESC"
+  | "romaji_ASC"
+  | "romaji_DESC"
+  | "imageUrl_ASC"
+  | "imageUrl_DESC"
+  | "videoUrl_ASC"
+  | "videoUrl_DESC"
+  | "hiragana_ASC"
+  | "hiragana_DESC";
+
+export type WordExampleOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "original_ASC"
+  | "original_DESC"
+  | "translation_ASC"
+  | "translation_DESC";
+
+export type WordUsageOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "question_ASC"
+  | "question_DESC"
+  | "answer_ASC"
+  | "answer_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -311,20 +415,6 @@ export interface WordWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  translation?: Maybe<String>;
-  translation_not?: Maybe<String>;
-  translation_in?: Maybe<String[] | String>;
-  translation_not_in?: Maybe<String[] | String>;
-  translation_lt?: Maybe<String>;
-  translation_lte?: Maybe<String>;
-  translation_gt?: Maybe<String>;
-  translation_gte?: Maybe<String>;
-  translation_contains?: Maybe<String>;
-  translation_not_contains?: Maybe<String>;
-  translation_starts_with?: Maybe<String>;
-  translation_not_starts_with?: Maybe<String>;
-  translation_ends_with?: Maybe<String>;
-  translation_not_ends_with?: Maybe<String>;
   writing?: Maybe<String>;
   writing_not?: Maybe<String>;
   writing_in?: Maybe<String[] | String>;
@@ -342,12 +432,184 @@ export interface WordWhereInput {
   synonims_every?: Maybe<WordWhereInput>;
   synonims_some?: Maybe<WordWhereInput>;
   synonims_none?: Maybe<WordWhereInput>;
+  romaji?: Maybe<String>;
+  romaji_not?: Maybe<String>;
+  romaji_in?: Maybe<String[] | String>;
+  romaji_not_in?: Maybe<String[] | String>;
+  romaji_lt?: Maybe<String>;
+  romaji_lte?: Maybe<String>;
+  romaji_gt?: Maybe<String>;
+  romaji_gte?: Maybe<String>;
+  romaji_contains?: Maybe<String>;
+  romaji_not_contains?: Maybe<String>;
+  romaji_starts_with?: Maybe<String>;
+  romaji_not_starts_with?: Maybe<String>;
+  romaji_ends_with?: Maybe<String>;
+  romaji_not_ends_with?: Maybe<String>;
+  imageUrl?: Maybe<String>;
+  imageUrl_not?: Maybe<String>;
+  imageUrl_in?: Maybe<String[] | String>;
+  imageUrl_not_in?: Maybe<String[] | String>;
+  imageUrl_lt?: Maybe<String>;
+  imageUrl_lte?: Maybe<String>;
+  imageUrl_gt?: Maybe<String>;
+  imageUrl_gte?: Maybe<String>;
+  imageUrl_contains?: Maybe<String>;
+  imageUrl_not_contains?: Maybe<String>;
+  imageUrl_starts_with?: Maybe<String>;
+  imageUrl_not_starts_with?: Maybe<String>;
+  imageUrl_ends_with?: Maybe<String>;
+  imageUrl_not_ends_with?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  videoUrl_not?: Maybe<String>;
+  videoUrl_in?: Maybe<String[] | String>;
+  videoUrl_not_in?: Maybe<String[] | String>;
+  videoUrl_lt?: Maybe<String>;
+  videoUrl_lte?: Maybe<String>;
+  videoUrl_gt?: Maybe<String>;
+  videoUrl_gte?: Maybe<String>;
+  videoUrl_contains?: Maybe<String>;
+  videoUrl_not_contains?: Maybe<String>;
+  videoUrl_starts_with?: Maybe<String>;
+  videoUrl_not_starts_with?: Maybe<String>;
+  videoUrl_ends_with?: Maybe<String>;
+  videoUrl_not_ends_with?: Maybe<String>;
+  kanji_every?: Maybe<KanjiWhereInput>;
+  kanji_some?: Maybe<KanjiWhereInput>;
+  kanji_none?: Maybe<KanjiWhereInput>;
+  patterns_every?: Maybe<WordExampleWhereInput>;
+  patterns_some?: Maybe<WordExampleWhereInput>;
+  patterns_none?: Maybe<WordExampleWhereInput>;
+  antipatterns_every?: Maybe<WordExampleWhereInput>;
+  antipatterns_some?: Maybe<WordExampleWhereInput>;
+  antipatterns_none?: Maybe<WordExampleWhereInput>;
+  hiragana?: Maybe<String>;
+  hiragana_not?: Maybe<String>;
+  hiragana_in?: Maybe<String[] | String>;
+  hiragana_not_in?: Maybe<String[] | String>;
+  hiragana_lt?: Maybe<String>;
+  hiragana_lte?: Maybe<String>;
+  hiragana_gt?: Maybe<String>;
+  hiragana_gte?: Maybe<String>;
+  hiragana_contains?: Maybe<String>;
+  hiragana_not_contains?: Maybe<String>;
+  hiragana_starts_with?: Maybe<String>;
+  hiragana_not_starts_with?: Maybe<String>;
+  hiragana_ends_with?: Maybe<String>;
+  hiragana_not_ends_with?: Maybe<String>;
+  usage_every?: Maybe<WordUsageWhereInput>;
+  usage_some?: Maybe<WordUsageWhereInput>;
+  usage_none?: Maybe<WordUsageWhereInput>;
   AND?: Maybe<WordWhereInput[] | WordWhereInput>;
   OR?: Maybe<WordWhereInput[] | WordWhereInput>;
   NOT?: Maybe<WordWhereInput[] | WordWhereInput>;
 }
 
+export interface WordExampleWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  original?: Maybe<String>;
+  original_not?: Maybe<String>;
+  original_in?: Maybe<String[] | String>;
+  original_not_in?: Maybe<String[] | String>;
+  original_lt?: Maybe<String>;
+  original_lte?: Maybe<String>;
+  original_gt?: Maybe<String>;
+  original_gte?: Maybe<String>;
+  original_contains?: Maybe<String>;
+  original_not_contains?: Maybe<String>;
+  original_starts_with?: Maybe<String>;
+  original_not_starts_with?: Maybe<String>;
+  original_ends_with?: Maybe<String>;
+  original_not_ends_with?: Maybe<String>;
+  translation?: Maybe<String>;
+  translation_not?: Maybe<String>;
+  translation_in?: Maybe<String[] | String>;
+  translation_not_in?: Maybe<String[] | String>;
+  translation_lt?: Maybe<String>;
+  translation_lte?: Maybe<String>;
+  translation_gt?: Maybe<String>;
+  translation_gte?: Maybe<String>;
+  translation_contains?: Maybe<String>;
+  translation_not_contains?: Maybe<String>;
+  translation_starts_with?: Maybe<String>;
+  translation_not_starts_with?: Maybe<String>;
+  translation_ends_with?: Maybe<String>;
+  translation_not_ends_with?: Maybe<String>;
+  AND?: Maybe<WordExampleWhereInput[] | WordExampleWhereInput>;
+  OR?: Maybe<WordExampleWhereInput[] | WordExampleWhereInput>;
+  NOT?: Maybe<WordExampleWhereInput[] | WordExampleWhereInput>;
+}
+
+export interface WordUsageWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  question?: Maybe<String>;
+  question_not?: Maybe<String>;
+  question_in?: Maybe<String[] | String>;
+  question_not_in?: Maybe<String[] | String>;
+  question_lt?: Maybe<String>;
+  question_lte?: Maybe<String>;
+  question_gt?: Maybe<String>;
+  question_gte?: Maybe<String>;
+  question_contains?: Maybe<String>;
+  question_not_contains?: Maybe<String>;
+  question_starts_with?: Maybe<String>;
+  question_not_starts_with?: Maybe<String>;
+  question_ends_with?: Maybe<String>;
+  question_not_ends_with?: Maybe<String>;
+  answer?: Maybe<String>;
+  answer_not?: Maybe<String>;
+  answer_in?: Maybe<String[] | String>;
+  answer_not_in?: Maybe<String[] | String>;
+  answer_lt?: Maybe<String>;
+  answer_lte?: Maybe<String>;
+  answer_gt?: Maybe<String>;
+  answer_gte?: Maybe<String>;
+  answer_contains?: Maybe<String>;
+  answer_not_contains?: Maybe<String>;
+  answer_starts_with?: Maybe<String>;
+  answer_not_starts_with?: Maybe<String>;
+  answer_ends_with?: Maybe<String>;
+  answer_not_ends_with?: Maybe<String>;
+  AND?: Maybe<WordUsageWhereInput[] | WordUsageWhereInput>;
+  OR?: Maybe<WordUsageWhereInput[] | WordUsageWhereInput>;
+  NOT?: Maybe<WordUsageWhereInput[] | WordUsageWhereInput>;
+}
+
 export type WordWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type WordExampleWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type WordUsageWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
@@ -440,9 +702,48 @@ export interface WordCreateManyInput {
 
 export interface WordCreateInput {
   id?: Maybe<ID_Input>;
-  translation: String;
+  translation?: Maybe<WordCreatetranslationInput>;
   writing: String;
   synonims?: Maybe<WordCreateManyInput>;
+  romaji?: Maybe<String>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  kanji?: Maybe<KanjiCreateManyInput>;
+  patterns?: Maybe<WordExampleCreateManyInput>;
+  antipatterns?: Maybe<WordExampleCreateManyInput>;
+  hiragana?: Maybe<String>;
+  usage?: Maybe<WordUsageCreateManyInput>;
+}
+
+export interface WordCreatetranslationInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface KanjiCreateManyInput {
+  create?: Maybe<KanjiCreateInput[] | KanjiCreateInput>;
+  connect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+}
+
+export interface WordExampleCreateManyInput {
+  create?: Maybe<WordExampleCreateInput[] | WordExampleCreateInput>;
+  connect?: Maybe<WordExampleWhereUniqueInput[] | WordExampleWhereUniqueInput>;
+}
+
+export interface WordExampleCreateInput {
+  id?: Maybe<ID_Input>;
+  original: String;
+  translation: String;
+}
+
+export interface WordUsageCreateManyInput {
+  create?: Maybe<WordUsageCreateInput[] | WordUsageCreateInput>;
+  connect?: Maybe<WordUsageWhereUniqueInput[] | WordUsageWhereUniqueInput>;
+}
+
+export interface WordUsageCreateInput {
+  id?: Maybe<ID_Input>;
+  question: String;
+  answer: String;
 }
 
 export interface KanjiCreateManyWithoutRadicalsInput {
@@ -642,73 +943,65 @@ export interface WordUpdateWithWhereUniqueNestedInput {
 }
 
 export interface WordUpdateDataInput {
-  translation?: Maybe<String>;
+  translation?: Maybe<WordUpdatetranslationInput>;
   writing?: Maybe<String>;
   synonims?: Maybe<WordUpdateManyInput>;
+  romaji?: Maybe<String>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  kanji?: Maybe<KanjiUpdateManyInput>;
+  patterns?: Maybe<WordExampleUpdateManyInput>;
+  antipatterns?: Maybe<WordExampleUpdateManyInput>;
+  hiragana?: Maybe<String>;
+  usage?: Maybe<WordUsageUpdateManyInput>;
 }
 
-export interface WordUpsertWithWhereUniqueNestedInput {
-  where: WordWhereUniqueInput;
-  update: WordUpdateDataInput;
-  create: WordCreateInput;
+export interface WordUpdatetranslationInput {
+  set?: Maybe<String[] | String>;
 }
 
-export interface WordScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  translation?: Maybe<String>;
-  translation_not?: Maybe<String>;
-  translation_in?: Maybe<String[] | String>;
-  translation_not_in?: Maybe<String[] | String>;
-  translation_lt?: Maybe<String>;
-  translation_lte?: Maybe<String>;
-  translation_gt?: Maybe<String>;
-  translation_gte?: Maybe<String>;
-  translation_contains?: Maybe<String>;
-  translation_not_contains?: Maybe<String>;
-  translation_starts_with?: Maybe<String>;
-  translation_not_starts_with?: Maybe<String>;
-  translation_ends_with?: Maybe<String>;
-  translation_not_ends_with?: Maybe<String>;
+export interface KanjiUpdateManyInput {
+  create?: Maybe<KanjiCreateInput[] | KanjiCreateInput>;
+  update?: Maybe<
+    | KanjiUpdateWithWhereUniqueNestedInput[]
+    | KanjiUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | KanjiUpsertWithWhereUniqueNestedInput[]
+    | KanjiUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  connect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  set?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  disconnect?: Maybe<KanjiWhereUniqueInput[] | KanjiWhereUniqueInput>;
+  deleteMany?: Maybe<KanjiScalarWhereInput[] | KanjiScalarWhereInput>;
+  updateMany?: Maybe<
+    KanjiUpdateManyWithWhereNestedInput[] | KanjiUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface KanjiUpdateWithWhereUniqueNestedInput {
+  where: KanjiWhereUniqueInput;
+  data: KanjiUpdateDataInput;
+}
+
+export interface KanjiUpdateDataInput {
   writing?: Maybe<String>;
-  writing_not?: Maybe<String>;
-  writing_in?: Maybe<String[] | String>;
-  writing_not_in?: Maybe<String[] | String>;
-  writing_lt?: Maybe<String>;
-  writing_lte?: Maybe<String>;
-  writing_gt?: Maybe<String>;
-  writing_gte?: Maybe<String>;
-  writing_contains?: Maybe<String>;
-  writing_not_contains?: Maybe<String>;
-  writing_starts_with?: Maybe<String>;
-  writing_not_starts_with?: Maybe<String>;
-  writing_ends_with?: Maybe<String>;
-  writing_not_ends_with?: Maybe<String>;
-  AND?: Maybe<WordScalarWhereInput[] | WordScalarWhereInput>;
-  OR?: Maybe<WordScalarWhereInput[] | WordScalarWhereInput>;
-  NOT?: Maybe<WordScalarWhereInput[] | WordScalarWhereInput>;
-}
-
-export interface WordUpdateManyWithWhereNestedInput {
-  where: WordScalarWhereInput;
-  data: WordUpdateManyDataInput;
-}
-
-export interface WordUpdateManyDataInput {
-  translation?: Maybe<String>;
-  writing?: Maybe<String>;
+  meaning?: Maybe<KanjiUpdatemeaningInput>;
+  on?: Maybe<KanjiUpdateonInput>;
+  kun?: Maybe<KanjiUpdatekunInput>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  jlpt?: Maybe<Int>;
+  strokes?: Maybe<Int>;
+  origin?: Maybe<String>;
+  old?: Maybe<KanjiUpdateManyWithoutOldInput>;
+  modern?: Maybe<KanjiUpdateManyWithoutModernInput>;
+  memo?: Maybe<String>;
+  usageFirst?: Maybe<WordUpdateManyInput>;
+  usageLast?: Maybe<WordUpdateManyInput>;
+  radicals?: Maybe<KanjiUpdateManyWithoutRadicalsInput>;
+  phonetics?: Maybe<KanjiUpdateManyWithoutPhoneticsInput>;
 }
 
 export interface KanjiUpdateManyWithoutRadicalsInput {
@@ -937,6 +1230,316 @@ export interface KanjiUpsertWithWhereUniqueWithoutRadicalsInput {
   create: KanjiCreateWithoutRadicalsInput;
 }
 
+export interface KanjiUpsertWithWhereUniqueNestedInput {
+  where: KanjiWhereUniqueInput;
+  update: KanjiUpdateDataInput;
+  create: KanjiCreateInput;
+}
+
+export interface WordExampleUpdateManyInput {
+  create?: Maybe<WordExampleCreateInput[] | WordExampleCreateInput>;
+  update?: Maybe<
+    | WordExampleUpdateWithWhereUniqueNestedInput[]
+    | WordExampleUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | WordExampleUpsertWithWhereUniqueNestedInput[]
+    | WordExampleUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<WordExampleWhereUniqueInput[] | WordExampleWhereUniqueInput>;
+  connect?: Maybe<WordExampleWhereUniqueInput[] | WordExampleWhereUniqueInput>;
+  set?: Maybe<WordExampleWhereUniqueInput[] | WordExampleWhereUniqueInput>;
+  disconnect?: Maybe<
+    WordExampleWhereUniqueInput[] | WordExampleWhereUniqueInput
+  >;
+  deleteMany?: Maybe<
+    WordExampleScalarWhereInput[] | WordExampleScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | WordExampleUpdateManyWithWhereNestedInput[]
+    | WordExampleUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface WordExampleUpdateWithWhereUniqueNestedInput {
+  where: WordExampleWhereUniqueInput;
+  data: WordExampleUpdateDataInput;
+}
+
+export interface WordExampleUpdateDataInput {
+  original?: Maybe<String>;
+  translation?: Maybe<String>;
+}
+
+export interface WordExampleUpsertWithWhereUniqueNestedInput {
+  where: WordExampleWhereUniqueInput;
+  update: WordExampleUpdateDataInput;
+  create: WordExampleCreateInput;
+}
+
+export interface WordExampleScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  original?: Maybe<String>;
+  original_not?: Maybe<String>;
+  original_in?: Maybe<String[] | String>;
+  original_not_in?: Maybe<String[] | String>;
+  original_lt?: Maybe<String>;
+  original_lte?: Maybe<String>;
+  original_gt?: Maybe<String>;
+  original_gte?: Maybe<String>;
+  original_contains?: Maybe<String>;
+  original_not_contains?: Maybe<String>;
+  original_starts_with?: Maybe<String>;
+  original_not_starts_with?: Maybe<String>;
+  original_ends_with?: Maybe<String>;
+  original_not_ends_with?: Maybe<String>;
+  translation?: Maybe<String>;
+  translation_not?: Maybe<String>;
+  translation_in?: Maybe<String[] | String>;
+  translation_not_in?: Maybe<String[] | String>;
+  translation_lt?: Maybe<String>;
+  translation_lte?: Maybe<String>;
+  translation_gt?: Maybe<String>;
+  translation_gte?: Maybe<String>;
+  translation_contains?: Maybe<String>;
+  translation_not_contains?: Maybe<String>;
+  translation_starts_with?: Maybe<String>;
+  translation_not_starts_with?: Maybe<String>;
+  translation_ends_with?: Maybe<String>;
+  translation_not_ends_with?: Maybe<String>;
+  AND?: Maybe<WordExampleScalarWhereInput[] | WordExampleScalarWhereInput>;
+  OR?: Maybe<WordExampleScalarWhereInput[] | WordExampleScalarWhereInput>;
+  NOT?: Maybe<WordExampleScalarWhereInput[] | WordExampleScalarWhereInput>;
+}
+
+export interface WordExampleUpdateManyWithWhereNestedInput {
+  where: WordExampleScalarWhereInput;
+  data: WordExampleUpdateManyDataInput;
+}
+
+export interface WordExampleUpdateManyDataInput {
+  original?: Maybe<String>;
+  translation?: Maybe<String>;
+}
+
+export interface WordUsageUpdateManyInput {
+  create?: Maybe<WordUsageCreateInput[] | WordUsageCreateInput>;
+  update?: Maybe<
+    | WordUsageUpdateWithWhereUniqueNestedInput[]
+    | WordUsageUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | WordUsageUpsertWithWhereUniqueNestedInput[]
+    | WordUsageUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<WordUsageWhereUniqueInput[] | WordUsageWhereUniqueInput>;
+  connect?: Maybe<WordUsageWhereUniqueInput[] | WordUsageWhereUniqueInput>;
+  set?: Maybe<WordUsageWhereUniqueInput[] | WordUsageWhereUniqueInput>;
+  disconnect?: Maybe<WordUsageWhereUniqueInput[] | WordUsageWhereUniqueInput>;
+  deleteMany?: Maybe<WordUsageScalarWhereInput[] | WordUsageScalarWhereInput>;
+  updateMany?: Maybe<
+    | WordUsageUpdateManyWithWhereNestedInput[]
+    | WordUsageUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface WordUsageUpdateWithWhereUniqueNestedInput {
+  where: WordUsageWhereUniqueInput;
+  data: WordUsageUpdateDataInput;
+}
+
+export interface WordUsageUpdateDataInput {
+  question?: Maybe<String>;
+  answer?: Maybe<String>;
+}
+
+export interface WordUsageUpsertWithWhereUniqueNestedInput {
+  where: WordUsageWhereUniqueInput;
+  update: WordUsageUpdateDataInput;
+  create: WordUsageCreateInput;
+}
+
+export interface WordUsageScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  question?: Maybe<String>;
+  question_not?: Maybe<String>;
+  question_in?: Maybe<String[] | String>;
+  question_not_in?: Maybe<String[] | String>;
+  question_lt?: Maybe<String>;
+  question_lte?: Maybe<String>;
+  question_gt?: Maybe<String>;
+  question_gte?: Maybe<String>;
+  question_contains?: Maybe<String>;
+  question_not_contains?: Maybe<String>;
+  question_starts_with?: Maybe<String>;
+  question_not_starts_with?: Maybe<String>;
+  question_ends_with?: Maybe<String>;
+  question_not_ends_with?: Maybe<String>;
+  answer?: Maybe<String>;
+  answer_not?: Maybe<String>;
+  answer_in?: Maybe<String[] | String>;
+  answer_not_in?: Maybe<String[] | String>;
+  answer_lt?: Maybe<String>;
+  answer_lte?: Maybe<String>;
+  answer_gt?: Maybe<String>;
+  answer_gte?: Maybe<String>;
+  answer_contains?: Maybe<String>;
+  answer_not_contains?: Maybe<String>;
+  answer_starts_with?: Maybe<String>;
+  answer_not_starts_with?: Maybe<String>;
+  answer_ends_with?: Maybe<String>;
+  answer_not_ends_with?: Maybe<String>;
+  AND?: Maybe<WordUsageScalarWhereInput[] | WordUsageScalarWhereInput>;
+  OR?: Maybe<WordUsageScalarWhereInput[] | WordUsageScalarWhereInput>;
+  NOT?: Maybe<WordUsageScalarWhereInput[] | WordUsageScalarWhereInput>;
+}
+
+export interface WordUsageUpdateManyWithWhereNestedInput {
+  where: WordUsageScalarWhereInput;
+  data: WordUsageUpdateManyDataInput;
+}
+
+export interface WordUsageUpdateManyDataInput {
+  question?: Maybe<String>;
+  answer?: Maybe<String>;
+}
+
+export interface WordUpsertWithWhereUniqueNestedInput {
+  where: WordWhereUniqueInput;
+  update: WordUpdateDataInput;
+  create: WordCreateInput;
+}
+
+export interface WordScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  writing?: Maybe<String>;
+  writing_not?: Maybe<String>;
+  writing_in?: Maybe<String[] | String>;
+  writing_not_in?: Maybe<String[] | String>;
+  writing_lt?: Maybe<String>;
+  writing_lte?: Maybe<String>;
+  writing_gt?: Maybe<String>;
+  writing_gte?: Maybe<String>;
+  writing_contains?: Maybe<String>;
+  writing_not_contains?: Maybe<String>;
+  writing_starts_with?: Maybe<String>;
+  writing_not_starts_with?: Maybe<String>;
+  writing_ends_with?: Maybe<String>;
+  writing_not_ends_with?: Maybe<String>;
+  romaji?: Maybe<String>;
+  romaji_not?: Maybe<String>;
+  romaji_in?: Maybe<String[] | String>;
+  romaji_not_in?: Maybe<String[] | String>;
+  romaji_lt?: Maybe<String>;
+  romaji_lte?: Maybe<String>;
+  romaji_gt?: Maybe<String>;
+  romaji_gte?: Maybe<String>;
+  romaji_contains?: Maybe<String>;
+  romaji_not_contains?: Maybe<String>;
+  romaji_starts_with?: Maybe<String>;
+  romaji_not_starts_with?: Maybe<String>;
+  romaji_ends_with?: Maybe<String>;
+  romaji_not_ends_with?: Maybe<String>;
+  imageUrl?: Maybe<String>;
+  imageUrl_not?: Maybe<String>;
+  imageUrl_in?: Maybe<String[] | String>;
+  imageUrl_not_in?: Maybe<String[] | String>;
+  imageUrl_lt?: Maybe<String>;
+  imageUrl_lte?: Maybe<String>;
+  imageUrl_gt?: Maybe<String>;
+  imageUrl_gte?: Maybe<String>;
+  imageUrl_contains?: Maybe<String>;
+  imageUrl_not_contains?: Maybe<String>;
+  imageUrl_starts_with?: Maybe<String>;
+  imageUrl_not_starts_with?: Maybe<String>;
+  imageUrl_ends_with?: Maybe<String>;
+  imageUrl_not_ends_with?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  videoUrl_not?: Maybe<String>;
+  videoUrl_in?: Maybe<String[] | String>;
+  videoUrl_not_in?: Maybe<String[] | String>;
+  videoUrl_lt?: Maybe<String>;
+  videoUrl_lte?: Maybe<String>;
+  videoUrl_gt?: Maybe<String>;
+  videoUrl_gte?: Maybe<String>;
+  videoUrl_contains?: Maybe<String>;
+  videoUrl_not_contains?: Maybe<String>;
+  videoUrl_starts_with?: Maybe<String>;
+  videoUrl_not_starts_with?: Maybe<String>;
+  videoUrl_ends_with?: Maybe<String>;
+  videoUrl_not_ends_with?: Maybe<String>;
+  hiragana?: Maybe<String>;
+  hiragana_not?: Maybe<String>;
+  hiragana_in?: Maybe<String[] | String>;
+  hiragana_not_in?: Maybe<String[] | String>;
+  hiragana_lt?: Maybe<String>;
+  hiragana_lte?: Maybe<String>;
+  hiragana_gt?: Maybe<String>;
+  hiragana_gte?: Maybe<String>;
+  hiragana_contains?: Maybe<String>;
+  hiragana_not_contains?: Maybe<String>;
+  hiragana_starts_with?: Maybe<String>;
+  hiragana_not_starts_with?: Maybe<String>;
+  hiragana_ends_with?: Maybe<String>;
+  hiragana_not_ends_with?: Maybe<String>;
+  AND?: Maybe<WordScalarWhereInput[] | WordScalarWhereInput>;
+  OR?: Maybe<WordScalarWhereInput[] | WordScalarWhereInput>;
+  NOT?: Maybe<WordScalarWhereInput[] | WordScalarWhereInput>;
+}
+
+export interface WordUpdateManyWithWhereNestedInput {
+  where: WordScalarWhereInput;
+  data: WordUpdateManyDataInput;
+}
+
+export interface WordUpdateManyDataInput {
+  translation?: Maybe<WordUpdatetranslationInput>;
+  writing?: Maybe<String>;
+  romaji?: Maybe<String>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  hiragana?: Maybe<String>;
+}
+
 export interface KanjiUpsertWithWhereUniqueWithoutModernInput {
   where: KanjiWhereUniqueInput;
   update: KanjiUpdateWithoutModernDataInput;
@@ -963,14 +1566,46 @@ export interface KanjiUpdateManyMutationInput {
 }
 
 export interface WordUpdateInput {
-  translation?: Maybe<String>;
+  translation?: Maybe<WordUpdatetranslationInput>;
   writing?: Maybe<String>;
   synonims?: Maybe<WordUpdateManyInput>;
+  romaji?: Maybe<String>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  kanji?: Maybe<KanjiUpdateManyInput>;
+  patterns?: Maybe<WordExampleUpdateManyInput>;
+  antipatterns?: Maybe<WordExampleUpdateManyInput>;
+  hiragana?: Maybe<String>;
+  usage?: Maybe<WordUsageUpdateManyInput>;
 }
 
 export interface WordUpdateManyMutationInput {
-  translation?: Maybe<String>;
+  translation?: Maybe<WordUpdatetranslationInput>;
   writing?: Maybe<String>;
+  romaji?: Maybe<String>;
+  imageUrl?: Maybe<String>;
+  videoUrl?: Maybe<String>;
+  hiragana?: Maybe<String>;
+}
+
+export interface WordExampleUpdateInput {
+  original?: Maybe<String>;
+  translation?: Maybe<String>;
+}
+
+export interface WordExampleUpdateManyMutationInput {
+  original?: Maybe<String>;
+  translation?: Maybe<String>;
+}
+
+export interface WordUsageUpdateInput {
+  question?: Maybe<String>;
+  answer?: Maybe<String>;
+}
+
+export interface WordUsageUpdateManyMutationInput {
+  question?: Maybe<String>;
+  answer?: Maybe<String>;
 }
 
 export interface KanjiSubscriptionWhereInput {
@@ -993,6 +1628,40 @@ export interface WordSubscriptionWhereInput {
   AND?: Maybe<WordSubscriptionWhereInput[] | WordSubscriptionWhereInput>;
   OR?: Maybe<WordSubscriptionWhereInput[] | WordSubscriptionWhereInput>;
   NOT?: Maybe<WordSubscriptionWhereInput[] | WordSubscriptionWhereInput>;
+}
+
+export interface WordExampleSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<WordExampleWhereInput>;
+  AND?: Maybe<
+    WordExampleSubscriptionWhereInput[] | WordExampleSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    WordExampleSubscriptionWhereInput[] | WordExampleSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    WordExampleSubscriptionWhereInput[] | WordExampleSubscriptionWhereInput
+  >;
+}
+
+export interface WordUsageSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<WordUsageWhereInput>;
+  AND?: Maybe<
+    WordUsageSubscriptionWhereInput[] | WordUsageSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    WordUsageSubscriptionWhereInput[] | WordUsageSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    WordUsageSubscriptionWhereInput[] | WordUsageSubscriptionWhereInput
+  >;
 }
 
 export interface NodeNode {
@@ -1223,17 +1892,61 @@ export interface KanjiNullablePromise
 
 export interface Word {
   id: ID_Output;
-  translation: String;
+  translation: String[];
   writing: String;
+  romaji?: String;
+  imageUrl?: String;
+  videoUrl?: String;
+  hiragana?: String;
 }
 
 export interface WordPromise extends Promise<Word>, Fragmentable {
   id: () => Promise<ID_Output>;
-  translation: () => Promise<String>;
+  translation: () => Promise<String[]>;
   writing: () => Promise<String>;
   synonims: <T = FragmentableArray<Word>>(args?: {
     where?: WordWhereInput;
     orderBy?: WordOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  romaji: () => Promise<String>;
+  imageUrl: () => Promise<String>;
+  videoUrl: () => Promise<String>;
+  kanji: <T = FragmentableArray<Kanji>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  patterns: <T = FragmentableArray<WordExample>>(args?: {
+    where?: WordExampleWhereInput;
+    orderBy?: WordExampleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  antipatterns: <T = FragmentableArray<WordExample>>(args?: {
+    where?: WordExampleWhereInput;
+    orderBy?: WordExampleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  hiragana: () => Promise<String>;
+  usage: <T = FragmentableArray<WordUsage>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -1246,11 +1959,51 @@ export interface WordSubscription
   extends Promise<AsyncIterator<Word>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  translation: () => Promise<AsyncIterator<String>>;
+  translation: () => Promise<AsyncIterator<String[]>>;
   writing: () => Promise<AsyncIterator<String>>;
   synonims: <T = Promise<AsyncIterator<WordSubscription>>>(args?: {
     where?: WordWhereInput;
     orderBy?: WordOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  romaji: () => Promise<AsyncIterator<String>>;
+  imageUrl: () => Promise<AsyncIterator<String>>;
+  videoUrl: () => Promise<AsyncIterator<String>>;
+  kanji: <T = Promise<AsyncIterator<KanjiSubscription>>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  patterns: <T = Promise<AsyncIterator<WordExampleSubscription>>>(args?: {
+    where?: WordExampleWhereInput;
+    orderBy?: WordExampleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  antipatterns: <T = Promise<AsyncIterator<WordExampleSubscription>>>(args?: {
+    where?: WordExampleWhereInput;
+    orderBy?: WordExampleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  hiragana: () => Promise<AsyncIterator<String>>;
+  usage: <T = Promise<AsyncIterator<WordUsageSubscription>>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -1263,7 +2016,7 @@ export interface WordNullablePromise
   extends Promise<Word | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  translation: () => Promise<String>;
+  translation: () => Promise<String[]>;
   writing: () => Promise<String>;
   synonims: <T = FragmentableArray<Word>>(args?: {
     where?: WordWhereInput;
@@ -1274,6 +2027,102 @@ export interface WordNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  romaji: () => Promise<String>;
+  imageUrl: () => Promise<String>;
+  videoUrl: () => Promise<String>;
+  kanji: <T = FragmentableArray<Kanji>>(args?: {
+    where?: KanjiWhereInput;
+    orderBy?: KanjiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  patterns: <T = FragmentableArray<WordExample>>(args?: {
+    where?: WordExampleWhereInput;
+    orderBy?: WordExampleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  antipatterns: <T = FragmentableArray<WordExample>>(args?: {
+    where?: WordExampleWhereInput;
+    orderBy?: WordExampleOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  hiragana: () => Promise<String>;
+  usage: <T = FragmentableArray<WordUsage>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface WordExample {
+  id: ID_Output;
+  original: String;
+  translation: String;
+}
+
+export interface WordExamplePromise extends Promise<WordExample>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  original: () => Promise<String>;
+  translation: () => Promise<String>;
+}
+
+export interface WordExampleSubscription
+  extends Promise<AsyncIterator<WordExample>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  original: () => Promise<AsyncIterator<String>>;
+  translation: () => Promise<AsyncIterator<String>>;
+}
+
+export interface WordExampleNullablePromise
+  extends Promise<WordExample | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  original: () => Promise<String>;
+  translation: () => Promise<String>;
+}
+
+export interface WordUsage {
+  id: ID_Output;
+  question: String;
+  answer: String;
+}
+
+export interface WordUsagePromise extends Promise<WordUsage>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  question: () => Promise<String>;
+  answer: () => Promise<String>;
+}
+
+export interface WordUsageSubscription
+  extends Promise<AsyncIterator<WordUsage>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  question: () => Promise<AsyncIterator<String>>;
+  answer: () => Promise<AsyncIterator<String>>;
+}
+
+export interface WordUsageNullablePromise
+  extends Promise<WordUsage | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  question: () => Promise<String>;
+  answer: () => Promise<String>;
 }
 
 export interface KanjiConnection {
@@ -1407,6 +2256,118 @@ export interface AggregateWordSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface WordExampleConnection {
+  pageInfo: PageInfo;
+  edges: WordExampleEdge[];
+}
+
+export interface WordExampleConnectionPromise
+  extends Promise<WordExampleConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<WordExampleEdge>>() => T;
+  aggregate: <T = AggregateWordExamplePromise>() => T;
+}
+
+export interface WordExampleConnectionSubscription
+  extends Promise<AsyncIterator<WordExampleConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<WordExampleEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateWordExampleSubscription>() => T;
+}
+
+export interface WordExampleEdge {
+  node: WordExample;
+  cursor: String;
+}
+
+export interface WordExampleEdgePromise
+  extends Promise<WordExampleEdge>,
+    Fragmentable {
+  node: <T = WordExamplePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface WordExampleEdgeSubscription
+  extends Promise<AsyncIterator<WordExampleEdge>>,
+    Fragmentable {
+  node: <T = WordExampleSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateWordExample {
+  count: Int;
+}
+
+export interface AggregateWordExamplePromise
+  extends Promise<AggregateWordExample>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateWordExampleSubscription
+  extends Promise<AsyncIterator<AggregateWordExample>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface WordUsageConnection {
+  pageInfo: PageInfo;
+  edges: WordUsageEdge[];
+}
+
+export interface WordUsageConnectionPromise
+  extends Promise<WordUsageConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<WordUsageEdge>>() => T;
+  aggregate: <T = AggregateWordUsagePromise>() => T;
+}
+
+export interface WordUsageConnectionSubscription
+  extends Promise<AsyncIterator<WordUsageConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<WordUsageEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateWordUsageSubscription>() => T;
+}
+
+export interface WordUsageEdge {
+  node: WordUsage;
+  cursor: String;
+}
+
+export interface WordUsageEdgePromise
+  extends Promise<WordUsageEdge>,
+    Fragmentable {
+  node: <T = WordUsagePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface WordUsageEdgeSubscription
+  extends Promise<AsyncIterator<WordUsageEdge>>,
+    Fragmentable {
+  node: <T = WordUsageSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateWordUsage {
+  count: Int;
+}
+
+export interface AggregateWordUsagePromise
+  extends Promise<AggregateWordUsage>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateWordUsageSubscription
+  extends Promise<AsyncIterator<AggregateWordUsage>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface BatchPayload {
   count: Long;
 }
@@ -1521,24 +2482,130 @@ export interface WordSubscriptionPayloadSubscription
 
 export interface WordPreviousValues {
   id: ID_Output;
-  translation: String;
+  translation: String[];
   writing: String;
+  romaji?: String;
+  imageUrl?: String;
+  videoUrl?: String;
+  hiragana?: String;
 }
 
 export interface WordPreviousValuesPromise
   extends Promise<WordPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  translation: () => Promise<String>;
+  translation: () => Promise<String[]>;
   writing: () => Promise<String>;
+  romaji: () => Promise<String>;
+  imageUrl: () => Promise<String>;
+  videoUrl: () => Promise<String>;
+  hiragana: () => Promise<String>;
 }
 
 export interface WordPreviousValuesSubscription
   extends Promise<AsyncIterator<WordPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  translation: () => Promise<AsyncIterator<String>>;
+  translation: () => Promise<AsyncIterator<String[]>>;
   writing: () => Promise<AsyncIterator<String>>;
+  romaji: () => Promise<AsyncIterator<String>>;
+  imageUrl: () => Promise<AsyncIterator<String>>;
+  videoUrl: () => Promise<AsyncIterator<String>>;
+  hiragana: () => Promise<AsyncIterator<String>>;
+}
+
+export interface WordExampleSubscriptionPayload {
+  mutation: MutationType;
+  node: WordExample;
+  updatedFields: String[];
+  previousValues: WordExamplePreviousValues;
+}
+
+export interface WordExampleSubscriptionPayloadPromise
+  extends Promise<WordExampleSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = WordExamplePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = WordExamplePreviousValuesPromise>() => T;
+}
+
+export interface WordExampleSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<WordExampleSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = WordExampleSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = WordExamplePreviousValuesSubscription>() => T;
+}
+
+export interface WordExamplePreviousValues {
+  id: ID_Output;
+  original: String;
+  translation: String;
+}
+
+export interface WordExamplePreviousValuesPromise
+  extends Promise<WordExamplePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  original: () => Promise<String>;
+  translation: () => Promise<String>;
+}
+
+export interface WordExamplePreviousValuesSubscription
+  extends Promise<AsyncIterator<WordExamplePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  original: () => Promise<AsyncIterator<String>>;
+  translation: () => Promise<AsyncIterator<String>>;
+}
+
+export interface WordUsageSubscriptionPayload {
+  mutation: MutationType;
+  node: WordUsage;
+  updatedFields: String[];
+  previousValues: WordUsagePreviousValues;
+}
+
+export interface WordUsageSubscriptionPayloadPromise
+  extends Promise<WordUsageSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = WordUsagePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = WordUsagePreviousValuesPromise>() => T;
+}
+
+export interface WordUsageSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<WordUsageSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = WordUsageSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = WordUsagePreviousValuesSubscription>() => T;
+}
+
+export interface WordUsagePreviousValues {
+  id: ID_Output;
+  question: String;
+  answer: String;
+}
+
+export interface WordUsagePreviousValuesPromise
+  extends Promise<WordUsagePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  question: () => Promise<String>;
+  answer: () => Promise<String>;
+}
+
+export interface WordUsagePreviousValuesSubscription
+  extends Promise<AsyncIterator<WordUsagePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  question: () => Promise<AsyncIterator<String>>;
+  answer: () => Promise<AsyncIterator<String>>;
 }
 
 /*
@@ -1571,6 +2638,14 @@ export type Long = string;
 export const models: Model[] = [
   {
     name: "Word",
+    embedded: false
+  },
+  {
+    name: "WordUsage",
+    embedded: false
+  },
+  {
+    name: "WordExample",
     embedded: false
   },
   {
