@@ -10,7 +10,7 @@ type Word {
   patterns: [WordExample!]  @relation(name: "WordPattern")
   antipatterns:  [WordExample!]  @relation(name: "WordAntiPattern")
   hiragana: String
-  usage: [WordUsage!] @relation(name: "WordUsage" )
+  usage: [WordUsage] @relation(name: "WordUsage" )
 }
 
 type WordUsage {

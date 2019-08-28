@@ -21,7 +21,7 @@ export interface WordCreateInput {
 
   hiragana: string;
 
-  usage?: Maybe<WordUsageCreateInput[]>;
+  usage?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
 }
 
 export interface WordExampleCreateInput {
@@ -77,7 +77,7 @@ export interface WordUpdateInput {
 
   hiragana: string;
 
-  usage?: Maybe<WordUsageCreateInput[]>;
+  usage?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
 }
 
 export interface WordExampleUpdateInput {
@@ -155,7 +155,7 @@ export interface Word {
 
   hiragana?: Maybe<string>;
 
-  usage?: Maybe<WordUsage[]>;
+  usage?: Maybe<(Maybe<WordUsage>)[]>;
 }
 
 export interface Kanji {

@@ -12,7 +12,7 @@ type Word {
   patterns: [WordExample!]  
   antipatterns:  [WordExample!] 
   hiragana: String
-  usage: [WordUsage!]
+  usage: [WordUsage]
 }
 
 type WordUsage {

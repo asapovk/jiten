@@ -20,7 +20,7 @@ export default async (_, args: CreateWordMutationArgs) => {
             romaji: args.input.romaji,
             hiragana: args.input.hiragana,
             usage: {
-                create: args.input.usage
+                create: args.input.usage as any
             }
 
         })

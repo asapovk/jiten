@@ -10,7 +10,7 @@ input WordCreateInput {
     patterns: [WordExampleCreateInput!]  
     antipatterns:  [WordExampleCreateInput!] 
     hiragana: String!
-    usage: [WordUsageCreateInput!]
+    usage: [WordUsageCreateInput]
 }
 
 
@@ -24,7 +24,7 @@ input WordUpdateInput {
     patterns: [WordExampleUpdateInput!]  
     antipatterns:  [WordExampleUpdateInput!] 
     hiragana: String!
-    usage: [WordUsageCreateInput!]
+    usage: [WordUsageCreateInput]
 }
 
 input WordExampleCreateInput {
