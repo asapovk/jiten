@@ -3,11 +3,17 @@ import csv
 import requests
 import json
 import io
+import os
+
+from os.path import join, dirname
+from dotenv import load_dotenv
 from lxml import html
 from bs4 import BeautifulSoup
 from googletrans import Translator
 from graphqlclient import GraphQLClient
 
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 client = GraphQLClient('http://localhost:4000/graphql')
 
 def create_word(writing, translation, romaji, hiragana, usage):
@@ -68,7 +74,9 @@ def get_google_translation(list):
     #translated_list = [text for text in text]
     #translated_words_list = [[w.text for w in lst] for lst in translated_list]
 
-    trl = requests.post('https://translation.googleapis.com/language/translate/v2', data={'q': list, 'target': 'ru', 'key': 'AIzaSyCYJPTknebfAYB1hlto1Nfc7rdE6_MpsQA'})
+    key = os.environ.get("GOOGLE_API_KEY")
+    #print(key)
+    trl = requests.post('https://translation.googleapis.com/language/translate/v2', data={'q': list, 'target': 'ru', 'key': key})
     translation = json.loads(trl.text)['data']['translations'][0]['translatedText']
     #print(translation)
     #return translated_words_list
@@ -141,3 +149,6 @@ def process():
 if __name__ == '__main__':
     #create_word()
     process()
+    #result = get_google_translation(["list", "fag"])
+    #print(result)
+
