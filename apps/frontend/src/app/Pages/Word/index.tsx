@@ -12,10 +12,6 @@ const WordPage = (props) => {
 
     const [searchValue, setSearchValue] = useState('')
 
-    useEffect(() => {
-        WordActions.fetch()
-    }, [])
-
     const mappedState = useCallback((state: ApplicationState) => ({
         words: state.word.words
     }), [])
@@ -42,7 +38,10 @@ const WordPage = (props) => {
                 <Button
                     size={'large'}
                     color={'brand-red'}
-                    onClick={}
+                    onClick={() => {
+                        WordActions.fetch({ searchInput: searchValue })
+                    }
+                    }
                 >
                     <Icon size={'1.8rem'} type={'search'} />
                 </Button>

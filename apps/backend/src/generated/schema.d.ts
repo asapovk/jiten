@@ -1,5 +1,9 @@
 export type Maybe<T> = T | null;
 
+export interface FetchWordInput {
+  searchInput?: Maybe<string>;
+}
+
 export interface KanjiSingleInput {
   writing: string;
 }
@@ -236,6 +240,9 @@ export interface KanjiMutation {
 // Arguments
 // ====================================================
 
+export interface WordsQueryArgs {
+  input?: Maybe<FetchWordInput>;
+}
 export interface KanjiSingleQueryArgs {
   input: KanjiSingleInput;
 }

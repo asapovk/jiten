@@ -1,15 +1,21 @@
 import fetchWords from '../../../graphql/data/fetchWords';
 import { Word, Query } from '../../../generated/prisma-schema.d'
 import { prisma } from '../../../generated'
-
+import { WordsQueryArgs } from '../../../generated/schema'
 
 /**
  * @resolver
  */
-export default async (req: any, args, { db }, info): Promise<Word[]> => {
+export default async (req: any, args: WordsQueryArgs, { db }, info): Promise<Word[]> => {
     try {
-        //const words: Word[] = db.query.words()
-        const words: Word[] | null = await prisma.words()
+
+        const query = args.input ? args.input.searchInput : ''
+
+        const words: Word[] | null = await prisma.words({
+            where: {
+                writing: query
+            }
+        })
         return words
     } catch (error) {
         throw error;

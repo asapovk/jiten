@@ -37,6 +37,9 @@ input WordUsageCreateInput {
     answer: String!
 }
 
+input FetchWordInput {
+    searchInput: String
+}
 
 
 input WordExampleUpdateInput {

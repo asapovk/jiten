@@ -1,4 +1,5 @@
 
+
 export interface WordState {
     isFetching: boolean
     words: any[]
@@ -14,3 +15,4 @@ export const enum WordTypes {
     DELETE = '@@word/DELETE',
     CLEAR = '@@word/CLEAR',
 }
+
