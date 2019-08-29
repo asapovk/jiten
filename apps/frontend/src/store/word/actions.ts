@@ -2,7 +2,7 @@ import api from "src/api";
 import { utils } from 'ui';
 import store from "..";
 import { WordState, WordTypes } from './types';
-import { FetchWordInput } from '../../../../backend/src/generated/schema'
+import { FetchWordInput, Word, WordSingleInput } from '../../../../backend/src/generated/schema'
 namespace Word {
     export const fetch = async (input: FetchWordInput) => {
 
@@ -34,6 +34,32 @@ namespace Word {
                 payload: { error: error.message }
             });
         }
+    }
+
+    export const fetchSingle = async (input: WordSingleInput) => {
+        try {
+            store.dispatch({
+                type: WordTypes.FETCH_SINGLE,
+                payload: input
+            });
+
+            const wordSingleResponse: { wordSingle: Word } = await api({
+                name: "wordSingle",
+                variables: input
+            });
+
+            store.dispatch({
+                type: WordTypes.FETCH_SINGLE_SUCCESS,
+                payload: wordSingleResponse.wordSingle
+            });
+        } catch (error) {
+            store.dispatch({
+                type: WordTypes.FETCH_SINGLE_ERROR,
+                payload: error
+            });
+
+        }
+
     }
 
     export const userCreate = (user: any) => {

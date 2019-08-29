@@ -10,7 +10,8 @@ const queries: Queries = {
     /* User Queries */
     words: require("./words.gql"),
     kanji: require("./kanji.gql"),
-    kanjiSingle: require("./kanjiSingle")
+    kanjiSingle: require("./kanjiSingle"),
+    wordSingle: require("./wordSingle")
 
 }
 

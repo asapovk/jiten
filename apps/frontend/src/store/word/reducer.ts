@@ -4,12 +4,13 @@ import { WordState, WordTypes } from './types';
 // Type-safe initialState!
 const initialState: WordState = {
     isFetching: false,
-    words: []
+    words: [],
+    wordSingle: null
 }
 
 const reducer: Reducer<WordState> = (state = initialState, action) => {
-
-    switch (action.type) {
+    const { type, payload } = action
+    switch (type) {
 
         case WordTypes.FETCH: {
             return {
@@ -22,7 +23,7 @@ const reducer: Reducer<WordState> = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                words: action.payload,
+                words: payload,
             }
         }
 
@@ -32,11 +33,18 @@ const reducer: Reducer<WordState> = (state = initialState, action) => {
                 isFetching: false
             }
         }
+        case WordTypes.FETCH_SINGLE_SUCCESS: {
+            return {
+                ...state,
+                isFetching: false,
+                wordSingle: payload
+            }
+        }
 
         case WordTypes.CREATE: {
             return {
                 ...state,
-                users: [action.payload.word].concat(state.words),
+                users: [payload.word].concat(state.words),
             }
         }
 
@@ -44,8 +52,8 @@ const reducer: Reducer<WordState> = (state = initialState, action) => {
             return {
                 ...state,
                 words: state.words.map(word => {
-                    if (word.wordId === action.payload.words.wordId) {
-                        return action.payload.user;
+                    if (word.id === payload.words.id) {
+                        return payload.user;
                     }
                     return word;
                 })
@@ -55,7 +63,7 @@ const reducer: Reducer<WordState> = (state = initialState, action) => {
         case WordTypes.DELETE: {
             return {
                 ...state,
-                users: state.words.filter(word => word.wordId !== action.payload.wordId),
+                users: state.words.filter(word => word.id !== payload.id),
             }
         }
 

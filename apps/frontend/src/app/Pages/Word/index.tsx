@@ -24,7 +24,8 @@ const WordPage = (props) => {
             }
         },
         { title: 'Перевод', dataIndex: 'translation' },
-        { title: 'Хирагана', dataIndex: 'hiragana' }
+        { title: 'Хирагана', dataIndex: 'hiragana' },
+        { title: 'Ромадзи', dataIndex: 'romaji' }
     ]
     console.log(searchValue)
     return (

@@ -40,6 +40,9 @@ input WordUsageCreateInput {
 input FetchWordInput {
     searchInput: String
 }
+input WordSingleInput {
+    writing: String!
+}
 
 
 input WordExampleUpdateInput {

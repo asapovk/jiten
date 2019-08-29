@@ -8,6 +8,10 @@ export interface KanjiSingleInput {
   writing: string;
 }
 
+export interface WordSingleInput {
+  writing: string;
+}
+
 export interface WordCreateInput {
   translation: string[];
 
@@ -134,6 +138,8 @@ export interface Query {
   kanjis: (Maybe<Kanji>)[];
 
   kanjiSingle: Kanji;
+
+  wordSingle: Word;
 }
 
 export interface Word {
@@ -245,6 +251,9 @@ export interface WordsQueryArgs {
 }
 export interface KanjiSingleQueryArgs {
   input: KanjiSingleInput;
+}
+export interface WordSingleQueryArgs {
+  input: WordSingleInput;
 }
 export interface CreateWordMutationArgs {
   input: WordCreateInput;

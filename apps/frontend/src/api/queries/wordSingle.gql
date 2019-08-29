@@ -1,0 +1,17 @@
+query wordSingle (
+    $writing: String!
+) {
+    wordSingle (input : {
+        writing: $writing
+    }) {
+        writing
+        translation
+        hiragana
+        romaji
+        imageUrl
+        usage {
+            question
+            answer
+        }
+    }
+}
