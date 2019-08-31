@@ -21,18 +21,6 @@ const WordSingle = (props) => {
     const stylesAvatar = avatarStyles()
     const container = avatarContainerStyles(sidebarHidden)
 
-    const dummyText = `Lorem Ipsum is simply 
-    dummy text of the printing and typesetting industry. 
-    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-    when an unknown printer took a 
-    galley of type and scrambled it to make a type specimen book. 
-    It has survived not only five centuries, but also the leap into electronic typesetting, 
-    remaining essentially unchanged. It was popularised in the 1960s with the release of 
-    Letraset sheets containing Lorem Ipsum passages, 
-    and more recently with desktop publishing software like Aldus PageMaker including versions
-    of Lorem Ipsum.`
-
-
     const translation = word ? word.translation : []
     const writing = word ? word.writing : ''
     const hiragana = word ? word.hiragana : ''
@@ -50,21 +38,25 @@ const WordSingle = (props) => {
                                 <Flexbox mb={20}>
                                     <img height={200} width={'100%'} src={imageUrl} />
                                 </Flexbox>
-                                <Flexbox p={10}>
-                                    <div css={{ fontSize: '7rem' }}>{writing}</div>
-                                </Flexbox>
-                                <Flexbox p={10}>
-                                    <div >{hiragana}</div>
-                                </Flexbox>
-                                <Flexbox p={10}>
-                                    <div >{romaji}</div>
-                                </Flexbox>
-                                <Flexbox p={10}>
-                                    {
-                                        translation.map((item, index) =>
-                                            <div css={{ marginLeft: '5px' }} key={index}>{item}</div>
-                                        )
-                                    }
+                                <Flexbox>
+                                    <Flexbox p={10}>
+                                        <div css={{ marginLeft: '60px', writingMode: 'vertical-rl', fontSize: '50px' }}>{writing}</div>
+                                    </Flexbox>
+                                    <Flexbox column>
+                                        <Flexbox p={10}>
+                                            <div >{hiragana}</div>
+                                        </Flexbox>
+                                        <Flexbox p={10}>
+                                            <div >{romaji}</div>
+                                        </Flexbox>
+                                        <Flexbox p={10}>
+                                            {
+                                                translation.map((item, index) =>
+                                                    <div css={{ marginLeft: '5px' }} key={index}>{item}</div>
+                                                )
+                                            }
+                                        </Flexbox>
+                                    </Flexbox>
                                 </Flexbox>
                             </Flexbox>
                         </div>
@@ -80,11 +72,11 @@ const WordSingle = (props) => {
                                             <Flexbox key={index} column p={20}>
                                                 <Flexbox column >
                                                     <D3 children={'Вопрос'} color={'highlight'} />
-                                                    <T1 children={item!.question} />
+                                                    <div>{item!.question}</div>
                                                 </Flexbox>
                                                 <Flexbox column >
                                                     <D3 children={'Ответ'} color={'highlight'} />
-                                                    <T1 children={item!.answer} />
+                                                    <div css={{ fontSize: '20px', lineHeight: '30px' }}>{item!.answer}</div>
                                                 </Flexbox>
                                             </Flexbox>
                                         )

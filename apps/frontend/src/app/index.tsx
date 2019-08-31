@@ -31,7 +31,7 @@ const App = (props: any) => {
     // }
     console.log(routes)
     return (
-        <div css={css.viewport}>
+        <div>
             {/*<Sidebar
                 sidebarHidden={sidebarHidden}
                 toggleSidebar={() => {
@@ -40,8 +40,8 @@ const App = (props: any) => {
                 }}
                 {...props}
             />*/}
-            <div css={css.body}>
-                <Header />
+            <Header />
+            <div css={{ maxWidth: '80%', margin: 'auto' }}>
                 {routes.map(route => (
                     <Route
                         key={route.path}
