@@ -5,6 +5,8 @@ import { Button, Flexbox, Modal } from 'ui';
 import useReactRouter from 'use-react-router';
 import getRoutes from '../routes';
 import { HeaderStyles } from './styles';
+import { Link } from 'react-router-dom'
+
 
 const Header = () => {
     const { location } = useReactRouter();
@@ -17,7 +19,6 @@ const Header = () => {
     const currentRoute = routes.find(route =>
         route.path.split('/')[0] == rootLocation.split('/')[0]
     );
-    console.log(currentRoute)
     const onActionClick = () => {
         if (currentRoute && currentRoute.addType === 'form') {
             // return FormActions.doCreate();
@@ -31,14 +32,10 @@ const Header = () => {
             <Flexbox alignItems='center' justifyContent='flex-end'>
                 {currentRoute && (
                     <Fragment>
-                        {/* {currentRoute.searchable && (
-                            <SearchBar />
-                        )} */}
-                        {currentRoute.tools && currentRoute.tools.map((tool, index) => (
-                            <Fragment key={tool.key}>
-                                <tool.render />
-                            </Fragment>
-                        ))}
+                        {location.pathname !== '/' ?
+                            <Link to='/'>{'На главную'}</Link>
+                            : null
+                        }
                     </Fragment>
                 )}
             </Flexbox>
