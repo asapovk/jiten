@@ -7,13 +7,15 @@ import { WordsQueryArgs } from '../../../generated/schema'
  * @resolver
  */
 export default async (req: any, args: WordsQueryArgs, { db }, info): Promise<Word[]> => {
-    try {
 
-        const query = args.input ? args.input.searchInput : ''
+    const searchType = args.input ? args.input.searchType : 'writing' as any
+    const searchInput = args.input ? args.input.searchInput : ''
+
+    try {
 
         const words: Word[] | null = await prisma.words({
             where: {
-                writing: query
+                [searchType]: searchInput
             }
         })
         return words

@@ -1,8 +1,10 @@
 query kanjis (
     $searchInput: String
+    $searchType: String
 ){
     kanjis (input: {
-       searchInput: $searchInput 
+       searchInput: $searchInput
+       searchType: $searchType 
     }) {
         writing
         on

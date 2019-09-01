@@ -1,8 +1,10 @@
 query words (
     $searchInput: String
+    $searchType: String
 ){
     words (input: {
-       searchInput: $searchInput 
+       searchInput: $searchInput
+       searchType: $searchType 
     }) {
         writing
         translation

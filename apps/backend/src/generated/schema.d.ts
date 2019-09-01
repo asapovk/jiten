@@ -2,10 +2,14 @@ export type Maybe<T> = T | null;
 
 export interface FetchWordInput {
   searchInput?: Maybe<string>;
+
+  searchType?: Maybe<string>;
 }
 
 export interface FetchKanjiInput {
   searchInput?: Maybe<string>;
+
+  searchType?: Maybe<string>;
 }
 
 export interface KanjiSingleInput {

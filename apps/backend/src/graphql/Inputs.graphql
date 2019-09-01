@@ -39,6 +39,7 @@ input WordUsageCreateInput {
 
 input FetchWordInput {
     searchInput: String
+    searchType: String
 }
 input WordSingleInput {
     writing: String!
@@ -93,6 +94,7 @@ input KanjiUpdateInput {
 
 input FetchKanjiInput {
     searchInput: String
+    searchType: String
 }
 
 input KanjiDeleteInput {

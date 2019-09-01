@@ -7,12 +7,14 @@ import { prisma } from '../../../generated'
  */
 export default async (req: any, args: KanjisQueryArgs, { db }, info) => {
 
+    const searchType = args.input ? args.input.searchType : 'writing' as any
+    const searchInput = args.input ? args.input.searchInput : ''
 
     try {
         const kanji: Kanji | null = await prisma.kanjis(
             {
                 where: {
-                    writing: args.input ? args.input.searchInput : ''
+                    [searchType]: [searchInput]
                 }
             }
         ).$fragment(`

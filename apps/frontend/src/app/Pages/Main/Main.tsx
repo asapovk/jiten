@@ -37,6 +37,32 @@ const WordPage = (props) => {
         { title: 'Хирагана', dataIndex: 'hiragana' },
         { title: 'Ромадзи', dataIndex: 'romaji' }
     ]
+
+    const searchTypeMapLabelWord = (label: String) => {
+        switch (label) {
+            case 'написание':
+                return 'writing'
+            case 'хирагана':
+                return 'hiragana'
+            case 'ромадзи':
+                return 'romaji'
+            default:
+                return 'writing'
+        }
+    }
+    const searchTypeMapLabelKanji = (label: String) => {
+        switch (label) {
+            case 'написание':
+                return 'writing'
+            case 'хирагана':
+                return 'kun'
+            case 'ромадзи':
+                return 'writing'
+            default:
+                return 'writing'
+        }
+    }
+
     return (
         <Flexbox column mt={50} >
             <Flexbox mb={10}>
@@ -96,10 +122,16 @@ const WordPage = (props) => {
                     color={'brand-red'}
                     onClick={() => {
                         if (selectedType.label === 'слова') {
-                            WordActions.fetch({ searchInput: searchValue })
+                            WordActions.fetch({
+                                searchInput: searchValue,
+                                searchType: searchTypeMapLabelWord(selectedSearchType.label)
+                            })
                         }
                         if (selectedType.label === 'кандзи') {
-                            //KanjiActions.fetch({ searchInput: searchValue })
+                            KanjiActions.fetch({
+                                searchInput: searchValue,
+                                searchType: searchTypeMapLabelKanji(selectedSearchType.label)
+                            })
                         }
 
                     }
