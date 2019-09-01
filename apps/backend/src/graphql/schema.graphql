@@ -16,7 +16,7 @@ type KanjiMutation {
 
 type Query {
     words (input: FetchWordInput): [Word]!
-    kanjis: [Kanji]!
+    kanjis (input: FetchKanjiInput): [Kanji]!
     kanjiSingle (input: KanjiSingleInput!): Kanji!
     wordSingle  (input: WordSingleInput!) : Word!
 }

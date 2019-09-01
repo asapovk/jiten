@@ -19,6 +19,17 @@ interface Route {
 }
 
 const routes: Route[] = [
+    {
+        title: '',
+        icon: 'users-add',
+        path: "/",
+        component: Pages.Main,
+        onlyForAdmin: false,
+        searchable: true,
+        addAction: 'Добавить пользователя',
+        addType: 'form',
+        isSingle: false
+    },
 
     {
         title: 'Слова',

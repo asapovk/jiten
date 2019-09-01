@@ -2,14 +2,12 @@
 import { jsx } from '@emotion/core';
 import { Flexbox, Table } from 'ui'
 import { useEffect, useCallback } from 'react'
-import { KanjiActions } from '../../../store/actions'
+import { KanjiActions } from '../../../../store/actions'
 import { useMappedState } from 'redux-react-hook'
-import { ApplicationState } from '../../../store'
+import { ApplicationState } from '../../../../store'
 import { Link } from 'react-router-dom'
 
-const KanjiPage = (props) => {
-
-
+const KanjiList = (props) => {
 
     const mappedState = useCallback((state: ApplicationState) => ({
         kanji: state.kanji.kanji
@@ -28,11 +26,17 @@ const KanjiPage = (props) => {
 
     return (
 
-        <Table data={kanji} columns={tableColumns} />
+        <Flexbox column mt={50}>
+            {
+                kanji.length > 0 ?
+                    <Table data={kanji} columns={tableColumns} />
+                    : null
+            }
+        </Flexbox>
 
     )
 
 
 }
 
-export default KanjiPage
+export default KanjiList

@@ -1,5 +1,9 @@
-query {
-    kanjis {
+query kanjis (
+    $searchInput: String
+){
+    kanjis (input: {
+       searchInput: $searchInput 
+    }) {
         writing
         on
         kun

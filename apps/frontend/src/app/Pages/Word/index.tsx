@@ -95,7 +95,7 @@ const WordPage = (props) => {
                             WordActions.fetch({ searchInput: searchValue })
                         }
                         if (selectedType.label === 'кандзи') {
-                            //KanjiActions.fetch({ searchInput: searchValue })
+                            KanjiActions.fetch({ searchInput: searchValue })
                         }
 
                     }

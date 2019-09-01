@@ -91,6 +91,10 @@ input KanjiUpdateInput {
     memo: String,
 }
 
+input FetchKanjiInput {
+    searchInput: String
+}
+
 input KanjiDeleteInput {
     kanjiId: Int!
 }

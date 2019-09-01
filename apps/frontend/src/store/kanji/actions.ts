@@ -2,19 +2,22 @@ import api from "src/api";
 import { utils } from 'ui';
 import store from "..";
 import { KanjiState, KanjiTypes } from './types';
-import { Kanji, KanjiSingleInput } from '../../../../backend/src/generated/schema'
+import { Kanji, KanjiSingleInput, FetchKanjiInput }
+    from '../../../../backend/src/generated/schema'
 
 
 namespace Kanji {
-    export const fetch = async () => {
+    export const fetch = async (input: FetchKanjiInput) => {
 
         try {
             store.dispatch({
-                type: KanjiTypes.FETCH
+                type: KanjiTypes.FETCH,
+                payload: input
             });
 
             const kanjiResponse: { kanjis: Kanji[] } = await api({
-                name: "kanji"
+                name: "kanji",
+                variables: input
             });
 
             store.dispatch({

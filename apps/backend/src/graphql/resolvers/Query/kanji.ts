@@ -1,13 +1,21 @@
-
+import { KanjisQueryArgs } from '../../../generated/schema'
 import { Kanji } from '../../../generated/prisma-schema.d'
 import { prisma } from '../../../generated'
 
 /**
  * @resolver
  */
-export default async (req: any, args, { db }, info) => {
+export default async (req: any, args: KanjisQueryArgs, { db }, info) => {
+
+
     try {
-        const kanji: Kanji | null = await prisma.kanjis().$fragment(`
+        const kanji: Kanji | null = await prisma.kanjis(
+            {
+                where: {
+                    writing: args.input ? args.input.searchInput : ''
+                }
+            }
+        ).$fragment(`
         fragment KanjiWith on Kanji {
             meaning
             writing

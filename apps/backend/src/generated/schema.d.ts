@@ -4,6 +4,10 @@ export interface FetchWordInput {
   searchInput?: Maybe<string>;
 }
 
+export interface FetchKanjiInput {
+  searchInput?: Maybe<string>;
+}
+
 export interface KanjiSingleInput {
   writing: string;
 }
@@ -248,6 +252,9 @@ export interface KanjiMutation {
 
 export interface WordsQueryArgs {
   input?: Maybe<FetchWordInput>;
+}
+export interface KanjisQueryArgs {
+  input?: Maybe<FetchKanjiInput>;
 }
 export interface KanjiSingleQueryArgs {
   input: KanjiSingleInput;
