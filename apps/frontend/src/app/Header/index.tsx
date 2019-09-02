@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Fragment, useRef } from 'react';
-import { Button, Flexbox, Modal } from 'ui';
+import { Button, Flexbox, Modal, D1 } from 'ui';
 import useReactRouter from 'use-react-router';
 import getRoutes from '../routes';
 import { HeaderStyles } from './styles';
@@ -32,8 +32,11 @@ const Header = () => {
             <Flexbox alignItems='center' justifyContent='flex-end'>
                 {currentRoute && (
                     <Fragment>
+                        <D1 children={'Jiten'} />
                         {location.pathname !== '/' ?
+
                             <Link to='/'>{'На главную'}</Link>
+
                             : null
                         }
                     </Fragment>
