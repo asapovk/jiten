@@ -55,11 +55,11 @@ export interface WordUsageCreateInput {
 export interface KanjiCreateInput {
   writing: string;
 
-  meaning: (Maybe<string>)[];
+  meaning: string[];
 
-  on?: Maybe<(Maybe<string>)[]>;
+  on: string[];
 
-  kun?: Maybe<(Maybe<string>)[]>;
+  kun: string[];
 
   imageUrl?: Maybe<string>;
 

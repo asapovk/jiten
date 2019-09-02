@@ -68,9 +68,9 @@ input WordDeleteInput {
 #
 input KanjiCreateInput {
     writing: String!
-    meaning: [String]!
-    on: [String]
-    kun: [String]
+    meaning: [String!]!
+    on: [String!]!
+    kun: [String!]!
     imageUrl: String,
     videoUrl: String,
     jlpt: Int,

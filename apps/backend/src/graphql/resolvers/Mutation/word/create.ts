@@ -12,6 +12,20 @@ export default async (_, args: CreateWordMutationArgs) => {
 
 
     try {
+
+        //Check if already exist
+        const existWords: Word[] | null = await prisma.words({
+            where: {
+                writing: args.input.writing
+            }
+        })
+
+        if (existWords.length !== 0) {
+            return existWords[0]
+        }
+
+
+
         const createddWord: Word = await prisma.createWord({
             writing: args.input.writing,
             translation: {

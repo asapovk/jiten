@@ -16,7 +16,9 @@ export default async (req: any, args: WordsQueryArgs, { db }, info): Promise<Wor
         const words: Word[] | null = await prisma.words({
             where: {
                 [searchType]: searchInput
-            }
+            },
+            first: 30
+
         })
         return words
     } catch (error) {

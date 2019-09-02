@@ -13,7 +13,8 @@ export default async (req: any, args: WordSingleQueryArgs, { db }, info) => {
         }
 
         const words: Word[] | null = await prisma.words({
-            where: query
+            where: query,
+            first: 30
         }).$fragment(`
         fragment WordWith on Words {
             translation

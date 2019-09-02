@@ -16,7 +16,8 @@ export default async (req: any, args: KanjiSingleQueryArgs, { db }, info) => {
         }
 
         const kanjis: Kanji[] | null = await prisma.kanjis({
-            where: query
+            where: query,
+            first: 30
         }).$fragment(`
         fragment KanjiWith on Kanji {
             meaning

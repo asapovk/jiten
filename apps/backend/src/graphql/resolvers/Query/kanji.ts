@@ -15,7 +15,9 @@ export default async (req: any, args: KanjisQueryArgs, { db }, info) => {
             {
                 where: {
                     [searchType]: searchInput
-                }
+                },
+                first: 30
+
             }
         )
         console.log(kanji)
