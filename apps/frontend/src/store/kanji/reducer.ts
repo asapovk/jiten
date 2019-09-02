@@ -54,7 +54,7 @@ const reducer: Reducer<KanjiState> = (state = initialState, action) => {
             return {
                 ...state,
                 kanji: state.kanji.map(kanji => {
-                    if (kanji.kanjiId === payload.kanji.kanjiId) {
+                    if (kanji.id === payload.kanji.id) {
                         return payload.kanji;
                     }
                     return kanji;
@@ -65,7 +65,7 @@ const reducer: Reducer<KanjiState> = (state = initialState, action) => {
         case KanjiTypes.DELETE: {
             return {
                 ...state,
-                users: state.kanji.filter(kanji => kanji.kanjiId !== payload.kanjiId),
+                users: state.kanji.filter(kanji => kanji.id !== payload.id),
             }
         }
 

@@ -7,7 +7,7 @@ import { CreateKanjiMutationArgs } from '../../../../generated/schema'
 /**
  * @resolver
  */
-export default async (args: CreateKanjiMutationArgs) => {
+export default async (_, args: CreateKanjiMutationArgs) => {
 
 
     try {
@@ -30,8 +30,12 @@ export default async (args: CreateKanjiMutationArgs) => {
             meaning: {
                 set: args.input.meaning
             },
-            on: args.input.on as any,
-            kun: args.input.kun as any,
+            on: {
+                set: args.input.on
+            },
+            kun: {
+                set: args.input.kun
+            },
             imageUrl: args.input.imageUrl
         })
 
