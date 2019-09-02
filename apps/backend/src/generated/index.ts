@@ -618,7 +618,9 @@ export interface KanjiCreateInput {
   writing: String;
   meaning?: Maybe<KanjiCreatemeaningInput>;
   on?: Maybe<KanjiCreateonInput>;
+  onRomaji?: Maybe<KanjiCreateonRomajiInput>;
   kun?: Maybe<KanjiCreatekunInput>;
+  kunRomaji?: Maybe<KanjiCreatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -641,7 +643,15 @@ export interface KanjiCreateonInput {
   set?: Maybe<String[] | String>;
 }
 
+export interface KanjiCreateonRomajiInput {
+  set?: Maybe<String[] | String>;
+}
+
 export interface KanjiCreatekunInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface KanjiCreatekunRomajiInput {
   set?: Maybe<String[] | String>;
 }
 
@@ -655,7 +665,9 @@ export interface KanjiCreateWithoutOldInput {
   writing: String;
   meaning?: Maybe<KanjiCreatemeaningInput>;
   on?: Maybe<KanjiCreateonInput>;
+  onRomaji?: Maybe<KanjiCreateonRomajiInput>;
   kun?: Maybe<KanjiCreatekunInput>;
+  kunRomaji?: Maybe<KanjiCreatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -681,7 +693,9 @@ export interface KanjiCreateWithoutModernInput {
   writing: String;
   meaning?: Maybe<KanjiCreatemeaningInput>;
   on?: Maybe<KanjiCreateonInput>;
+  onRomaji?: Maybe<KanjiCreateonRomajiInput>;
   kun?: Maybe<KanjiCreatekunInput>;
+  kunRomaji?: Maybe<KanjiCreatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -758,7 +772,9 @@ export interface KanjiCreateWithoutRadicalsInput {
   writing: String;
   meaning?: Maybe<KanjiCreatemeaningInput>;
   on?: Maybe<KanjiCreateonInput>;
+  onRomaji?: Maybe<KanjiCreateonRomajiInput>;
   kun?: Maybe<KanjiCreatekunInput>;
+  kunRomaji?: Maybe<KanjiCreatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -784,7 +800,9 @@ export interface KanjiCreateWithoutPhoneticsInput {
   writing: String;
   meaning?: Maybe<KanjiCreatemeaningInput>;
   on?: Maybe<KanjiCreateonInput>;
+  onRomaji?: Maybe<KanjiCreateonRomajiInput>;
   kun?: Maybe<KanjiCreatekunInput>;
+  kunRomaji?: Maybe<KanjiCreatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -802,7 +820,9 @@ export interface KanjiUpdateInput {
   writing?: Maybe<String>;
   meaning?: Maybe<KanjiUpdatemeaningInput>;
   on?: Maybe<KanjiUpdateonInput>;
+  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
   kun?: Maybe<KanjiUpdatekunInput>;
+  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -825,7 +845,15 @@ export interface KanjiUpdateonInput {
   set?: Maybe<String[] | String>;
 }
 
+export interface KanjiUpdateonRomajiInput {
+  set?: Maybe<String[] | String>;
+}
+
 export interface KanjiUpdatekunInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface KanjiUpdatekunRomajiInput {
   set?: Maybe<String[] | String>;
 }
 
@@ -858,7 +886,9 @@ export interface KanjiUpdateWithoutOldDataInput {
   writing?: Maybe<String>;
   meaning?: Maybe<KanjiUpdatemeaningInput>;
   on?: Maybe<KanjiUpdateonInput>;
+  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
   kun?: Maybe<KanjiUpdatekunInput>;
+  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -903,7 +933,9 @@ export interface KanjiUpdateWithoutModernDataInput {
   writing?: Maybe<String>;
   meaning?: Maybe<KanjiUpdatemeaningInput>;
   on?: Maybe<KanjiUpdateonInput>;
+  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
   kun?: Maybe<KanjiUpdatekunInput>;
+  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -989,7 +1021,9 @@ export interface KanjiUpdateDataInput {
   writing?: Maybe<String>;
   meaning?: Maybe<KanjiUpdatemeaningInput>;
   on?: Maybe<KanjiUpdateonInput>;
+  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
   kun?: Maybe<KanjiUpdatekunInput>;
+  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -1035,7 +1069,9 @@ export interface KanjiUpdateWithoutRadicalsDataInput {
   writing?: Maybe<String>;
   meaning?: Maybe<KanjiUpdatemeaningInput>;
   on?: Maybe<KanjiUpdateonInput>;
+  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
   kun?: Maybe<KanjiUpdatekunInput>;
+  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -1080,7 +1116,9 @@ export interface KanjiUpdateWithoutPhoneticsDataInput {
   writing?: Maybe<String>;
   meaning?: Maybe<KanjiUpdatemeaningInput>;
   on?: Maybe<KanjiUpdateonInput>;
+  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
   kun?: Maybe<KanjiUpdatekunInput>;
+  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -1215,7 +1253,9 @@ export interface KanjiUpdateManyDataInput {
   writing?: Maybe<String>;
   meaning?: Maybe<KanjiUpdatemeaningInput>;
   on?: Maybe<KanjiUpdateonInput>;
+  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
   kun?: Maybe<KanjiUpdatekunInput>;
+  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -1556,7 +1596,9 @@ export interface KanjiUpdateManyMutationInput {
   writing?: Maybe<String>;
   meaning?: Maybe<KanjiUpdatemeaningInput>;
   on?: Maybe<KanjiUpdateonInput>;
+  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
   kun?: Maybe<KanjiUpdatekunInput>;
+  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -1673,7 +1715,9 @@ export interface Kanji {
   writing: String;
   meaning: String[];
   on: String[];
+  onRomaji: String[];
   kun: String[];
+  kunRomaji: String[];
   imageUrl?: String;
   videoUrl?: String;
   jlpt?: Int;
@@ -1687,7 +1731,9 @@ export interface KanjiPromise extends Promise<Kanji>, Fragmentable {
   writing: () => Promise<String>;
   meaning: () => Promise<String[]>;
   on: () => Promise<String[]>;
+  onRomaji: () => Promise<String[]>;
   kun: () => Promise<String[]>;
+  kunRomaji: () => Promise<String[]>;
   imageUrl: () => Promise<String>;
   videoUrl: () => Promise<String>;
   jlpt: () => Promise<Int>;
@@ -1757,7 +1803,9 @@ export interface KanjiSubscription
   writing: () => Promise<AsyncIterator<String>>;
   meaning: () => Promise<AsyncIterator<String[]>>;
   on: () => Promise<AsyncIterator<String[]>>;
+  onRomaji: () => Promise<AsyncIterator<String[]>>;
   kun: () => Promise<AsyncIterator<String[]>>;
+  kunRomaji: () => Promise<AsyncIterator<String[]>>;
   imageUrl: () => Promise<AsyncIterator<String>>;
   videoUrl: () => Promise<AsyncIterator<String>>;
   jlpt: () => Promise<AsyncIterator<Int>>;
@@ -1827,7 +1875,9 @@ export interface KanjiNullablePromise
   writing: () => Promise<String>;
   meaning: () => Promise<String[]>;
   on: () => Promise<String[]>;
+  onRomaji: () => Promise<String[]>;
   kun: () => Promise<String[]>;
+  kunRomaji: () => Promise<String[]>;
   imageUrl: () => Promise<String>;
   videoUrl: () => Promise<String>;
   jlpt: () => Promise<Int>;
@@ -2414,7 +2464,9 @@ export interface KanjiPreviousValues {
   writing: String;
   meaning: String[];
   on: String[];
+  onRomaji: String[];
   kun: String[];
+  kunRomaji: String[];
   imageUrl?: String;
   videoUrl?: String;
   jlpt?: Int;
@@ -2430,7 +2482,9 @@ export interface KanjiPreviousValuesPromise
   writing: () => Promise<String>;
   meaning: () => Promise<String[]>;
   on: () => Promise<String[]>;
+  onRomaji: () => Promise<String[]>;
   kun: () => Promise<String[]>;
+  kunRomaji: () => Promise<String[]>;
   imageUrl: () => Promise<String>;
   videoUrl: () => Promise<String>;
   jlpt: () => Promise<Int>;
@@ -2446,7 +2500,9 @@ export interface KanjiPreviousValuesSubscription
   writing: () => Promise<AsyncIterator<String>>;
   meaning: () => Promise<AsyncIterator<String[]>>;
   on: () => Promise<AsyncIterator<String[]>>;
+  onRomaji: () => Promise<AsyncIterator<String[]>>;
   kun: () => Promise<AsyncIterator<String[]>>;
+  kunRomaji: () => Promise<AsyncIterator<String[]>>;
   imageUrl: () => Promise<AsyncIterator<String>>;
   videoUrl: () => Promise<AsyncIterator<String>>;
   jlpt: () => Promise<AsyncIterator<Int>>;

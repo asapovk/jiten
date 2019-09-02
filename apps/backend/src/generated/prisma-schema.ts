@@ -27,7 +27,9 @@ type Kanji {
   writing: String!
   meaning: [String!]!
   on: [String!]!
+  onRomaji: [String!]!
   kun: [String!]!
+  kunRomaji: [String!]!
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -53,7 +55,9 @@ input KanjiCreateInput {
   writing: String!
   meaning: KanjiCreatemeaningInput
   on: KanjiCreateonInput
+  onRomaji: KanjiCreateonRomajiInput
   kun: KanjiCreatekunInput
+  kunRomaji: KanjiCreatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -69,6 +73,10 @@ input KanjiCreateInput {
 }
 
 input KanjiCreatekunInput {
+  set: [String!]
+}
+
+input KanjiCreatekunRomajiInput {
   set: [String!]
 }
 
@@ -105,12 +113,18 @@ input KanjiCreateonInput {
   set: [String!]
 }
 
+input KanjiCreateonRomajiInput {
+  set: [String!]
+}
+
 input KanjiCreateWithoutModernInput {
   id: ID
   writing: String!
   meaning: KanjiCreatemeaningInput
   on: KanjiCreateonInput
+  onRomaji: KanjiCreateonRomajiInput
   kun: KanjiCreatekunInput
+  kunRomaji: KanjiCreatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -129,7 +143,9 @@ input KanjiCreateWithoutOldInput {
   writing: String!
   meaning: KanjiCreatemeaningInput
   on: KanjiCreateonInput
+  onRomaji: KanjiCreateonRomajiInput
   kun: KanjiCreatekunInput
+  kunRomaji: KanjiCreatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -148,7 +164,9 @@ input KanjiCreateWithoutPhoneticsInput {
   writing: String!
   meaning: KanjiCreatemeaningInput
   on: KanjiCreateonInput
+  onRomaji: KanjiCreateonRomajiInput
   kun: KanjiCreatekunInput
+  kunRomaji: KanjiCreatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -167,7 +185,9 @@ input KanjiCreateWithoutRadicalsInput {
   writing: String!
   meaning: KanjiCreatemeaningInput
   on: KanjiCreateonInput
+  onRomaji: KanjiCreateonRomajiInput
   kun: KanjiCreatekunInput
+  kunRomaji: KanjiCreatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -210,7 +230,9 @@ type KanjiPreviousValues {
   writing: String!
   meaning: [String!]!
   on: [String!]!
+  onRomaji: [String!]!
   kun: [String!]!
+  kunRomaji: [String!]!
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -347,7 +369,9 @@ input KanjiUpdateDataInput {
   writing: String
   meaning: KanjiUpdatemeaningInput
   on: KanjiUpdateonInput
+  onRomaji: KanjiUpdateonRomajiInput
   kun: KanjiUpdatekunInput
+  kunRomaji: KanjiUpdatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -366,7 +390,9 @@ input KanjiUpdateInput {
   writing: String
   meaning: KanjiUpdatemeaningInput
   on: KanjiUpdateonInput
+  onRomaji: KanjiUpdateonRomajiInput
   kun: KanjiUpdatekunInput
+  kunRomaji: KanjiUpdatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -385,11 +411,17 @@ input KanjiUpdatekunInput {
   set: [String!]
 }
 
+input KanjiUpdatekunRomajiInput {
+  set: [String!]
+}
+
 input KanjiUpdateManyDataInput {
   writing: String
   meaning: KanjiUpdatemeaningInput
   on: KanjiUpdateonInput
+  onRomaji: KanjiUpdateonRomajiInput
   kun: KanjiUpdatekunInput
+  kunRomaji: KanjiUpdatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -414,7 +446,9 @@ input KanjiUpdateManyMutationInput {
   writing: String
   meaning: KanjiUpdatemeaningInput
   on: KanjiUpdateonInput
+  onRomaji: KanjiUpdateonRomajiInput
   kun: KanjiUpdatekunInput
+  kunRomaji: KanjiUpdatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -484,11 +518,17 @@ input KanjiUpdateonInput {
   set: [String!]
 }
 
+input KanjiUpdateonRomajiInput {
+  set: [String!]
+}
+
 input KanjiUpdateWithoutModernDataInput {
   writing: String
   meaning: KanjiUpdatemeaningInput
   on: KanjiUpdateonInput
+  onRomaji: KanjiUpdateonRomajiInput
   kun: KanjiUpdatekunInput
+  kunRomaji: KanjiUpdatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -506,7 +546,9 @@ input KanjiUpdateWithoutOldDataInput {
   writing: String
   meaning: KanjiUpdatemeaningInput
   on: KanjiUpdateonInput
+  onRomaji: KanjiUpdateonRomajiInput
   kun: KanjiUpdatekunInput
+  kunRomaji: KanjiUpdatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -524,7 +566,9 @@ input KanjiUpdateWithoutPhoneticsDataInput {
   writing: String
   meaning: KanjiUpdatemeaningInput
   on: KanjiUpdateonInput
+  onRomaji: KanjiUpdateonRomajiInput
   kun: KanjiUpdatekunInput
+  kunRomaji: KanjiUpdatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -542,7 +586,9 @@ input KanjiUpdateWithoutRadicalsDataInput {
   writing: String
   meaning: KanjiUpdatemeaningInput
   on: KanjiUpdateonInput
+  onRomaji: KanjiUpdateonRomajiInput
   kun: KanjiUpdatekunInput
+  kunRomaji: KanjiUpdatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int

@@ -16,19 +16,23 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 client = GraphQLClient('http://localhost:4000/graphql')
 
-def create_kanji(writing, translation, on, kun):
+def create_kanji(writing, translation, on, kun, onRomaji, kunRomaji):
   result = client.execute(query = '''
   mutation createKanji (
     $writing: String!
     $meaning: [String!]!
     $kun: [String!]!
     $on: [String!]!  
+    $onRomaji: [String!]! 
+    $kunRomaji: [String!]! 
     ){
     createKanji (input: {
       writing: $writing,
       meaning: $meaning
       kun: $kun
       on: $on
+      onRomaji: $onRomaji
+      kunRomaji: $kunRomaji
     }) {
         id
         writing
@@ -40,6 +44,8 @@ def create_kanji(writing, translation, on, kun):
         "meaning": translation,
         "on": on,
         "kun": kun,
+        "onRomaji": onRomaji,
+        "kunRomaji": kunRomaji
   })
   print(result)
 
@@ -64,10 +70,12 @@ def process():
             element['translation'] = get_google_translation(element['translation']).split(';')
             element['on'] = element['on'].split(' ')
             element['kun'] = element['kun'].split(' ')
-            
+            element['on_romaji'] = element['on_romaji'].split(' ')
+            element['kun_romaji'] = element['kun_romaji'].split(' ')
+
             i+=1
 
-            create_kanji(element['writing'], element['translation'], element['on'], element['kun'])
+            create_kanji(element['writing'], element['translation'], element['on'], element['kun'], element['on_romaji'], element['kun_romaji'])
             #break
         print("[KANJI DICTIONARY CONVERSION IS COMPLETE!]")
 

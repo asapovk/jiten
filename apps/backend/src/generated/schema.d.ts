@@ -59,7 +59,11 @@ export interface KanjiCreateInput {
 
   on: string[];
 
+  onRomaji: string[];
+
   kun: string[];
+
+  kunRomaji: string[];
 
   imageUrl?: Maybe<string>;
 
@@ -115,9 +119,13 @@ export interface KanjiUpdateInput {
 
   meaning: (Maybe<string>)[];
 
-  on?: Maybe<(Maybe<string>)[]>;
+  on: string[];
 
-  kun?: Maybe<(Maybe<string>)[]>;
+  onRomaji: string[];
+
+  kun: string[];
+
+  kunRomaji: string[];
 
   imageUrl?: Maybe<string>;
 
@@ -185,7 +193,11 @@ export interface Kanji {
 
   on?: Maybe<(Maybe<string>)[]>;
 
+  onRomaji?: Maybe<(Maybe<string>)[]>;
+
   kun?: Maybe<(Maybe<string>)[]>;
+
+  kunRomaji?: Maybe<(Maybe<string>)[]>;
 
   imageUrl?: Maybe<string>;
 

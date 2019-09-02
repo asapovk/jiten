@@ -70,7 +70,9 @@ input KanjiCreateInput {
     writing: String!
     meaning: [String!]!
     on: [String!]!
+    onRomaji: [String!]!
     kun: [String!]!
+    kunRomaji: [String!]!
     imageUrl: String,
     videoUrl: String,
     jlpt: Int,
@@ -82,8 +84,10 @@ input KanjiUpdateInput {
     kanjiId: String!
     writing: String!
     meaning: [String]!
-    on: [String]
-    kun: [String]
+    on: [String!]!
+    onRomaji: [String!]!
+    kun: [String!]!
+    kunRomaji: [String!]!
     imageUrl: String,
     videoUrl: String,
     jlpt: Int,
