@@ -128,6 +128,9 @@ const WordPage = (props) => {
                             })
                         }
                         if (selectedType.label === 'кандзи') {
+                            console.log('KANJI!')
+                            console.log(searchTypeMapLabelKanji(selectedSearchType.label))
+                            console.log(searchValue)
                             KanjiActions.fetch({
                                 searchInput: searchValue,
                                 searchType: searchTypeMapLabelKanji(selectedSearchType.label)

@@ -177,7 +177,7 @@ export interface Word {
 }
 
 export interface Kanji {
-  kanjiId: string;
+  id: string;
 
   writing: string;
 

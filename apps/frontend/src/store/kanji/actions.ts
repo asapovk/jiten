@@ -16,7 +16,7 @@ namespace Kanji {
             });
 
             const kanjiResponse: { kanjis: Kanji[] } = await api({
-                name: "kanji",
+                name: "kanjis",
                 variables: input
             });
 

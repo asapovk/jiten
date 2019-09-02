@@ -33,7 +33,7 @@ type WordExample {
 
 
 type Kanji {
-    kanjiId: String!
+    id: String!
     writing: String!
     meaning: [String]
     on: [String]

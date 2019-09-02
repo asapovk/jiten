@@ -11,36 +11,13 @@ export default async (req: any, args: KanjisQueryArgs, { db }, info) => {
     const searchInput = args.input ? args.input.searchInput : ''
 
     try {
-        const kanji: Kanji | null = await prisma.kanjis(
+        const kanji: Kanji[] | null = await prisma.kanjis(
             {
                 where: {
-                    [searchType]: [searchInput]
+                    [searchType]: searchInput
                 }
             }
-        ).$fragment(`
-        fragment KanjiWith on Kanji {
-            meaning
-            writing
-            on
-            kun
-            jlpt
-            imageUrl
-            usageFirst {
-                writing
-                translation
-            }
-            usageLast {
-                writing
-                translation
-            }
-            phonetics {
-                writing
-                meaning
-                on
-                kun
-            }
-          }
-        `)
+        )
         console.log(kanji)
         return kanji
     } catch (error) {
