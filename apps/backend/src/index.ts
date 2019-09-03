@@ -106,8 +106,18 @@ apolloServer.applyMiddleware({
 app.listen({ port }, () => {
     console.log(`\x1b[36mEBIRD READY AT ${port}\x1b[0m 🐥🐣🐥`)
 
-    app.get('*', (req, res) => {
+    app.get('/', (req, res) => {
         res.type('text')
         res.send("You should't to that 🔪")
     })
+    /// API !
+    app.get('/api/kanji/', (req, res) => {
+
+        res.type('json')
+        res.send(
+            { "message": "Hello!" }
+        )
+    })
+
+
 })

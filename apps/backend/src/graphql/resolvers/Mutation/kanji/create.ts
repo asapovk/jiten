@@ -36,6 +36,12 @@ export default async (_, args: CreateKanjiMutationArgs) => {
             kun: {
                 set: args.input.kun
             },
+            onRomaji: {
+                set: args.input.onRomaji
+            },
+            kunRomaji: {
+                set: args.input.kunRomaji
+            },
             imageUrl: args.input.imageUrl
         })
 

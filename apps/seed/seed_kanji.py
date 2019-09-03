@@ -58,25 +58,25 @@ def get_google_translation(list):
 
 def process():
     print("[CSV --> JSON DICTIONARY CONVERSION STARTED...]")
-    with io.open('JDic-JLPTkanji_test.csv', 'r', encoding="utf8") as csvfile:
+    with io.open('JDic-JLPT1kanji.csv', 'r', encoding="utf8") as csvfile:
         reader = csv.DictReader(csvfile, delimiter = ',', fieldnames=("number", "writing", "on", "on_romaji", "kun", "kun_romaji", "translation", "shit"))
 
         array = [row for row in reader]
         i = 1
 
         for n, element in enumerate(array):
-            print(">>> [CONVERTING KANJI: %d] >>>" % i)
-            element['number'] = int(element['number'])
-            element['translation'] = get_google_translation(element['translation']).split(';')
-            element['on'] = element['on'].split(' ')
-            element['kun'] = element['kun'].split(' ')
-            element['on_romaji'] = element['on_romaji'].split(' ')
-            element['kun_romaji'] = element['kun_romaji'].split(' ')
-
             i+=1
-
-            create_kanji(element['writing'], element['translation'], element['on'], element['kun'], element['on_romaji'], element['kun_romaji'])
-            #break
+            if i > 1516: 
+              print(">>> [CONVERTING KANJI: %d] >>>" % i)
+              element['number'] = int(element['number'])
+              element['translation'] = get_google_translation(element['translation']).split(';')
+              element['on'] = element['on'].split(' ')
+              element['kun'] = element['kun'].split(' ')
+              element['on_romaji'] = element['on_romaji'].split(' ')
+              element['kun_romaji'] = element['kun_romaji'].split(' ') 
+              
+              create_kanji(element['writing'], element['translation'], element['on'], element['kun'], element['on_romaji'], element['kun_romaji'])
+              #break
         print("[KANJI DICTIONARY CONVERSION IS COMPLETE!]")
 
 

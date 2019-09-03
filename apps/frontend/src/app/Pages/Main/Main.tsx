@@ -14,12 +14,12 @@ const WordPage = (props) => {
     const [searchValue, setSearchValue] = useState('')
     const [selectedType, setSelectedType] = useState({
         index: 0,
-        label: '',
+        label: 'слова',
         selected: false
     })
     const [selectedSearchType, setSelectedSearchType] = useState({
         index: 0,
-        label: '',
+        label: 'написанию',
         selected: false
     })
 
@@ -40,11 +40,11 @@ const WordPage = (props) => {
 
     const searchTypeMapLabelWord = (label: String) => {
         switch (label) {
-            case 'написание':
+            case 'написанию':
                 return 'writing'
-            case 'хирагана':
+            case 'хирагане':
                 return 'hiragana'
-            case 'ромадзи':
+            case 'латинице':
                 return 'romaji'
             default:
                 return 'writing'
@@ -52,17 +52,62 @@ const WordPage = (props) => {
     }
     const searchTypeMapLabelKanji = (label: String) => {
         switch (label) {
-            case 'написание':
+            case 'написанию':
                 return 'writing'
-            case 'хирагана':
+            case 'он-чтению':
                 return 'kun'
-            case 'ромадзи':
-                return 'writing'
+            case 'кун-чтению':
+                return 'kun'
+            case 'он-чтению латиницей':
+                return 'onRomaji'
+            case 'кун-чтению латиницей':
+                return 'kunRomaji'
             default:
                 return 'writing'
         }
     }
 
+    const inlineFilterValuesWord =
+        [
+            {
+                index: 0,
+                label: 'написанию',
+                selected: selectedSearchType.label === 'написанию'
+            },
+            {
+                index: 1,
+                label: 'латинице',
+                selected: selectedSearchType.label === 'латинице'
+            },
+            {
+                index: 2,
+                label: 'хирагане',
+                selected: selectedSearchType.label === 'хирагане'
+            }
+        ]
+    const inlineFilterValuesKanji =
+        [
+            {
+                index: 0,
+                label: 'написанию',
+                selected: selectedSearchType.label === 'написанию'
+            },
+            {
+                index: 1,
+                label: 'кун-чтению',
+                selected: selectedSearchType.label === 'кун-чтению'
+            },
+            {
+                index: 1,
+                label: 'кун-чтению латиницей',
+                selected: selectedSearchType.label === 'кун-чтению латиницей'
+            },
+            {
+                index: 2,
+                label: 'он-чтению латиницей',
+                selected: selectedSearchType.label === 'он-чтению латиницей'
+            }
+        ]
     return (
         <Flexbox column mt={50} >
             <Flexbox mb={10}>
@@ -91,23 +136,7 @@ const WordPage = (props) => {
                                 selected: selectedType.label === 'слова'
                             }
                         ],
-                        [
-                            {
-                                index: 0,
-                                label: 'написание',
-                                selected: selectedSearchType.label === 'написание'
-                            },
-                            {
-                                index: 1,
-                                label: 'ромадзи',
-                                selected: selectedSearchType.label === 'ромадзи'
-                            },
-                            {
-                                index: 2,
-                                label: 'хирагана',
-                                selected: selectedSearchType.label === 'хирагана'
-                            }
-                        ]
+                        selectedType.label === 'кандзи' ? inlineFilterValuesKanji : inlineFilterValuesWord
                         ]}
                 />
             </Flexbox>
@@ -128,9 +157,6 @@ const WordPage = (props) => {
                             })
                         }
                         if (selectedType.label === 'кандзи') {
-                            console.log('KANJI!')
-                            console.log(searchTypeMapLabelKanji(selectedSearchType.label))
-                            console.log(searchValue)
                             KanjiActions.fetch({
                                 searchInput: searchValue,
                                 searchType: searchTypeMapLabelKanji(selectedSearchType.label)
