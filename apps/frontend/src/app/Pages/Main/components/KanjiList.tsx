@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Flexbox, Table } from 'ui'
+import { Flexbox, Table, D1 } from 'ui'
 import { useEffect, useCallback } from 'react'
 import { KanjiActions } from '../../../../store/actions'
 import { useMappedState } from 'redux-react-hook'
@@ -17,7 +17,9 @@ const KanjiList = (props) => {
     const tableColumns = [
         {
             title: ' ', dataIndex: 'writing', render: (row, value) => {
-                return <Link to={`/kanji/${value}`}>{value}</Link>
+                return <Link to={`/kanji/${value}`}>
+                    <D1 children={value} />
+                </Link>
             }
         },
         { title: 'Значение', dataIndex: 'meaning' },
