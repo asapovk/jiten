@@ -27,13 +27,22 @@ const KanjiList = (props) => {
         { title: 'кун-чтение латиницей', dataIndex: 'kunRomaji' }
     ]
 
-
+    const tableData = kanji.map(item => {
+        return {
+            ...item,
+            on: item.on ? item.on.join(', ') : null,
+            kun: item.kun ? item.kun.join(', ') : null,
+            onRomaji: item.onRomaji ? item.onRomaji.join(', ') : null,
+            kunRomaji: item.kunRomaji ? item.kunRomaji.join(', ') : null,
+            meaning: item.meaning ? item.meaning.join(', ') : null,
+        }
+    })
     return (
 
         <Flexbox column mt={50}>
             {
                 kanji.length > 0 ?
-                    <Table data={kanji} columns={tableColumns} />
+                    <Table data={tableData} columns={tableColumns} />
                     : null
             }
         </Flexbox>
