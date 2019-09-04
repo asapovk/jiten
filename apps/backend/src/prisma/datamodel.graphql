@@ -26,19 +26,14 @@ type WordExample {
 }
 
 
-
-
-
-
-
 type Kanji {
     id: ID! @id
     writing: String!
-    meaning: [String]! @scalarList(strategy: RELATION)
-    on: [String]@scalarList(strategy: RELATION)
-    onRomaji: [String]@scalarList(strategy: RELATION)
-    kun: [String] @scalarList(strategy: RELATION)
-    kunRomaji: [String] @scalarList(strategy: RELATION)
+    meaning: [Meaning!]! @relation(name: "MeaningOfKanji")
+    on: [On] @relation(name: "OnOfKanji")
+    onRomaji: [OnRomaji] @relation(name: "OnRomajiOfKanji")
+    kun: [Kun] @relation(name: "KunOfKanji")
+    kunRomaji: [KunRomaji] @relation(name: "KunRomajiOfKanji")
     imageUrl: String
     videoUrl: String
     jlpt: Int
@@ -51,4 +46,31 @@ type Kanji {
     usageLast: [Word]   @relation(name: "UsageLastWords" )
     radicals: [Kanji]  @relation(name: "RadicalsKanji" )
     phonetics: [Kanji]  @relation(name: "PhoneticsKanji" )
+}
+
+
+type Meaning {
+  id: ID! @id
+  meaning: String!
+}
+
+
+type On{
+  id: ID! @id
+  on: String!
+}
+
+type OnRomaji{
+  id: ID! @id
+  onRomaji: String!
+}
+
+type Kun{
+  id: ID! @id
+  kun: String!
+}
+
+type KunRomaji{
+  id: ID! @id
+  kunRomaji: String!
 }

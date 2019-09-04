@@ -10,12 +10,28 @@ export default async (req: any, args: KanjisQueryArgs, { db }, info) => {
     const searchType = args.input ? args.input.searchType : 'writing' as any
     const searchInput = args.input ? args.input.searchInput : ''
 
+    const objectSearchTypes = ['onRomaji', 'kunRomaji', 'meaning', 'on', 'kun']
+
+    var query = {}
+    if (objectSearchTypes.includes(searchType)) {
+        query = {
+            [searchType + '_some']: {
+                [searchType]: searchInput
+            }
+        }
+    }
+    else {
+        query = {
+            [searchType]: searchInput
+        }
+    }
+
+
     try {
-        const kanji: Kanji[] | null = await prisma.kanjis(
+        const kanji = await prisma.kanjis(
             {
-                where: {
-                    [searchType]: searchInput
-                },
+                where: query
+                ,
                 first: 30
 
             }

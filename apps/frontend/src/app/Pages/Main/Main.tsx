@@ -17,6 +17,7 @@ const WordPage = (props) => {
         label: 'слова',
         selected: false
     })
+
     const [selectedSearchType, setSelectedSearchType] = useState({
         index: 0,
         label: 'написанию',
@@ -26,6 +27,7 @@ const WordPage = (props) => {
     const mappedState = useCallback((state: ApplicationState) => ({
         words: state.word.words
     }), [])
+
     const { words } = useMappedState(mappedState)
     const tableColumns = [
         {

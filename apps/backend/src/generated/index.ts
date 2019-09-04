@@ -17,6 +17,11 @@ export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
   kanji: (where?: KanjiWhereInput) => Promise<boolean>;
+  kun: (where?: KunWhereInput) => Promise<boolean>;
+  kunRomaji: (where?: KunRomajiWhereInput) => Promise<boolean>;
+  meaning: (where?: MeaningWhereInput) => Promise<boolean>;
+  on: (where?: OnWhereInput) => Promise<boolean>;
+  onRomaji: (where?: OnRomajiWhereInput) => Promise<boolean>;
   word: (where?: WordWhereInput) => Promise<boolean>;
   wordExample: (where?: WordExampleWhereInput) => Promise<boolean>;
   wordUsage: (where?: WordUsageWhereInput) => Promise<boolean>;
@@ -60,6 +65,101 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => KanjiConnectionPromise;
+  kun: (where: KunWhereUniqueInput) => KunNullablePromise;
+  kuns: (args?: {
+    where?: KunWhereInput;
+    orderBy?: KunOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Kun>;
+  kunsConnection: (args?: {
+    where?: KunWhereInput;
+    orderBy?: KunOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => KunConnectionPromise;
+  kunRomaji: (where: KunRomajiWhereUniqueInput) => KunRomajiNullablePromise;
+  kunRomajis: (args?: {
+    where?: KunRomajiWhereInput;
+    orderBy?: KunRomajiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<KunRomaji>;
+  kunRomajisConnection: (args?: {
+    where?: KunRomajiWhereInput;
+    orderBy?: KunRomajiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => KunRomajiConnectionPromise;
+  meaning: (where: MeaningWhereUniqueInput) => MeaningNullablePromise;
+  meanings: (args?: {
+    where?: MeaningWhereInput;
+    orderBy?: MeaningOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Meaning>;
+  meaningsConnection: (args?: {
+    where?: MeaningWhereInput;
+    orderBy?: MeaningOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => MeaningConnectionPromise;
+  on: (where: OnWhereUniqueInput) => OnNullablePromise;
+  ons: (args?: {
+    where?: OnWhereInput;
+    orderBy?: OnOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<On>;
+  onsConnection: (args?: {
+    where?: OnWhereInput;
+    orderBy?: OnOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => OnConnectionPromise;
+  onRomaji: (where: OnRomajiWhereUniqueInput) => OnRomajiNullablePromise;
+  onRomajis: (args?: {
+    where?: OnRomajiWhereInput;
+    orderBy?: OnRomajiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<OnRomaji>;
+  onRomajisConnection: (args?: {
+    where?: OnRomajiWhereInput;
+    orderBy?: OnRomajiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => OnRomajiConnectionPromise;
   word: (where: WordWhereUniqueInput) => WordNullablePromise;
   words: (args?: {
     where?: WordWhereInput;
@@ -141,6 +241,86 @@ export interface Prisma {
   }) => KanjiPromise;
   deleteKanji: (where: KanjiWhereUniqueInput) => KanjiPromise;
   deleteManyKanjis: (where?: KanjiWhereInput) => BatchPayloadPromise;
+  createKun: (data: KunCreateInput) => KunPromise;
+  updateKun: (args: {
+    data: KunUpdateInput;
+    where: KunWhereUniqueInput;
+  }) => KunPromise;
+  updateManyKuns: (args: {
+    data: KunUpdateManyMutationInput;
+    where?: KunWhereInput;
+  }) => BatchPayloadPromise;
+  upsertKun: (args: {
+    where: KunWhereUniqueInput;
+    create: KunCreateInput;
+    update: KunUpdateInput;
+  }) => KunPromise;
+  deleteKun: (where: KunWhereUniqueInput) => KunPromise;
+  deleteManyKuns: (where?: KunWhereInput) => BatchPayloadPromise;
+  createKunRomaji: (data: KunRomajiCreateInput) => KunRomajiPromise;
+  updateKunRomaji: (args: {
+    data: KunRomajiUpdateInput;
+    where: KunRomajiWhereUniqueInput;
+  }) => KunRomajiPromise;
+  updateManyKunRomajis: (args: {
+    data: KunRomajiUpdateManyMutationInput;
+    where?: KunRomajiWhereInput;
+  }) => BatchPayloadPromise;
+  upsertKunRomaji: (args: {
+    where: KunRomajiWhereUniqueInput;
+    create: KunRomajiCreateInput;
+    update: KunRomajiUpdateInput;
+  }) => KunRomajiPromise;
+  deleteKunRomaji: (where: KunRomajiWhereUniqueInput) => KunRomajiPromise;
+  deleteManyKunRomajis: (where?: KunRomajiWhereInput) => BatchPayloadPromise;
+  createMeaning: (data: MeaningCreateInput) => MeaningPromise;
+  updateMeaning: (args: {
+    data: MeaningUpdateInput;
+    where: MeaningWhereUniqueInput;
+  }) => MeaningPromise;
+  updateManyMeanings: (args: {
+    data: MeaningUpdateManyMutationInput;
+    where?: MeaningWhereInput;
+  }) => BatchPayloadPromise;
+  upsertMeaning: (args: {
+    where: MeaningWhereUniqueInput;
+    create: MeaningCreateInput;
+    update: MeaningUpdateInput;
+  }) => MeaningPromise;
+  deleteMeaning: (where: MeaningWhereUniqueInput) => MeaningPromise;
+  deleteManyMeanings: (where?: MeaningWhereInput) => BatchPayloadPromise;
+  createOn: (data: OnCreateInput) => OnPromise;
+  updateOn: (args: {
+    data: OnUpdateInput;
+    where: OnWhereUniqueInput;
+  }) => OnPromise;
+  updateManyOns: (args: {
+    data: OnUpdateManyMutationInput;
+    where?: OnWhereInput;
+  }) => BatchPayloadPromise;
+  upsertOn: (args: {
+    where: OnWhereUniqueInput;
+    create: OnCreateInput;
+    update: OnUpdateInput;
+  }) => OnPromise;
+  deleteOn: (where: OnWhereUniqueInput) => OnPromise;
+  deleteManyOns: (where?: OnWhereInput) => BatchPayloadPromise;
+  createOnRomaji: (data: OnRomajiCreateInput) => OnRomajiPromise;
+  updateOnRomaji: (args: {
+    data: OnRomajiUpdateInput;
+    where: OnRomajiWhereUniqueInput;
+  }) => OnRomajiPromise;
+  updateManyOnRomajis: (args: {
+    data: OnRomajiUpdateManyMutationInput;
+    where?: OnRomajiWhereInput;
+  }) => BatchPayloadPromise;
+  upsertOnRomaji: (args: {
+    where: OnRomajiWhereUniqueInput;
+    create: OnRomajiCreateInput;
+    update: OnRomajiUpdateInput;
+  }) => OnRomajiPromise;
+  deleteOnRomaji: (where: OnRomajiWhereUniqueInput) => OnRomajiPromise;
+  deleteManyOnRomajis: (where?: OnRomajiWhereInput) => BatchPayloadPromise;
   createWord: (data: WordCreateInput) => WordPromise;
   updateWord: (args: {
     data: WordUpdateInput;
@@ -203,6 +383,19 @@ export interface Subscription {
   kanji: (
     where?: KanjiSubscriptionWhereInput
   ) => KanjiSubscriptionPayloadSubscription;
+  kun: (
+    where?: KunSubscriptionWhereInput
+  ) => KunSubscriptionPayloadSubscription;
+  kunRomaji: (
+    where?: KunRomajiSubscriptionWhereInput
+  ) => KunRomajiSubscriptionPayloadSubscription;
+  meaning: (
+    where?: MeaningSubscriptionWhereInput
+  ) => MeaningSubscriptionPayloadSubscription;
+  on: (where?: OnSubscriptionWhereInput) => OnSubscriptionPayloadSubscription;
+  onRomaji: (
+    where?: OnRomajiSubscriptionWhereInput
+  ) => OnRomajiSubscriptionPayloadSubscription;
   word: (
     where?: WordSubscriptionWhereInput
   ) => WordSubscriptionPayloadSubscription;
@@ -221,6 +414,28 @@ export interface ClientConstructor<T> {
 /**
  * Types
  */
+
+export type MeaningOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "meaning_ASC"
+  | "meaning_DESC";
+
+export type OnOrderByInput = "id_ASC" | "id_DESC" | "on_ASC" | "on_DESC";
+
+export type OnRomajiOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "onRomaji_ASC"
+  | "onRomaji_DESC";
+
+export type KunOrderByInput = "id_ASC" | "id_DESC" | "kun_ASC" | "kun_DESC";
+
+export type KunRomajiOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "kunRomaji_ASC"
+  | "kunRomaji_DESC";
 
 export type KanjiOrderByInput =
   | "id_ASC"
@@ -276,6 +491,176 @@ export type KanjiWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
+export interface MeaningWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  meaning?: Maybe<String>;
+  meaning_not?: Maybe<String>;
+  meaning_in?: Maybe<String[] | String>;
+  meaning_not_in?: Maybe<String[] | String>;
+  meaning_lt?: Maybe<String>;
+  meaning_lte?: Maybe<String>;
+  meaning_gt?: Maybe<String>;
+  meaning_gte?: Maybe<String>;
+  meaning_contains?: Maybe<String>;
+  meaning_not_contains?: Maybe<String>;
+  meaning_starts_with?: Maybe<String>;
+  meaning_not_starts_with?: Maybe<String>;
+  meaning_ends_with?: Maybe<String>;
+  meaning_not_ends_with?: Maybe<String>;
+  AND?: Maybe<MeaningWhereInput[] | MeaningWhereInput>;
+  OR?: Maybe<MeaningWhereInput[] | MeaningWhereInput>;
+  NOT?: Maybe<MeaningWhereInput[] | MeaningWhereInput>;
+}
+
+export interface OnWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  on?: Maybe<String>;
+  on_not?: Maybe<String>;
+  on_in?: Maybe<String[] | String>;
+  on_not_in?: Maybe<String[] | String>;
+  on_lt?: Maybe<String>;
+  on_lte?: Maybe<String>;
+  on_gt?: Maybe<String>;
+  on_gte?: Maybe<String>;
+  on_contains?: Maybe<String>;
+  on_not_contains?: Maybe<String>;
+  on_starts_with?: Maybe<String>;
+  on_not_starts_with?: Maybe<String>;
+  on_ends_with?: Maybe<String>;
+  on_not_ends_with?: Maybe<String>;
+  AND?: Maybe<OnWhereInput[] | OnWhereInput>;
+  OR?: Maybe<OnWhereInput[] | OnWhereInput>;
+  NOT?: Maybe<OnWhereInput[] | OnWhereInput>;
+}
+
+export interface OnRomajiWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  onRomaji?: Maybe<String>;
+  onRomaji_not?: Maybe<String>;
+  onRomaji_in?: Maybe<String[] | String>;
+  onRomaji_not_in?: Maybe<String[] | String>;
+  onRomaji_lt?: Maybe<String>;
+  onRomaji_lte?: Maybe<String>;
+  onRomaji_gt?: Maybe<String>;
+  onRomaji_gte?: Maybe<String>;
+  onRomaji_contains?: Maybe<String>;
+  onRomaji_not_contains?: Maybe<String>;
+  onRomaji_starts_with?: Maybe<String>;
+  onRomaji_not_starts_with?: Maybe<String>;
+  onRomaji_ends_with?: Maybe<String>;
+  onRomaji_not_ends_with?: Maybe<String>;
+  AND?: Maybe<OnRomajiWhereInput[] | OnRomajiWhereInput>;
+  OR?: Maybe<OnRomajiWhereInput[] | OnRomajiWhereInput>;
+  NOT?: Maybe<OnRomajiWhereInput[] | OnRomajiWhereInput>;
+}
+
+export interface KunWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  kun?: Maybe<String>;
+  kun_not?: Maybe<String>;
+  kun_in?: Maybe<String[] | String>;
+  kun_not_in?: Maybe<String[] | String>;
+  kun_lt?: Maybe<String>;
+  kun_lte?: Maybe<String>;
+  kun_gt?: Maybe<String>;
+  kun_gte?: Maybe<String>;
+  kun_contains?: Maybe<String>;
+  kun_not_contains?: Maybe<String>;
+  kun_starts_with?: Maybe<String>;
+  kun_not_starts_with?: Maybe<String>;
+  kun_ends_with?: Maybe<String>;
+  kun_not_ends_with?: Maybe<String>;
+  AND?: Maybe<KunWhereInput[] | KunWhereInput>;
+  OR?: Maybe<KunWhereInput[] | KunWhereInput>;
+  NOT?: Maybe<KunWhereInput[] | KunWhereInput>;
+}
+
+export interface KunRomajiWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  kunRomaji?: Maybe<String>;
+  kunRomaji_not?: Maybe<String>;
+  kunRomaji_in?: Maybe<String[] | String>;
+  kunRomaji_not_in?: Maybe<String[] | String>;
+  kunRomaji_lt?: Maybe<String>;
+  kunRomaji_lte?: Maybe<String>;
+  kunRomaji_gt?: Maybe<String>;
+  kunRomaji_gte?: Maybe<String>;
+  kunRomaji_contains?: Maybe<String>;
+  kunRomaji_not_contains?: Maybe<String>;
+  kunRomaji_starts_with?: Maybe<String>;
+  kunRomaji_not_starts_with?: Maybe<String>;
+  kunRomaji_ends_with?: Maybe<String>;
+  kunRomaji_not_ends_with?: Maybe<String>;
+  AND?: Maybe<KunRomajiWhereInput[] | KunRomajiWhereInput>;
+  OR?: Maybe<KunRomajiWhereInput[] | KunRomajiWhereInput>;
+  NOT?: Maybe<KunRomajiWhereInput[] | KunRomajiWhereInput>;
+}
+
 export interface KanjiWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
@@ -305,6 +690,21 @@ export interface KanjiWhereInput {
   writing_not_starts_with?: Maybe<String>;
   writing_ends_with?: Maybe<String>;
   writing_not_ends_with?: Maybe<String>;
+  meaning_every?: Maybe<MeaningWhereInput>;
+  meaning_some?: Maybe<MeaningWhereInput>;
+  meaning_none?: Maybe<MeaningWhereInput>;
+  on_every?: Maybe<OnWhereInput>;
+  on_some?: Maybe<OnWhereInput>;
+  on_none?: Maybe<OnWhereInput>;
+  onRomaji_every?: Maybe<OnRomajiWhereInput>;
+  onRomaji_some?: Maybe<OnRomajiWhereInput>;
+  onRomaji_none?: Maybe<OnRomajiWhereInput>;
+  kun_every?: Maybe<KunWhereInput>;
+  kun_some?: Maybe<KunWhereInput>;
+  kun_none?: Maybe<KunWhereInput>;
+  kunRomaji_every?: Maybe<KunRomajiWhereInput>;
+  kunRomaji_some?: Maybe<KunRomajiWhereInput>;
+  kunRomaji_none?: Maybe<KunRomajiWhereInput>;
   imageUrl?: Maybe<String>;
   imageUrl_not?: Maybe<String>;
   imageUrl_in?: Maybe<String[] | String>;
@@ -601,6 +1001,26 @@ export interface WordUsageWhereInput {
   NOT?: Maybe<WordUsageWhereInput[] | WordUsageWhereInput>;
 }
 
+export type KunWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type KunRomajiWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type MeaningWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type OnWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type OnRomajiWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
 export type WordWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
@@ -616,11 +1036,11 @@ export type WordUsageWhereUniqueInput = AtLeastOne<{
 export interface KanjiCreateInput {
   id?: Maybe<ID_Input>;
   writing: String;
-  meaning?: Maybe<KanjiCreatemeaningInput>;
-  on?: Maybe<KanjiCreateonInput>;
-  onRomaji?: Maybe<KanjiCreateonRomajiInput>;
-  kun?: Maybe<KanjiCreatekunInput>;
-  kunRomaji?: Maybe<KanjiCreatekunRomajiInput>;
+  meaning?: Maybe<MeaningCreateManyInput>;
+  on?: Maybe<OnCreateManyInput>;
+  onRomaji?: Maybe<OnRomajiCreateManyInput>;
+  kun?: Maybe<KunCreateManyInput>;
+  kunRomaji?: Maybe<KunRomajiCreateManyInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -635,24 +1055,54 @@ export interface KanjiCreateInput {
   phonetics?: Maybe<KanjiCreateManyWithoutPhoneticsInput>;
 }
 
-export interface KanjiCreatemeaningInput {
-  set?: Maybe<String[] | String>;
+export interface MeaningCreateManyInput {
+  create?: Maybe<MeaningCreateInput[] | MeaningCreateInput>;
+  connect?: Maybe<MeaningWhereUniqueInput[] | MeaningWhereUniqueInput>;
 }
 
-export interface KanjiCreateonInput {
-  set?: Maybe<String[] | String>;
+export interface MeaningCreateInput {
+  id?: Maybe<ID_Input>;
+  meaning: String;
 }
 
-export interface KanjiCreateonRomajiInput {
-  set?: Maybe<String[] | String>;
+export interface OnCreateManyInput {
+  create?: Maybe<OnCreateInput[] | OnCreateInput>;
+  connect?: Maybe<OnWhereUniqueInput[] | OnWhereUniqueInput>;
 }
 
-export interface KanjiCreatekunInput {
-  set?: Maybe<String[] | String>;
+export interface OnCreateInput {
+  id?: Maybe<ID_Input>;
+  on: String;
 }
 
-export interface KanjiCreatekunRomajiInput {
-  set?: Maybe<String[] | String>;
+export interface OnRomajiCreateManyInput {
+  create?: Maybe<OnRomajiCreateInput[] | OnRomajiCreateInput>;
+  connect?: Maybe<OnRomajiWhereUniqueInput[] | OnRomajiWhereUniqueInput>;
+}
+
+export interface OnRomajiCreateInput {
+  id?: Maybe<ID_Input>;
+  onRomaji: String;
+}
+
+export interface KunCreateManyInput {
+  create?: Maybe<KunCreateInput[] | KunCreateInput>;
+  connect?: Maybe<KunWhereUniqueInput[] | KunWhereUniqueInput>;
+}
+
+export interface KunCreateInput {
+  id?: Maybe<ID_Input>;
+  kun: String;
+}
+
+export interface KunRomajiCreateManyInput {
+  create?: Maybe<KunRomajiCreateInput[] | KunRomajiCreateInput>;
+  connect?: Maybe<KunRomajiWhereUniqueInput[] | KunRomajiWhereUniqueInput>;
+}
+
+export interface KunRomajiCreateInput {
+  id?: Maybe<ID_Input>;
+  kunRomaji: String;
 }
 
 export interface KanjiCreateManyWithoutOldInput {
@@ -663,11 +1113,11 @@ export interface KanjiCreateManyWithoutOldInput {
 export interface KanjiCreateWithoutOldInput {
   id?: Maybe<ID_Input>;
   writing: String;
-  meaning?: Maybe<KanjiCreatemeaningInput>;
-  on?: Maybe<KanjiCreateonInput>;
-  onRomaji?: Maybe<KanjiCreateonRomajiInput>;
-  kun?: Maybe<KanjiCreatekunInput>;
-  kunRomaji?: Maybe<KanjiCreatekunRomajiInput>;
+  meaning?: Maybe<MeaningCreateManyInput>;
+  on?: Maybe<OnCreateManyInput>;
+  onRomaji?: Maybe<OnRomajiCreateManyInput>;
+  kun?: Maybe<KunCreateManyInput>;
+  kunRomaji?: Maybe<KunRomajiCreateManyInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -691,11 +1141,11 @@ export interface KanjiCreateManyWithoutModernInput {
 export interface KanjiCreateWithoutModernInput {
   id?: Maybe<ID_Input>;
   writing: String;
-  meaning?: Maybe<KanjiCreatemeaningInput>;
-  on?: Maybe<KanjiCreateonInput>;
-  onRomaji?: Maybe<KanjiCreateonRomajiInput>;
-  kun?: Maybe<KanjiCreatekunInput>;
-  kunRomaji?: Maybe<KanjiCreatekunRomajiInput>;
+  meaning?: Maybe<MeaningCreateManyInput>;
+  on?: Maybe<OnCreateManyInput>;
+  onRomaji?: Maybe<OnRomajiCreateManyInput>;
+  kun?: Maybe<KunCreateManyInput>;
+  kunRomaji?: Maybe<KunRomajiCreateManyInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -770,11 +1220,11 @@ export interface KanjiCreateManyWithoutRadicalsInput {
 export interface KanjiCreateWithoutRadicalsInput {
   id?: Maybe<ID_Input>;
   writing: String;
-  meaning?: Maybe<KanjiCreatemeaningInput>;
-  on?: Maybe<KanjiCreateonInput>;
-  onRomaji?: Maybe<KanjiCreateonRomajiInput>;
-  kun?: Maybe<KanjiCreatekunInput>;
-  kunRomaji?: Maybe<KanjiCreatekunRomajiInput>;
+  meaning?: Maybe<MeaningCreateManyInput>;
+  on?: Maybe<OnCreateManyInput>;
+  onRomaji?: Maybe<OnRomajiCreateManyInput>;
+  kun?: Maybe<KunCreateManyInput>;
+  kunRomaji?: Maybe<KunRomajiCreateManyInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -798,11 +1248,11 @@ export interface KanjiCreateManyWithoutPhoneticsInput {
 export interface KanjiCreateWithoutPhoneticsInput {
   id?: Maybe<ID_Input>;
   writing: String;
-  meaning?: Maybe<KanjiCreatemeaningInput>;
-  on?: Maybe<KanjiCreateonInput>;
-  onRomaji?: Maybe<KanjiCreateonRomajiInput>;
-  kun?: Maybe<KanjiCreatekunInput>;
-  kunRomaji?: Maybe<KanjiCreatekunRomajiInput>;
+  meaning?: Maybe<MeaningCreateManyInput>;
+  on?: Maybe<OnCreateManyInput>;
+  onRomaji?: Maybe<OnRomajiCreateManyInput>;
+  kun?: Maybe<KunCreateManyInput>;
+  kunRomaji?: Maybe<KunRomajiCreateManyInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -818,11 +1268,11 @@ export interface KanjiCreateWithoutPhoneticsInput {
 
 export interface KanjiUpdateInput {
   writing?: Maybe<String>;
-  meaning?: Maybe<KanjiUpdatemeaningInput>;
-  on?: Maybe<KanjiUpdateonInput>;
-  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
-  kun?: Maybe<KanjiUpdatekunInput>;
-  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
+  meaning?: Maybe<MeaningUpdateManyInput>;
+  on?: Maybe<OnUpdateManyInput>;
+  onRomaji?: Maybe<OnRomajiUpdateManyInput>;
+  kun?: Maybe<KunUpdateManyInput>;
+  kunRomaji?: Maybe<KunRomajiUpdateManyInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -837,24 +1287,393 @@ export interface KanjiUpdateInput {
   phonetics?: Maybe<KanjiUpdateManyWithoutPhoneticsInput>;
 }
 
-export interface KanjiUpdatemeaningInput {
-  set?: Maybe<String[] | String>;
+export interface MeaningUpdateManyInput {
+  create?: Maybe<MeaningCreateInput[] | MeaningCreateInput>;
+  update?: Maybe<
+    | MeaningUpdateWithWhereUniqueNestedInput[]
+    | MeaningUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | MeaningUpsertWithWhereUniqueNestedInput[]
+    | MeaningUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<MeaningWhereUniqueInput[] | MeaningWhereUniqueInput>;
+  connect?: Maybe<MeaningWhereUniqueInput[] | MeaningWhereUniqueInput>;
+  set?: Maybe<MeaningWhereUniqueInput[] | MeaningWhereUniqueInput>;
+  disconnect?: Maybe<MeaningWhereUniqueInput[] | MeaningWhereUniqueInput>;
+  deleteMany?: Maybe<MeaningScalarWhereInput[] | MeaningScalarWhereInput>;
+  updateMany?: Maybe<
+    | MeaningUpdateManyWithWhereNestedInput[]
+    | MeaningUpdateManyWithWhereNestedInput
+  >;
 }
 
-export interface KanjiUpdateonInput {
-  set?: Maybe<String[] | String>;
+export interface MeaningUpdateWithWhereUniqueNestedInput {
+  where: MeaningWhereUniqueInput;
+  data: MeaningUpdateDataInput;
 }
 
-export interface KanjiUpdateonRomajiInput {
-  set?: Maybe<String[] | String>;
+export interface MeaningUpdateDataInput {
+  meaning?: Maybe<String>;
 }
 
-export interface KanjiUpdatekunInput {
-  set?: Maybe<String[] | String>;
+export interface MeaningUpsertWithWhereUniqueNestedInput {
+  where: MeaningWhereUniqueInput;
+  update: MeaningUpdateDataInput;
+  create: MeaningCreateInput;
 }
 
-export interface KanjiUpdatekunRomajiInput {
-  set?: Maybe<String[] | String>;
+export interface MeaningScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  meaning?: Maybe<String>;
+  meaning_not?: Maybe<String>;
+  meaning_in?: Maybe<String[] | String>;
+  meaning_not_in?: Maybe<String[] | String>;
+  meaning_lt?: Maybe<String>;
+  meaning_lte?: Maybe<String>;
+  meaning_gt?: Maybe<String>;
+  meaning_gte?: Maybe<String>;
+  meaning_contains?: Maybe<String>;
+  meaning_not_contains?: Maybe<String>;
+  meaning_starts_with?: Maybe<String>;
+  meaning_not_starts_with?: Maybe<String>;
+  meaning_ends_with?: Maybe<String>;
+  meaning_not_ends_with?: Maybe<String>;
+  AND?: Maybe<MeaningScalarWhereInput[] | MeaningScalarWhereInput>;
+  OR?: Maybe<MeaningScalarWhereInput[] | MeaningScalarWhereInput>;
+  NOT?: Maybe<MeaningScalarWhereInput[] | MeaningScalarWhereInput>;
+}
+
+export interface MeaningUpdateManyWithWhereNestedInput {
+  where: MeaningScalarWhereInput;
+  data: MeaningUpdateManyDataInput;
+}
+
+export interface MeaningUpdateManyDataInput {
+  meaning?: Maybe<String>;
+}
+
+export interface OnUpdateManyInput {
+  create?: Maybe<OnCreateInput[] | OnCreateInput>;
+  update?: Maybe<
+    OnUpdateWithWhereUniqueNestedInput[] | OnUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    OnUpsertWithWhereUniqueNestedInput[] | OnUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<OnWhereUniqueInput[] | OnWhereUniqueInput>;
+  connect?: Maybe<OnWhereUniqueInput[] | OnWhereUniqueInput>;
+  set?: Maybe<OnWhereUniqueInput[] | OnWhereUniqueInput>;
+  disconnect?: Maybe<OnWhereUniqueInput[] | OnWhereUniqueInput>;
+  deleteMany?: Maybe<OnScalarWhereInput[] | OnScalarWhereInput>;
+  updateMany?: Maybe<
+    OnUpdateManyWithWhereNestedInput[] | OnUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface OnUpdateWithWhereUniqueNestedInput {
+  where: OnWhereUniqueInput;
+  data: OnUpdateDataInput;
+}
+
+export interface OnUpdateDataInput {
+  on?: Maybe<String>;
+}
+
+export interface OnUpsertWithWhereUniqueNestedInput {
+  where: OnWhereUniqueInput;
+  update: OnUpdateDataInput;
+  create: OnCreateInput;
+}
+
+export interface OnScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  on?: Maybe<String>;
+  on_not?: Maybe<String>;
+  on_in?: Maybe<String[] | String>;
+  on_not_in?: Maybe<String[] | String>;
+  on_lt?: Maybe<String>;
+  on_lte?: Maybe<String>;
+  on_gt?: Maybe<String>;
+  on_gte?: Maybe<String>;
+  on_contains?: Maybe<String>;
+  on_not_contains?: Maybe<String>;
+  on_starts_with?: Maybe<String>;
+  on_not_starts_with?: Maybe<String>;
+  on_ends_with?: Maybe<String>;
+  on_not_ends_with?: Maybe<String>;
+  AND?: Maybe<OnScalarWhereInput[] | OnScalarWhereInput>;
+  OR?: Maybe<OnScalarWhereInput[] | OnScalarWhereInput>;
+  NOT?: Maybe<OnScalarWhereInput[] | OnScalarWhereInput>;
+}
+
+export interface OnUpdateManyWithWhereNestedInput {
+  where: OnScalarWhereInput;
+  data: OnUpdateManyDataInput;
+}
+
+export interface OnUpdateManyDataInput {
+  on?: Maybe<String>;
+}
+
+export interface OnRomajiUpdateManyInput {
+  create?: Maybe<OnRomajiCreateInput[] | OnRomajiCreateInput>;
+  update?: Maybe<
+    | OnRomajiUpdateWithWhereUniqueNestedInput[]
+    | OnRomajiUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | OnRomajiUpsertWithWhereUniqueNestedInput[]
+    | OnRomajiUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<OnRomajiWhereUniqueInput[] | OnRomajiWhereUniqueInput>;
+  connect?: Maybe<OnRomajiWhereUniqueInput[] | OnRomajiWhereUniqueInput>;
+  set?: Maybe<OnRomajiWhereUniqueInput[] | OnRomajiWhereUniqueInput>;
+  disconnect?: Maybe<OnRomajiWhereUniqueInput[] | OnRomajiWhereUniqueInput>;
+  deleteMany?: Maybe<OnRomajiScalarWhereInput[] | OnRomajiScalarWhereInput>;
+  updateMany?: Maybe<
+    | OnRomajiUpdateManyWithWhereNestedInput[]
+    | OnRomajiUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface OnRomajiUpdateWithWhereUniqueNestedInput {
+  where: OnRomajiWhereUniqueInput;
+  data: OnRomajiUpdateDataInput;
+}
+
+export interface OnRomajiUpdateDataInput {
+  onRomaji?: Maybe<String>;
+}
+
+export interface OnRomajiUpsertWithWhereUniqueNestedInput {
+  where: OnRomajiWhereUniqueInput;
+  update: OnRomajiUpdateDataInput;
+  create: OnRomajiCreateInput;
+}
+
+export interface OnRomajiScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  onRomaji?: Maybe<String>;
+  onRomaji_not?: Maybe<String>;
+  onRomaji_in?: Maybe<String[] | String>;
+  onRomaji_not_in?: Maybe<String[] | String>;
+  onRomaji_lt?: Maybe<String>;
+  onRomaji_lte?: Maybe<String>;
+  onRomaji_gt?: Maybe<String>;
+  onRomaji_gte?: Maybe<String>;
+  onRomaji_contains?: Maybe<String>;
+  onRomaji_not_contains?: Maybe<String>;
+  onRomaji_starts_with?: Maybe<String>;
+  onRomaji_not_starts_with?: Maybe<String>;
+  onRomaji_ends_with?: Maybe<String>;
+  onRomaji_not_ends_with?: Maybe<String>;
+  AND?: Maybe<OnRomajiScalarWhereInput[] | OnRomajiScalarWhereInput>;
+  OR?: Maybe<OnRomajiScalarWhereInput[] | OnRomajiScalarWhereInput>;
+  NOT?: Maybe<OnRomajiScalarWhereInput[] | OnRomajiScalarWhereInput>;
+}
+
+export interface OnRomajiUpdateManyWithWhereNestedInput {
+  where: OnRomajiScalarWhereInput;
+  data: OnRomajiUpdateManyDataInput;
+}
+
+export interface OnRomajiUpdateManyDataInput {
+  onRomaji?: Maybe<String>;
+}
+
+export interface KunUpdateManyInput {
+  create?: Maybe<KunCreateInput[] | KunCreateInput>;
+  update?: Maybe<
+    KunUpdateWithWhereUniqueNestedInput[] | KunUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    KunUpsertWithWhereUniqueNestedInput[] | KunUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<KunWhereUniqueInput[] | KunWhereUniqueInput>;
+  connect?: Maybe<KunWhereUniqueInput[] | KunWhereUniqueInput>;
+  set?: Maybe<KunWhereUniqueInput[] | KunWhereUniqueInput>;
+  disconnect?: Maybe<KunWhereUniqueInput[] | KunWhereUniqueInput>;
+  deleteMany?: Maybe<KunScalarWhereInput[] | KunScalarWhereInput>;
+  updateMany?: Maybe<
+    KunUpdateManyWithWhereNestedInput[] | KunUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface KunUpdateWithWhereUniqueNestedInput {
+  where: KunWhereUniqueInput;
+  data: KunUpdateDataInput;
+}
+
+export interface KunUpdateDataInput {
+  kun?: Maybe<String>;
+}
+
+export interface KunUpsertWithWhereUniqueNestedInput {
+  where: KunWhereUniqueInput;
+  update: KunUpdateDataInput;
+  create: KunCreateInput;
+}
+
+export interface KunScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  kun?: Maybe<String>;
+  kun_not?: Maybe<String>;
+  kun_in?: Maybe<String[] | String>;
+  kun_not_in?: Maybe<String[] | String>;
+  kun_lt?: Maybe<String>;
+  kun_lte?: Maybe<String>;
+  kun_gt?: Maybe<String>;
+  kun_gte?: Maybe<String>;
+  kun_contains?: Maybe<String>;
+  kun_not_contains?: Maybe<String>;
+  kun_starts_with?: Maybe<String>;
+  kun_not_starts_with?: Maybe<String>;
+  kun_ends_with?: Maybe<String>;
+  kun_not_ends_with?: Maybe<String>;
+  AND?: Maybe<KunScalarWhereInput[] | KunScalarWhereInput>;
+  OR?: Maybe<KunScalarWhereInput[] | KunScalarWhereInput>;
+  NOT?: Maybe<KunScalarWhereInput[] | KunScalarWhereInput>;
+}
+
+export interface KunUpdateManyWithWhereNestedInput {
+  where: KunScalarWhereInput;
+  data: KunUpdateManyDataInput;
+}
+
+export interface KunUpdateManyDataInput {
+  kun?: Maybe<String>;
+}
+
+export interface KunRomajiUpdateManyInput {
+  create?: Maybe<KunRomajiCreateInput[] | KunRomajiCreateInput>;
+  update?: Maybe<
+    | KunRomajiUpdateWithWhereUniqueNestedInput[]
+    | KunRomajiUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | KunRomajiUpsertWithWhereUniqueNestedInput[]
+    | KunRomajiUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<KunRomajiWhereUniqueInput[] | KunRomajiWhereUniqueInput>;
+  connect?: Maybe<KunRomajiWhereUniqueInput[] | KunRomajiWhereUniqueInput>;
+  set?: Maybe<KunRomajiWhereUniqueInput[] | KunRomajiWhereUniqueInput>;
+  disconnect?: Maybe<KunRomajiWhereUniqueInput[] | KunRomajiWhereUniqueInput>;
+  deleteMany?: Maybe<KunRomajiScalarWhereInput[] | KunRomajiScalarWhereInput>;
+  updateMany?: Maybe<
+    | KunRomajiUpdateManyWithWhereNestedInput[]
+    | KunRomajiUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface KunRomajiUpdateWithWhereUniqueNestedInput {
+  where: KunRomajiWhereUniqueInput;
+  data: KunRomajiUpdateDataInput;
+}
+
+export interface KunRomajiUpdateDataInput {
+  kunRomaji?: Maybe<String>;
+}
+
+export interface KunRomajiUpsertWithWhereUniqueNestedInput {
+  where: KunRomajiWhereUniqueInput;
+  update: KunRomajiUpdateDataInput;
+  create: KunRomajiCreateInput;
+}
+
+export interface KunRomajiScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  kunRomaji?: Maybe<String>;
+  kunRomaji_not?: Maybe<String>;
+  kunRomaji_in?: Maybe<String[] | String>;
+  kunRomaji_not_in?: Maybe<String[] | String>;
+  kunRomaji_lt?: Maybe<String>;
+  kunRomaji_lte?: Maybe<String>;
+  kunRomaji_gt?: Maybe<String>;
+  kunRomaji_gte?: Maybe<String>;
+  kunRomaji_contains?: Maybe<String>;
+  kunRomaji_not_contains?: Maybe<String>;
+  kunRomaji_starts_with?: Maybe<String>;
+  kunRomaji_not_starts_with?: Maybe<String>;
+  kunRomaji_ends_with?: Maybe<String>;
+  kunRomaji_not_ends_with?: Maybe<String>;
+  AND?: Maybe<KunRomajiScalarWhereInput[] | KunRomajiScalarWhereInput>;
+  OR?: Maybe<KunRomajiScalarWhereInput[] | KunRomajiScalarWhereInput>;
+  NOT?: Maybe<KunRomajiScalarWhereInput[] | KunRomajiScalarWhereInput>;
+}
+
+export interface KunRomajiUpdateManyWithWhereNestedInput {
+  where: KunRomajiScalarWhereInput;
+  data: KunRomajiUpdateManyDataInput;
+}
+
+export interface KunRomajiUpdateManyDataInput {
+  kunRomaji?: Maybe<String>;
 }
 
 export interface KanjiUpdateManyWithoutOldInput {
@@ -884,11 +1703,11 @@ export interface KanjiUpdateWithWhereUniqueWithoutOldInput {
 
 export interface KanjiUpdateWithoutOldDataInput {
   writing?: Maybe<String>;
-  meaning?: Maybe<KanjiUpdatemeaningInput>;
-  on?: Maybe<KanjiUpdateonInput>;
-  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
-  kun?: Maybe<KanjiUpdatekunInput>;
-  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
+  meaning?: Maybe<MeaningUpdateManyInput>;
+  on?: Maybe<OnUpdateManyInput>;
+  onRomaji?: Maybe<OnRomajiUpdateManyInput>;
+  kun?: Maybe<KunUpdateManyInput>;
+  kunRomaji?: Maybe<KunRomajiUpdateManyInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -931,11 +1750,11 @@ export interface KanjiUpdateWithWhereUniqueWithoutModernInput {
 
 export interface KanjiUpdateWithoutModernDataInput {
   writing?: Maybe<String>;
-  meaning?: Maybe<KanjiUpdatemeaningInput>;
-  on?: Maybe<KanjiUpdateonInput>;
-  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
-  kun?: Maybe<KanjiUpdatekunInput>;
-  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
+  meaning?: Maybe<MeaningUpdateManyInput>;
+  on?: Maybe<OnUpdateManyInput>;
+  onRomaji?: Maybe<OnRomajiUpdateManyInput>;
+  kun?: Maybe<KunUpdateManyInput>;
+  kunRomaji?: Maybe<KunRomajiUpdateManyInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -1019,11 +1838,11 @@ export interface KanjiUpdateWithWhereUniqueNestedInput {
 
 export interface KanjiUpdateDataInput {
   writing?: Maybe<String>;
-  meaning?: Maybe<KanjiUpdatemeaningInput>;
-  on?: Maybe<KanjiUpdateonInput>;
-  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
-  kun?: Maybe<KanjiUpdatekunInput>;
-  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
+  meaning?: Maybe<MeaningUpdateManyInput>;
+  on?: Maybe<OnUpdateManyInput>;
+  onRomaji?: Maybe<OnRomajiUpdateManyInput>;
+  kun?: Maybe<KunUpdateManyInput>;
+  kunRomaji?: Maybe<KunRomajiUpdateManyInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -1067,11 +1886,11 @@ export interface KanjiUpdateWithWhereUniqueWithoutRadicalsInput {
 
 export interface KanjiUpdateWithoutRadicalsDataInput {
   writing?: Maybe<String>;
-  meaning?: Maybe<KanjiUpdatemeaningInput>;
-  on?: Maybe<KanjiUpdateonInput>;
-  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
-  kun?: Maybe<KanjiUpdatekunInput>;
-  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
+  meaning?: Maybe<MeaningUpdateManyInput>;
+  on?: Maybe<OnUpdateManyInput>;
+  onRomaji?: Maybe<OnRomajiUpdateManyInput>;
+  kun?: Maybe<KunUpdateManyInput>;
+  kunRomaji?: Maybe<KunRomajiUpdateManyInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -1114,11 +1933,11 @@ export interface KanjiUpdateWithWhereUniqueWithoutPhoneticsInput {
 
 export interface KanjiUpdateWithoutPhoneticsDataInput {
   writing?: Maybe<String>;
-  meaning?: Maybe<KanjiUpdatemeaningInput>;
-  on?: Maybe<KanjiUpdateonInput>;
-  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
-  kun?: Maybe<KanjiUpdatekunInput>;
-  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
+  meaning?: Maybe<MeaningUpdateManyInput>;
+  on?: Maybe<OnUpdateManyInput>;
+  onRomaji?: Maybe<OnRomajiUpdateManyInput>;
+  kun?: Maybe<KunUpdateManyInput>;
+  kunRomaji?: Maybe<KunRomajiUpdateManyInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -1251,11 +2070,6 @@ export interface KanjiUpdateManyWithWhereNestedInput {
 
 export interface KanjiUpdateManyDataInput {
   writing?: Maybe<String>;
-  meaning?: Maybe<KanjiUpdatemeaningInput>;
-  on?: Maybe<KanjiUpdateonInput>;
-  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
-  kun?: Maybe<KanjiUpdatekunInput>;
-  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
@@ -1594,17 +2408,52 @@ export interface KanjiUpsertWithWhereUniqueWithoutOldInput {
 
 export interface KanjiUpdateManyMutationInput {
   writing?: Maybe<String>;
-  meaning?: Maybe<KanjiUpdatemeaningInput>;
-  on?: Maybe<KanjiUpdateonInput>;
-  onRomaji?: Maybe<KanjiUpdateonRomajiInput>;
-  kun?: Maybe<KanjiUpdatekunInput>;
-  kunRomaji?: Maybe<KanjiUpdatekunRomajiInput>;
   imageUrl?: Maybe<String>;
   videoUrl?: Maybe<String>;
   jlpt?: Maybe<Int>;
   strokes?: Maybe<Int>;
   origin?: Maybe<String>;
   memo?: Maybe<String>;
+}
+
+export interface KunUpdateInput {
+  kun?: Maybe<String>;
+}
+
+export interface KunUpdateManyMutationInput {
+  kun?: Maybe<String>;
+}
+
+export interface KunRomajiUpdateInput {
+  kunRomaji?: Maybe<String>;
+}
+
+export interface KunRomajiUpdateManyMutationInput {
+  kunRomaji?: Maybe<String>;
+}
+
+export interface MeaningUpdateInput {
+  meaning?: Maybe<String>;
+}
+
+export interface MeaningUpdateManyMutationInput {
+  meaning?: Maybe<String>;
+}
+
+export interface OnUpdateInput {
+  on?: Maybe<String>;
+}
+
+export interface OnUpdateManyMutationInput {
+  on?: Maybe<String>;
+}
+
+export interface OnRomajiUpdateInput {
+  onRomaji?: Maybe<String>;
+}
+
+export interface OnRomajiUpdateManyMutationInput {
+  onRomaji?: Maybe<String>;
 }
 
 export interface WordUpdateInput {
@@ -1661,6 +2510,71 @@ export interface KanjiSubscriptionWhereInput {
   NOT?: Maybe<KanjiSubscriptionWhereInput[] | KanjiSubscriptionWhereInput>;
 }
 
+export interface KunSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<KunWhereInput>;
+  AND?: Maybe<KunSubscriptionWhereInput[] | KunSubscriptionWhereInput>;
+  OR?: Maybe<KunSubscriptionWhereInput[] | KunSubscriptionWhereInput>;
+  NOT?: Maybe<KunSubscriptionWhereInput[] | KunSubscriptionWhereInput>;
+}
+
+export interface KunRomajiSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<KunRomajiWhereInput>;
+  AND?: Maybe<
+    KunRomajiSubscriptionWhereInput[] | KunRomajiSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    KunRomajiSubscriptionWhereInput[] | KunRomajiSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    KunRomajiSubscriptionWhereInput[] | KunRomajiSubscriptionWhereInput
+  >;
+}
+
+export interface MeaningSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<MeaningWhereInput>;
+  AND?: Maybe<MeaningSubscriptionWhereInput[] | MeaningSubscriptionWhereInput>;
+  OR?: Maybe<MeaningSubscriptionWhereInput[] | MeaningSubscriptionWhereInput>;
+  NOT?: Maybe<MeaningSubscriptionWhereInput[] | MeaningSubscriptionWhereInput>;
+}
+
+export interface OnSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<OnWhereInput>;
+  AND?: Maybe<OnSubscriptionWhereInput[] | OnSubscriptionWhereInput>;
+  OR?: Maybe<OnSubscriptionWhereInput[] | OnSubscriptionWhereInput>;
+  NOT?: Maybe<OnSubscriptionWhereInput[] | OnSubscriptionWhereInput>;
+}
+
+export interface OnRomajiSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<OnRomajiWhereInput>;
+  AND?: Maybe<
+    OnRomajiSubscriptionWhereInput[] | OnRomajiSubscriptionWhereInput
+  >;
+  OR?: Maybe<OnRomajiSubscriptionWhereInput[] | OnRomajiSubscriptionWhereInput>;
+  NOT?: Maybe<
+    OnRomajiSubscriptionWhereInput[] | OnRomajiSubscriptionWhereInput
+  >;
+}
+
 export interface WordSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -1713,11 +2627,6 @@ export interface NodeNode {
 export interface Kanji {
   id: ID_Output;
   writing: String;
-  meaning: String[];
-  on: String[];
-  onRomaji: String[];
-  kun: String[];
-  kunRomaji: String[];
   imageUrl?: String;
   videoUrl?: String;
   jlpt?: Int;
@@ -1729,11 +2638,51 @@ export interface Kanji {
 export interface KanjiPromise extends Promise<Kanji>, Fragmentable {
   id: () => Promise<ID_Output>;
   writing: () => Promise<String>;
-  meaning: () => Promise<String[]>;
-  on: () => Promise<String[]>;
-  onRomaji: () => Promise<String[]>;
-  kun: () => Promise<String[]>;
-  kunRomaji: () => Promise<String[]>;
+  meaning: <T = FragmentableArray<Meaning>>(args?: {
+    where?: MeaningWhereInput;
+    orderBy?: MeaningOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  on: <T = FragmentableArray<On>>(args?: {
+    where?: OnWhereInput;
+    orderBy?: OnOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  onRomaji: <T = FragmentableArray<OnRomaji>>(args?: {
+    where?: OnRomajiWhereInput;
+    orderBy?: OnRomajiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  kun: <T = FragmentableArray<Kun>>(args?: {
+    where?: KunWhereInput;
+    orderBy?: KunOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  kunRomaji: <T = FragmentableArray<KunRomaji>>(args?: {
+    where?: KunRomajiWhereInput;
+    orderBy?: KunRomajiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   imageUrl: () => Promise<String>;
   videoUrl: () => Promise<String>;
   jlpt: () => Promise<Int>;
@@ -1801,11 +2750,51 @@ export interface KanjiSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   writing: () => Promise<AsyncIterator<String>>;
-  meaning: () => Promise<AsyncIterator<String[]>>;
-  on: () => Promise<AsyncIterator<String[]>>;
-  onRomaji: () => Promise<AsyncIterator<String[]>>;
-  kun: () => Promise<AsyncIterator<String[]>>;
-  kunRomaji: () => Promise<AsyncIterator<String[]>>;
+  meaning: <T = Promise<AsyncIterator<MeaningSubscription>>>(args?: {
+    where?: MeaningWhereInput;
+    orderBy?: MeaningOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  on: <T = Promise<AsyncIterator<OnSubscription>>>(args?: {
+    where?: OnWhereInput;
+    orderBy?: OnOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  onRomaji: <T = Promise<AsyncIterator<OnRomajiSubscription>>>(args?: {
+    where?: OnRomajiWhereInput;
+    orderBy?: OnRomajiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  kun: <T = Promise<AsyncIterator<KunSubscription>>>(args?: {
+    where?: KunWhereInput;
+    orderBy?: KunOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  kunRomaji: <T = Promise<AsyncIterator<KunRomajiSubscription>>>(args?: {
+    where?: KunRomajiWhereInput;
+    orderBy?: KunRomajiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   imageUrl: () => Promise<AsyncIterator<String>>;
   videoUrl: () => Promise<AsyncIterator<String>>;
   jlpt: () => Promise<AsyncIterator<Int>>;
@@ -1873,11 +2862,51 @@ export interface KanjiNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   writing: () => Promise<String>;
-  meaning: () => Promise<String[]>;
-  on: () => Promise<String[]>;
-  onRomaji: () => Promise<String[]>;
-  kun: () => Promise<String[]>;
-  kunRomaji: () => Promise<String[]>;
+  meaning: <T = FragmentableArray<Meaning>>(args?: {
+    where?: MeaningWhereInput;
+    orderBy?: MeaningOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  on: <T = FragmentableArray<On>>(args?: {
+    where?: OnWhereInput;
+    orderBy?: OnOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  onRomaji: <T = FragmentableArray<OnRomaji>>(args?: {
+    where?: OnRomajiWhereInput;
+    orderBy?: OnRomajiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  kun: <T = FragmentableArray<Kun>>(args?: {
+    where?: KunWhereInput;
+    orderBy?: KunOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  kunRomaji: <T = FragmentableArray<KunRomaji>>(args?: {
+    where?: KunRomajiWhereInput;
+    orderBy?: KunRomajiOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   imageUrl: () => Promise<String>;
   videoUrl: () => Promise<String>;
   jlpt: () => Promise<Int>;
@@ -1938,6 +2967,122 @@ export interface KanjiNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+}
+
+export interface Meaning {
+  id: ID_Output;
+  meaning: String;
+}
+
+export interface MeaningPromise extends Promise<Meaning>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  meaning: () => Promise<String>;
+}
+
+export interface MeaningSubscription
+  extends Promise<AsyncIterator<Meaning>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  meaning: () => Promise<AsyncIterator<String>>;
+}
+
+export interface MeaningNullablePromise
+  extends Promise<Meaning | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  meaning: () => Promise<String>;
+}
+
+export interface On {
+  id: ID_Output;
+  on: String;
+}
+
+export interface OnPromise extends Promise<On>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  on: () => Promise<String>;
+}
+
+export interface OnSubscription
+  extends Promise<AsyncIterator<On>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  on: () => Promise<AsyncIterator<String>>;
+}
+
+export interface OnNullablePromise extends Promise<On | null>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  on: () => Promise<String>;
+}
+
+export interface OnRomaji {
+  id: ID_Output;
+  onRomaji: String;
+}
+
+export interface OnRomajiPromise extends Promise<OnRomaji>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  onRomaji: () => Promise<String>;
+}
+
+export interface OnRomajiSubscription
+  extends Promise<AsyncIterator<OnRomaji>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  onRomaji: () => Promise<AsyncIterator<String>>;
+}
+
+export interface OnRomajiNullablePromise
+  extends Promise<OnRomaji | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  onRomaji: () => Promise<String>;
+}
+
+export interface Kun {
+  id: ID_Output;
+  kun: String;
+}
+
+export interface KunPromise extends Promise<Kun>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  kun: () => Promise<String>;
+}
+
+export interface KunSubscription
+  extends Promise<AsyncIterator<Kun>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  kun: () => Promise<AsyncIterator<String>>;
+}
+
+export interface KunNullablePromise extends Promise<Kun | null>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  kun: () => Promise<String>;
+}
+
+export interface KunRomaji {
+  id: ID_Output;
+  kunRomaji: String;
+}
+
+export interface KunRomajiPromise extends Promise<KunRomaji>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  kunRomaji: () => Promise<String>;
+}
+
+export interface KunRomajiSubscription
+  extends Promise<AsyncIterator<KunRomaji>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  kunRomaji: () => Promise<AsyncIterator<String>>;
+}
+
+export interface KunRomajiNullablePromise
+  extends Promise<KunRomaji | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  kunRomaji: () => Promise<String>;
 }
 
 export interface Word {
@@ -2252,6 +3397,278 @@ export interface AggregateKanjiSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface KunConnection {
+  pageInfo: PageInfo;
+  edges: KunEdge[];
+}
+
+export interface KunConnectionPromise
+  extends Promise<KunConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<KunEdge>>() => T;
+  aggregate: <T = AggregateKunPromise>() => T;
+}
+
+export interface KunConnectionSubscription
+  extends Promise<AsyncIterator<KunConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<KunEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateKunSubscription>() => T;
+}
+
+export interface KunEdge {
+  node: Kun;
+  cursor: String;
+}
+
+export interface KunEdgePromise extends Promise<KunEdge>, Fragmentable {
+  node: <T = KunPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface KunEdgeSubscription
+  extends Promise<AsyncIterator<KunEdge>>,
+    Fragmentable {
+  node: <T = KunSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateKun {
+  count: Int;
+}
+
+export interface AggregateKunPromise
+  extends Promise<AggregateKun>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateKunSubscription
+  extends Promise<AsyncIterator<AggregateKun>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface KunRomajiConnection {
+  pageInfo: PageInfo;
+  edges: KunRomajiEdge[];
+}
+
+export interface KunRomajiConnectionPromise
+  extends Promise<KunRomajiConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<KunRomajiEdge>>() => T;
+  aggregate: <T = AggregateKunRomajiPromise>() => T;
+}
+
+export interface KunRomajiConnectionSubscription
+  extends Promise<AsyncIterator<KunRomajiConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<KunRomajiEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateKunRomajiSubscription>() => T;
+}
+
+export interface KunRomajiEdge {
+  node: KunRomaji;
+  cursor: String;
+}
+
+export interface KunRomajiEdgePromise
+  extends Promise<KunRomajiEdge>,
+    Fragmentable {
+  node: <T = KunRomajiPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface KunRomajiEdgeSubscription
+  extends Promise<AsyncIterator<KunRomajiEdge>>,
+    Fragmentable {
+  node: <T = KunRomajiSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateKunRomaji {
+  count: Int;
+}
+
+export interface AggregateKunRomajiPromise
+  extends Promise<AggregateKunRomaji>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateKunRomajiSubscription
+  extends Promise<AsyncIterator<AggregateKunRomaji>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface MeaningConnection {
+  pageInfo: PageInfo;
+  edges: MeaningEdge[];
+}
+
+export interface MeaningConnectionPromise
+  extends Promise<MeaningConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<MeaningEdge>>() => T;
+  aggregate: <T = AggregateMeaningPromise>() => T;
+}
+
+export interface MeaningConnectionSubscription
+  extends Promise<AsyncIterator<MeaningConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<MeaningEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateMeaningSubscription>() => T;
+}
+
+export interface MeaningEdge {
+  node: Meaning;
+  cursor: String;
+}
+
+export interface MeaningEdgePromise extends Promise<MeaningEdge>, Fragmentable {
+  node: <T = MeaningPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface MeaningEdgeSubscription
+  extends Promise<AsyncIterator<MeaningEdge>>,
+    Fragmentable {
+  node: <T = MeaningSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateMeaning {
+  count: Int;
+}
+
+export interface AggregateMeaningPromise
+  extends Promise<AggregateMeaning>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateMeaningSubscription
+  extends Promise<AsyncIterator<AggregateMeaning>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface OnConnection {
+  pageInfo: PageInfo;
+  edges: OnEdge[];
+}
+
+export interface OnConnectionPromise
+  extends Promise<OnConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<OnEdge>>() => T;
+  aggregate: <T = AggregateOnPromise>() => T;
+}
+
+export interface OnConnectionSubscription
+  extends Promise<AsyncIterator<OnConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<OnEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateOnSubscription>() => T;
+}
+
+export interface OnEdge {
+  node: On;
+  cursor: String;
+}
+
+export interface OnEdgePromise extends Promise<OnEdge>, Fragmentable {
+  node: <T = OnPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface OnEdgeSubscription
+  extends Promise<AsyncIterator<OnEdge>>,
+    Fragmentable {
+  node: <T = OnSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateOn {
+  count: Int;
+}
+
+export interface AggregateOnPromise extends Promise<AggregateOn>, Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateOnSubscription
+  extends Promise<AsyncIterator<AggregateOn>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface OnRomajiConnection {
+  pageInfo: PageInfo;
+  edges: OnRomajiEdge[];
+}
+
+export interface OnRomajiConnectionPromise
+  extends Promise<OnRomajiConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<OnRomajiEdge>>() => T;
+  aggregate: <T = AggregateOnRomajiPromise>() => T;
+}
+
+export interface OnRomajiConnectionSubscription
+  extends Promise<AsyncIterator<OnRomajiConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<OnRomajiEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateOnRomajiSubscription>() => T;
+}
+
+export interface OnRomajiEdge {
+  node: OnRomaji;
+  cursor: String;
+}
+
+export interface OnRomajiEdgePromise
+  extends Promise<OnRomajiEdge>,
+    Fragmentable {
+  node: <T = OnRomajiPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface OnRomajiEdgeSubscription
+  extends Promise<AsyncIterator<OnRomajiEdge>>,
+    Fragmentable {
+  node: <T = OnRomajiSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateOnRomaji {
+  count: Int;
+}
+
+export interface AggregateOnRomajiPromise
+  extends Promise<AggregateOnRomaji>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateOnRomajiSubscription
+  extends Promise<AsyncIterator<AggregateOnRomaji>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface WordConnection {
   pageInfo: PageInfo;
   edges: WordEdge[];
@@ -2462,11 +3879,6 @@ export interface KanjiSubscriptionPayloadSubscription
 export interface KanjiPreviousValues {
   id: ID_Output;
   writing: String;
-  meaning: String[];
-  on: String[];
-  onRomaji: String[];
-  kun: String[];
-  kunRomaji: String[];
   imageUrl?: String;
   videoUrl?: String;
   jlpt?: Int;
@@ -2480,11 +3892,6 @@ export interface KanjiPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   writing: () => Promise<String>;
-  meaning: () => Promise<String[]>;
-  on: () => Promise<String[]>;
-  onRomaji: () => Promise<String[]>;
-  kun: () => Promise<String[]>;
-  kunRomaji: () => Promise<String[]>;
   imageUrl: () => Promise<String>;
   videoUrl: () => Promise<String>;
   jlpt: () => Promise<Int>;
@@ -2498,17 +3905,232 @@ export interface KanjiPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   writing: () => Promise<AsyncIterator<String>>;
-  meaning: () => Promise<AsyncIterator<String[]>>;
-  on: () => Promise<AsyncIterator<String[]>>;
-  onRomaji: () => Promise<AsyncIterator<String[]>>;
-  kun: () => Promise<AsyncIterator<String[]>>;
-  kunRomaji: () => Promise<AsyncIterator<String[]>>;
   imageUrl: () => Promise<AsyncIterator<String>>;
   videoUrl: () => Promise<AsyncIterator<String>>;
   jlpt: () => Promise<AsyncIterator<Int>>;
   strokes: () => Promise<AsyncIterator<Int>>;
   origin: () => Promise<AsyncIterator<String>>;
   memo: () => Promise<AsyncIterator<String>>;
+}
+
+export interface KunSubscriptionPayload {
+  mutation: MutationType;
+  node: Kun;
+  updatedFields: String[];
+  previousValues: KunPreviousValues;
+}
+
+export interface KunSubscriptionPayloadPromise
+  extends Promise<KunSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = KunPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = KunPreviousValuesPromise>() => T;
+}
+
+export interface KunSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<KunSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = KunSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = KunPreviousValuesSubscription>() => T;
+}
+
+export interface KunPreviousValues {
+  id: ID_Output;
+  kun: String;
+}
+
+export interface KunPreviousValuesPromise
+  extends Promise<KunPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  kun: () => Promise<String>;
+}
+
+export interface KunPreviousValuesSubscription
+  extends Promise<AsyncIterator<KunPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  kun: () => Promise<AsyncIterator<String>>;
+}
+
+export interface KunRomajiSubscriptionPayload {
+  mutation: MutationType;
+  node: KunRomaji;
+  updatedFields: String[];
+  previousValues: KunRomajiPreviousValues;
+}
+
+export interface KunRomajiSubscriptionPayloadPromise
+  extends Promise<KunRomajiSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = KunRomajiPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = KunRomajiPreviousValuesPromise>() => T;
+}
+
+export interface KunRomajiSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<KunRomajiSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = KunRomajiSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = KunRomajiPreviousValuesSubscription>() => T;
+}
+
+export interface KunRomajiPreviousValues {
+  id: ID_Output;
+  kunRomaji: String;
+}
+
+export interface KunRomajiPreviousValuesPromise
+  extends Promise<KunRomajiPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  kunRomaji: () => Promise<String>;
+}
+
+export interface KunRomajiPreviousValuesSubscription
+  extends Promise<AsyncIterator<KunRomajiPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  kunRomaji: () => Promise<AsyncIterator<String>>;
+}
+
+export interface MeaningSubscriptionPayload {
+  mutation: MutationType;
+  node: Meaning;
+  updatedFields: String[];
+  previousValues: MeaningPreviousValues;
+}
+
+export interface MeaningSubscriptionPayloadPromise
+  extends Promise<MeaningSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = MeaningPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = MeaningPreviousValuesPromise>() => T;
+}
+
+export interface MeaningSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<MeaningSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = MeaningSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = MeaningPreviousValuesSubscription>() => T;
+}
+
+export interface MeaningPreviousValues {
+  id: ID_Output;
+  meaning: String;
+}
+
+export interface MeaningPreviousValuesPromise
+  extends Promise<MeaningPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  meaning: () => Promise<String>;
+}
+
+export interface MeaningPreviousValuesSubscription
+  extends Promise<AsyncIterator<MeaningPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  meaning: () => Promise<AsyncIterator<String>>;
+}
+
+export interface OnSubscriptionPayload {
+  mutation: MutationType;
+  node: On;
+  updatedFields: String[];
+  previousValues: OnPreviousValues;
+}
+
+export interface OnSubscriptionPayloadPromise
+  extends Promise<OnSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = OnPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = OnPreviousValuesPromise>() => T;
+}
+
+export interface OnSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<OnSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = OnSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = OnPreviousValuesSubscription>() => T;
+}
+
+export interface OnPreviousValues {
+  id: ID_Output;
+  on: String;
+}
+
+export interface OnPreviousValuesPromise
+  extends Promise<OnPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  on: () => Promise<String>;
+}
+
+export interface OnPreviousValuesSubscription
+  extends Promise<AsyncIterator<OnPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  on: () => Promise<AsyncIterator<String>>;
+}
+
+export interface OnRomajiSubscriptionPayload {
+  mutation: MutationType;
+  node: OnRomaji;
+  updatedFields: String[];
+  previousValues: OnRomajiPreviousValues;
+}
+
+export interface OnRomajiSubscriptionPayloadPromise
+  extends Promise<OnRomajiSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = OnRomajiPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = OnRomajiPreviousValuesPromise>() => T;
+}
+
+export interface OnRomajiSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<OnRomajiSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = OnRomajiSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = OnRomajiPreviousValuesSubscription>() => T;
+}
+
+export interface OnRomajiPreviousValues {
+  id: ID_Output;
+  onRomaji: String;
+}
+
+export interface OnRomajiPreviousValuesPromise
+  extends Promise<OnRomajiPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  onRomaji: () => Promise<String>;
+}
+
+export interface OnRomajiPreviousValuesSubscription
+  extends Promise<AsyncIterator<OnRomajiPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  onRomaji: () => Promise<AsyncIterator<String>>;
 }
 
 export interface WordSubscriptionPayload {
@@ -2706,6 +4328,26 @@ export const models: Model[] = [
   },
   {
     name: "Kanji",
+    embedded: false
+  },
+  {
+    name: "Meaning",
+    embedded: false
+  },
+  {
+    name: "On",
+    embedded: false
+  },
+  {
+    name: "OnRomaji",
+    embedded: false
+  },
+  {
+    name: "Kun",
+    embedded: false
+  },
+  {
+    name: "KunRomaji",
     embedded: false
   }
 ];

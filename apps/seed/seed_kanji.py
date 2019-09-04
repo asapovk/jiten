@@ -66,7 +66,7 @@ def process():
 
         for n, element in enumerate(array):
             i+=1
-            if i > 1516: 
+            if i > 86: 
               print(">>> [CONVERTING KANJI: %d] >>>" % i)
               element['number'] = int(element['number'])
               element['translation'] = get_google_translation(element['translation']).split(';')

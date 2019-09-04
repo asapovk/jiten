@@ -6,6 +6,26 @@ export const typeDefs = /* GraphQL */ `type AggregateKanji {
   count: Int!
 }
 
+type AggregateKun {
+  count: Int!
+}
+
+type AggregateKunRomaji {
+  count: Int!
+}
+
+type AggregateMeaning {
+  count: Int!
+}
+
+type AggregateOn {
+  count: Int!
+}
+
+type AggregateOnRomaji {
+  count: Int!
+}
+
 type AggregateWord {
   count: Int!
 }
@@ -25,11 +45,11 @@ type BatchPayload {
 type Kanji {
   id: ID!
   writing: String!
-  meaning: [String!]!
-  on: [String!]!
-  onRomaji: [String!]!
-  kun: [String!]!
-  kunRomaji: [String!]!
+  meaning(where: MeaningWhereInput, orderBy: MeaningOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meaning!]
+  on(where: OnWhereInput, orderBy: OnOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [On!]
+  onRomaji(where: OnRomajiWhereInput, orderBy: OnRomajiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OnRomaji!]
+  kun(where: KunWhereInput, orderBy: KunOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kun!]
+  kunRomaji(where: KunRomajiWhereInput, orderBy: KunRomajiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [KunRomaji!]
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -53,11 +73,11 @@ type KanjiConnection {
 input KanjiCreateInput {
   id: ID
   writing: String!
-  meaning: KanjiCreatemeaningInput
-  on: KanjiCreateonInput
-  onRomaji: KanjiCreateonRomajiInput
-  kun: KanjiCreatekunInput
-  kunRomaji: KanjiCreatekunRomajiInput
+  meaning: MeaningCreateManyInput
+  on: OnCreateManyInput
+  onRomaji: OnRomajiCreateManyInput
+  kun: KunCreateManyInput
+  kunRomaji: KunRomajiCreateManyInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -70,14 +90,6 @@ input KanjiCreateInput {
   usageLast: WordCreateManyInput
   radicals: KanjiCreateManyWithoutRadicalsInput
   phonetics: KanjiCreateManyWithoutPhoneticsInput
-}
-
-input KanjiCreatekunInput {
-  set: [String!]
-}
-
-input KanjiCreatekunRomajiInput {
-  set: [String!]
 }
 
 input KanjiCreateManyInput {
@@ -105,26 +117,14 @@ input KanjiCreateManyWithoutRadicalsInput {
   connect: [KanjiWhereUniqueInput!]
 }
 
-input KanjiCreatemeaningInput {
-  set: [String!]
-}
-
-input KanjiCreateonInput {
-  set: [String!]
-}
-
-input KanjiCreateonRomajiInput {
-  set: [String!]
-}
-
 input KanjiCreateWithoutModernInput {
   id: ID
   writing: String!
-  meaning: KanjiCreatemeaningInput
-  on: KanjiCreateonInput
-  onRomaji: KanjiCreateonRomajiInput
-  kun: KanjiCreatekunInput
-  kunRomaji: KanjiCreatekunRomajiInput
+  meaning: MeaningCreateManyInput
+  on: OnCreateManyInput
+  onRomaji: OnRomajiCreateManyInput
+  kun: KunCreateManyInput
+  kunRomaji: KunRomajiCreateManyInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -141,11 +141,11 @@ input KanjiCreateWithoutModernInput {
 input KanjiCreateWithoutOldInput {
   id: ID
   writing: String!
-  meaning: KanjiCreatemeaningInput
-  on: KanjiCreateonInput
-  onRomaji: KanjiCreateonRomajiInput
-  kun: KanjiCreatekunInput
-  kunRomaji: KanjiCreatekunRomajiInput
+  meaning: MeaningCreateManyInput
+  on: OnCreateManyInput
+  onRomaji: OnRomajiCreateManyInput
+  kun: KunCreateManyInput
+  kunRomaji: KunRomajiCreateManyInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -162,11 +162,11 @@ input KanjiCreateWithoutOldInput {
 input KanjiCreateWithoutPhoneticsInput {
   id: ID
   writing: String!
-  meaning: KanjiCreatemeaningInput
-  on: KanjiCreateonInput
-  onRomaji: KanjiCreateonRomajiInput
-  kun: KanjiCreatekunInput
-  kunRomaji: KanjiCreatekunRomajiInput
+  meaning: MeaningCreateManyInput
+  on: OnCreateManyInput
+  onRomaji: OnRomajiCreateManyInput
+  kun: KunCreateManyInput
+  kunRomaji: KunRomajiCreateManyInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -183,11 +183,11 @@ input KanjiCreateWithoutPhoneticsInput {
 input KanjiCreateWithoutRadicalsInput {
   id: ID
   writing: String!
-  meaning: KanjiCreatemeaningInput
-  on: KanjiCreateonInput
-  onRomaji: KanjiCreateonRomajiInput
-  kun: KanjiCreatekunInput
-  kunRomaji: KanjiCreatekunRomajiInput
+  meaning: MeaningCreateManyInput
+  on: OnCreateManyInput
+  onRomaji: OnRomajiCreateManyInput
+  kun: KunCreateManyInput
+  kunRomaji: KunRomajiCreateManyInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -228,11 +228,6 @@ enum KanjiOrderByInput {
 type KanjiPreviousValues {
   id: ID!
   writing: String!
-  meaning: [String!]!
-  on: [String!]!
-  onRomaji: [String!]!
-  kun: [String!]!
-  kunRomaji: [String!]!
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -367,11 +362,11 @@ input KanjiSubscriptionWhereInput {
 
 input KanjiUpdateDataInput {
   writing: String
-  meaning: KanjiUpdatemeaningInput
-  on: KanjiUpdateonInput
-  onRomaji: KanjiUpdateonRomajiInput
-  kun: KanjiUpdatekunInput
-  kunRomaji: KanjiUpdatekunRomajiInput
+  meaning: MeaningUpdateManyInput
+  on: OnUpdateManyInput
+  onRomaji: OnRomajiUpdateManyInput
+  kun: KunUpdateManyInput
+  kunRomaji: KunRomajiUpdateManyInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -388,11 +383,11 @@ input KanjiUpdateDataInput {
 
 input KanjiUpdateInput {
   writing: String
-  meaning: KanjiUpdatemeaningInput
-  on: KanjiUpdateonInput
-  onRomaji: KanjiUpdateonRomajiInput
-  kun: KanjiUpdatekunInput
-  kunRomaji: KanjiUpdatekunRomajiInput
+  meaning: MeaningUpdateManyInput
+  on: OnUpdateManyInput
+  onRomaji: OnRomajiUpdateManyInput
+  kun: KunUpdateManyInput
+  kunRomaji: KunRomajiUpdateManyInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -407,21 +402,8 @@ input KanjiUpdateInput {
   phonetics: KanjiUpdateManyWithoutPhoneticsInput
 }
 
-input KanjiUpdatekunInput {
-  set: [String!]
-}
-
-input KanjiUpdatekunRomajiInput {
-  set: [String!]
-}
-
 input KanjiUpdateManyDataInput {
   writing: String
-  meaning: KanjiUpdatemeaningInput
-  on: KanjiUpdateonInput
-  onRomaji: KanjiUpdateonRomajiInput
-  kun: KanjiUpdatekunInput
-  kunRomaji: KanjiUpdatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -444,11 +426,6 @@ input KanjiUpdateManyInput {
 
 input KanjiUpdateManyMutationInput {
   writing: String
-  meaning: KanjiUpdatemeaningInput
-  on: KanjiUpdateonInput
-  onRomaji: KanjiUpdateonRomajiInput
-  kun: KanjiUpdatekunInput
-  kunRomaji: KanjiUpdatekunRomajiInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -510,25 +487,13 @@ input KanjiUpdateManyWithWhereNestedInput {
   data: KanjiUpdateManyDataInput!
 }
 
-input KanjiUpdatemeaningInput {
-  set: [String!]
-}
-
-input KanjiUpdateonInput {
-  set: [String!]
-}
-
-input KanjiUpdateonRomajiInput {
-  set: [String!]
-}
-
 input KanjiUpdateWithoutModernDataInput {
   writing: String
-  meaning: KanjiUpdatemeaningInput
-  on: KanjiUpdateonInput
-  onRomaji: KanjiUpdateonRomajiInput
-  kun: KanjiUpdatekunInput
-  kunRomaji: KanjiUpdatekunRomajiInput
+  meaning: MeaningUpdateManyInput
+  on: OnUpdateManyInput
+  onRomaji: OnRomajiUpdateManyInput
+  kun: KunUpdateManyInput
+  kunRomaji: KunRomajiUpdateManyInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -544,11 +509,11 @@ input KanjiUpdateWithoutModernDataInput {
 
 input KanjiUpdateWithoutOldDataInput {
   writing: String
-  meaning: KanjiUpdatemeaningInput
-  on: KanjiUpdateonInput
-  onRomaji: KanjiUpdateonRomajiInput
-  kun: KanjiUpdatekunInput
-  kunRomaji: KanjiUpdatekunRomajiInput
+  meaning: MeaningUpdateManyInput
+  on: OnUpdateManyInput
+  onRomaji: OnRomajiUpdateManyInput
+  kun: KunUpdateManyInput
+  kunRomaji: KunRomajiUpdateManyInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -564,11 +529,11 @@ input KanjiUpdateWithoutOldDataInput {
 
 input KanjiUpdateWithoutPhoneticsDataInput {
   writing: String
-  meaning: KanjiUpdatemeaningInput
-  on: KanjiUpdateonInput
-  onRomaji: KanjiUpdateonRomajiInput
-  kun: KanjiUpdatekunInput
-  kunRomaji: KanjiUpdatekunRomajiInput
+  meaning: MeaningUpdateManyInput
+  on: OnUpdateManyInput
+  onRomaji: OnRomajiUpdateManyInput
+  kun: KunUpdateManyInput
+  kunRomaji: KunRomajiUpdateManyInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -584,11 +549,11 @@ input KanjiUpdateWithoutPhoneticsDataInput {
 
 input KanjiUpdateWithoutRadicalsDataInput {
   writing: String
-  meaning: KanjiUpdatemeaningInput
-  on: KanjiUpdateonInput
-  onRomaji: KanjiUpdateonRomajiInput
-  kun: KanjiUpdatekunInput
-  kunRomaji: KanjiUpdatekunRomajiInput
+  meaning: MeaningUpdateManyInput
+  on: OnUpdateManyInput
+  onRomaji: OnRomajiUpdateManyInput
+  kun: KunUpdateManyInput
+  kunRomaji: KunRomajiUpdateManyInput
   imageUrl: String
   videoUrl: String
   jlpt: Int
@@ -686,6 +651,21 @@ input KanjiWhereInput {
   writing_not_starts_with: String
   writing_ends_with: String
   writing_not_ends_with: String
+  meaning_every: MeaningWhereInput
+  meaning_some: MeaningWhereInput
+  meaning_none: MeaningWhereInput
+  on_every: OnWhereInput
+  on_some: OnWhereInput
+  on_none: OnWhereInput
+  onRomaji_every: OnRomajiWhereInput
+  onRomaji_some: OnRomajiWhereInput
+  onRomaji_none: OnRomajiWhereInput
+  kun_every: KunWhereInput
+  kun_some: KunWhereInput
+  kun_none: KunWhereInput
+  kunRomaji_every: KunRomajiWhereInput
+  kunRomaji_some: KunRomajiWhereInput
+  kunRomaji_none: KunRomajiWhereInput
   imageUrl: String
   imageUrl_not: String
   imageUrl_in: [String!]
@@ -785,7 +765,523 @@ input KanjiWhereUniqueInput {
   id: ID
 }
 
+type Kun {
+  id: ID!
+  kun: String!
+}
+
+type KunConnection {
+  pageInfo: PageInfo!
+  edges: [KunEdge]!
+  aggregate: AggregateKun!
+}
+
+input KunCreateInput {
+  id: ID
+  kun: String!
+}
+
+input KunCreateManyInput {
+  create: [KunCreateInput!]
+  connect: [KunWhereUniqueInput!]
+}
+
+type KunEdge {
+  node: Kun!
+  cursor: String!
+}
+
+enum KunOrderByInput {
+  id_ASC
+  id_DESC
+  kun_ASC
+  kun_DESC
+}
+
+type KunPreviousValues {
+  id: ID!
+  kun: String!
+}
+
+type KunRomaji {
+  id: ID!
+  kunRomaji: String!
+}
+
+type KunRomajiConnection {
+  pageInfo: PageInfo!
+  edges: [KunRomajiEdge]!
+  aggregate: AggregateKunRomaji!
+}
+
+input KunRomajiCreateInput {
+  id: ID
+  kunRomaji: String!
+}
+
+input KunRomajiCreateManyInput {
+  create: [KunRomajiCreateInput!]
+  connect: [KunRomajiWhereUniqueInput!]
+}
+
+type KunRomajiEdge {
+  node: KunRomaji!
+  cursor: String!
+}
+
+enum KunRomajiOrderByInput {
+  id_ASC
+  id_DESC
+  kunRomaji_ASC
+  kunRomaji_DESC
+}
+
+type KunRomajiPreviousValues {
+  id: ID!
+  kunRomaji: String!
+}
+
+input KunRomajiScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  kunRomaji: String
+  kunRomaji_not: String
+  kunRomaji_in: [String!]
+  kunRomaji_not_in: [String!]
+  kunRomaji_lt: String
+  kunRomaji_lte: String
+  kunRomaji_gt: String
+  kunRomaji_gte: String
+  kunRomaji_contains: String
+  kunRomaji_not_contains: String
+  kunRomaji_starts_with: String
+  kunRomaji_not_starts_with: String
+  kunRomaji_ends_with: String
+  kunRomaji_not_ends_with: String
+  AND: [KunRomajiScalarWhereInput!]
+  OR: [KunRomajiScalarWhereInput!]
+  NOT: [KunRomajiScalarWhereInput!]
+}
+
+type KunRomajiSubscriptionPayload {
+  mutation: MutationType!
+  node: KunRomaji
+  updatedFields: [String!]
+  previousValues: KunRomajiPreviousValues
+}
+
+input KunRomajiSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: KunRomajiWhereInput
+  AND: [KunRomajiSubscriptionWhereInput!]
+  OR: [KunRomajiSubscriptionWhereInput!]
+  NOT: [KunRomajiSubscriptionWhereInput!]
+}
+
+input KunRomajiUpdateDataInput {
+  kunRomaji: String
+}
+
+input KunRomajiUpdateInput {
+  kunRomaji: String
+}
+
+input KunRomajiUpdateManyDataInput {
+  kunRomaji: String
+}
+
+input KunRomajiUpdateManyInput {
+  create: [KunRomajiCreateInput!]
+  update: [KunRomajiUpdateWithWhereUniqueNestedInput!]
+  upsert: [KunRomajiUpsertWithWhereUniqueNestedInput!]
+  delete: [KunRomajiWhereUniqueInput!]
+  connect: [KunRomajiWhereUniqueInput!]
+  set: [KunRomajiWhereUniqueInput!]
+  disconnect: [KunRomajiWhereUniqueInput!]
+  deleteMany: [KunRomajiScalarWhereInput!]
+  updateMany: [KunRomajiUpdateManyWithWhereNestedInput!]
+}
+
+input KunRomajiUpdateManyMutationInput {
+  kunRomaji: String
+}
+
+input KunRomajiUpdateManyWithWhereNestedInput {
+  where: KunRomajiScalarWhereInput!
+  data: KunRomajiUpdateManyDataInput!
+}
+
+input KunRomajiUpdateWithWhereUniqueNestedInput {
+  where: KunRomajiWhereUniqueInput!
+  data: KunRomajiUpdateDataInput!
+}
+
+input KunRomajiUpsertWithWhereUniqueNestedInput {
+  where: KunRomajiWhereUniqueInput!
+  update: KunRomajiUpdateDataInput!
+  create: KunRomajiCreateInput!
+}
+
+input KunRomajiWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  kunRomaji: String
+  kunRomaji_not: String
+  kunRomaji_in: [String!]
+  kunRomaji_not_in: [String!]
+  kunRomaji_lt: String
+  kunRomaji_lte: String
+  kunRomaji_gt: String
+  kunRomaji_gte: String
+  kunRomaji_contains: String
+  kunRomaji_not_contains: String
+  kunRomaji_starts_with: String
+  kunRomaji_not_starts_with: String
+  kunRomaji_ends_with: String
+  kunRomaji_not_ends_with: String
+  AND: [KunRomajiWhereInput!]
+  OR: [KunRomajiWhereInput!]
+  NOT: [KunRomajiWhereInput!]
+}
+
+input KunRomajiWhereUniqueInput {
+  id: ID
+}
+
+input KunScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  kun: String
+  kun_not: String
+  kun_in: [String!]
+  kun_not_in: [String!]
+  kun_lt: String
+  kun_lte: String
+  kun_gt: String
+  kun_gte: String
+  kun_contains: String
+  kun_not_contains: String
+  kun_starts_with: String
+  kun_not_starts_with: String
+  kun_ends_with: String
+  kun_not_ends_with: String
+  AND: [KunScalarWhereInput!]
+  OR: [KunScalarWhereInput!]
+  NOT: [KunScalarWhereInput!]
+}
+
+type KunSubscriptionPayload {
+  mutation: MutationType!
+  node: Kun
+  updatedFields: [String!]
+  previousValues: KunPreviousValues
+}
+
+input KunSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: KunWhereInput
+  AND: [KunSubscriptionWhereInput!]
+  OR: [KunSubscriptionWhereInput!]
+  NOT: [KunSubscriptionWhereInput!]
+}
+
+input KunUpdateDataInput {
+  kun: String
+}
+
+input KunUpdateInput {
+  kun: String
+}
+
+input KunUpdateManyDataInput {
+  kun: String
+}
+
+input KunUpdateManyInput {
+  create: [KunCreateInput!]
+  update: [KunUpdateWithWhereUniqueNestedInput!]
+  upsert: [KunUpsertWithWhereUniqueNestedInput!]
+  delete: [KunWhereUniqueInput!]
+  connect: [KunWhereUniqueInput!]
+  set: [KunWhereUniqueInput!]
+  disconnect: [KunWhereUniqueInput!]
+  deleteMany: [KunScalarWhereInput!]
+  updateMany: [KunUpdateManyWithWhereNestedInput!]
+}
+
+input KunUpdateManyMutationInput {
+  kun: String
+}
+
+input KunUpdateManyWithWhereNestedInput {
+  where: KunScalarWhereInput!
+  data: KunUpdateManyDataInput!
+}
+
+input KunUpdateWithWhereUniqueNestedInput {
+  where: KunWhereUniqueInput!
+  data: KunUpdateDataInput!
+}
+
+input KunUpsertWithWhereUniqueNestedInput {
+  where: KunWhereUniqueInput!
+  update: KunUpdateDataInput!
+  create: KunCreateInput!
+}
+
+input KunWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  kun: String
+  kun_not: String
+  kun_in: [String!]
+  kun_not_in: [String!]
+  kun_lt: String
+  kun_lte: String
+  kun_gt: String
+  kun_gte: String
+  kun_contains: String
+  kun_not_contains: String
+  kun_starts_with: String
+  kun_not_starts_with: String
+  kun_ends_with: String
+  kun_not_ends_with: String
+  AND: [KunWhereInput!]
+  OR: [KunWhereInput!]
+  NOT: [KunWhereInput!]
+}
+
+input KunWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
+
+type Meaning {
+  id: ID!
+  meaning: String!
+}
+
+type MeaningConnection {
+  pageInfo: PageInfo!
+  edges: [MeaningEdge]!
+  aggregate: AggregateMeaning!
+}
+
+input MeaningCreateInput {
+  id: ID
+  meaning: String!
+}
+
+input MeaningCreateManyInput {
+  create: [MeaningCreateInput!]
+  connect: [MeaningWhereUniqueInput!]
+}
+
+type MeaningEdge {
+  node: Meaning!
+  cursor: String!
+}
+
+enum MeaningOrderByInput {
+  id_ASC
+  id_DESC
+  meaning_ASC
+  meaning_DESC
+}
+
+type MeaningPreviousValues {
+  id: ID!
+  meaning: String!
+}
+
+input MeaningScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  meaning: String
+  meaning_not: String
+  meaning_in: [String!]
+  meaning_not_in: [String!]
+  meaning_lt: String
+  meaning_lte: String
+  meaning_gt: String
+  meaning_gte: String
+  meaning_contains: String
+  meaning_not_contains: String
+  meaning_starts_with: String
+  meaning_not_starts_with: String
+  meaning_ends_with: String
+  meaning_not_ends_with: String
+  AND: [MeaningScalarWhereInput!]
+  OR: [MeaningScalarWhereInput!]
+  NOT: [MeaningScalarWhereInput!]
+}
+
+type MeaningSubscriptionPayload {
+  mutation: MutationType!
+  node: Meaning
+  updatedFields: [String!]
+  previousValues: MeaningPreviousValues
+}
+
+input MeaningSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: MeaningWhereInput
+  AND: [MeaningSubscriptionWhereInput!]
+  OR: [MeaningSubscriptionWhereInput!]
+  NOT: [MeaningSubscriptionWhereInput!]
+}
+
+input MeaningUpdateDataInput {
+  meaning: String
+}
+
+input MeaningUpdateInput {
+  meaning: String
+}
+
+input MeaningUpdateManyDataInput {
+  meaning: String
+}
+
+input MeaningUpdateManyInput {
+  create: [MeaningCreateInput!]
+  update: [MeaningUpdateWithWhereUniqueNestedInput!]
+  upsert: [MeaningUpsertWithWhereUniqueNestedInput!]
+  delete: [MeaningWhereUniqueInput!]
+  connect: [MeaningWhereUniqueInput!]
+  set: [MeaningWhereUniqueInput!]
+  disconnect: [MeaningWhereUniqueInput!]
+  deleteMany: [MeaningScalarWhereInput!]
+  updateMany: [MeaningUpdateManyWithWhereNestedInput!]
+}
+
+input MeaningUpdateManyMutationInput {
+  meaning: String
+}
+
+input MeaningUpdateManyWithWhereNestedInput {
+  where: MeaningScalarWhereInput!
+  data: MeaningUpdateManyDataInput!
+}
+
+input MeaningUpdateWithWhereUniqueNestedInput {
+  where: MeaningWhereUniqueInput!
+  data: MeaningUpdateDataInput!
+}
+
+input MeaningUpsertWithWhereUniqueNestedInput {
+  where: MeaningWhereUniqueInput!
+  update: MeaningUpdateDataInput!
+  create: MeaningCreateInput!
+}
+
+input MeaningWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  meaning: String
+  meaning_not: String
+  meaning_in: [String!]
+  meaning_not_in: [String!]
+  meaning_lt: String
+  meaning_lte: String
+  meaning_gt: String
+  meaning_gte: String
+  meaning_contains: String
+  meaning_not_contains: String
+  meaning_starts_with: String
+  meaning_not_starts_with: String
+  meaning_ends_with: String
+  meaning_not_ends_with: String
+  AND: [MeaningWhereInput!]
+  OR: [MeaningWhereInput!]
+  NOT: [MeaningWhereInput!]
+}
+
+input MeaningWhereUniqueInput {
+  id: ID
+}
 
 type Mutation {
   createKanji(data: KanjiCreateInput!): Kanji!
@@ -794,6 +1290,36 @@ type Mutation {
   upsertKanji(where: KanjiWhereUniqueInput!, create: KanjiCreateInput!, update: KanjiUpdateInput!): Kanji!
   deleteKanji(where: KanjiWhereUniqueInput!): Kanji
   deleteManyKanjis(where: KanjiWhereInput): BatchPayload!
+  createKun(data: KunCreateInput!): Kun!
+  updateKun(data: KunUpdateInput!, where: KunWhereUniqueInput!): Kun
+  updateManyKuns(data: KunUpdateManyMutationInput!, where: KunWhereInput): BatchPayload!
+  upsertKun(where: KunWhereUniqueInput!, create: KunCreateInput!, update: KunUpdateInput!): Kun!
+  deleteKun(where: KunWhereUniqueInput!): Kun
+  deleteManyKuns(where: KunWhereInput): BatchPayload!
+  createKunRomaji(data: KunRomajiCreateInput!): KunRomaji!
+  updateKunRomaji(data: KunRomajiUpdateInput!, where: KunRomajiWhereUniqueInput!): KunRomaji
+  updateManyKunRomajis(data: KunRomajiUpdateManyMutationInput!, where: KunRomajiWhereInput): BatchPayload!
+  upsertKunRomaji(where: KunRomajiWhereUniqueInput!, create: KunRomajiCreateInput!, update: KunRomajiUpdateInput!): KunRomaji!
+  deleteKunRomaji(where: KunRomajiWhereUniqueInput!): KunRomaji
+  deleteManyKunRomajis(where: KunRomajiWhereInput): BatchPayload!
+  createMeaning(data: MeaningCreateInput!): Meaning!
+  updateMeaning(data: MeaningUpdateInput!, where: MeaningWhereUniqueInput!): Meaning
+  updateManyMeanings(data: MeaningUpdateManyMutationInput!, where: MeaningWhereInput): BatchPayload!
+  upsertMeaning(where: MeaningWhereUniqueInput!, create: MeaningCreateInput!, update: MeaningUpdateInput!): Meaning!
+  deleteMeaning(where: MeaningWhereUniqueInput!): Meaning
+  deleteManyMeanings(where: MeaningWhereInput): BatchPayload!
+  createOn(data: OnCreateInput!): On!
+  updateOn(data: OnUpdateInput!, where: OnWhereUniqueInput!): On
+  updateManyOns(data: OnUpdateManyMutationInput!, where: OnWhereInput): BatchPayload!
+  upsertOn(where: OnWhereUniqueInput!, create: OnCreateInput!, update: OnUpdateInput!): On!
+  deleteOn(where: OnWhereUniqueInput!): On
+  deleteManyOns(where: OnWhereInput): BatchPayload!
+  createOnRomaji(data: OnRomajiCreateInput!): OnRomaji!
+  updateOnRomaji(data: OnRomajiUpdateInput!, where: OnRomajiWhereUniqueInput!): OnRomaji
+  updateManyOnRomajis(data: OnRomajiUpdateManyMutationInput!, where: OnRomajiWhereInput): BatchPayload!
+  upsertOnRomaji(where: OnRomajiWhereUniqueInput!, create: OnRomajiCreateInput!, update: OnRomajiUpdateInput!): OnRomaji!
+  deleteOnRomaji(where: OnRomajiWhereUniqueInput!): OnRomaji
+  deleteManyOnRomajis(where: OnRomajiWhereInput): BatchPayload!
   createWord(data: WordCreateInput!): Word!
   updateWord(data: WordUpdateInput!, where: WordWhereUniqueInput!): Word
   updateManyWords(data: WordUpdateManyMutationInput!, where: WordWhereInput): BatchPayload!
@@ -824,6 +1350,350 @@ interface Node {
   id: ID!
 }
 
+type On {
+  id: ID!
+  on: String!
+}
+
+type OnConnection {
+  pageInfo: PageInfo!
+  edges: [OnEdge]!
+  aggregate: AggregateOn!
+}
+
+input OnCreateInput {
+  id: ID
+  on: String!
+}
+
+input OnCreateManyInput {
+  create: [OnCreateInput!]
+  connect: [OnWhereUniqueInput!]
+}
+
+type OnEdge {
+  node: On!
+  cursor: String!
+}
+
+enum OnOrderByInput {
+  id_ASC
+  id_DESC
+  on_ASC
+  on_DESC
+}
+
+type OnPreviousValues {
+  id: ID!
+  on: String!
+}
+
+type OnRomaji {
+  id: ID!
+  onRomaji: String!
+}
+
+type OnRomajiConnection {
+  pageInfo: PageInfo!
+  edges: [OnRomajiEdge]!
+  aggregate: AggregateOnRomaji!
+}
+
+input OnRomajiCreateInput {
+  id: ID
+  onRomaji: String!
+}
+
+input OnRomajiCreateManyInput {
+  create: [OnRomajiCreateInput!]
+  connect: [OnRomajiWhereUniqueInput!]
+}
+
+type OnRomajiEdge {
+  node: OnRomaji!
+  cursor: String!
+}
+
+enum OnRomajiOrderByInput {
+  id_ASC
+  id_DESC
+  onRomaji_ASC
+  onRomaji_DESC
+}
+
+type OnRomajiPreviousValues {
+  id: ID!
+  onRomaji: String!
+}
+
+input OnRomajiScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  onRomaji: String
+  onRomaji_not: String
+  onRomaji_in: [String!]
+  onRomaji_not_in: [String!]
+  onRomaji_lt: String
+  onRomaji_lte: String
+  onRomaji_gt: String
+  onRomaji_gte: String
+  onRomaji_contains: String
+  onRomaji_not_contains: String
+  onRomaji_starts_with: String
+  onRomaji_not_starts_with: String
+  onRomaji_ends_with: String
+  onRomaji_not_ends_with: String
+  AND: [OnRomajiScalarWhereInput!]
+  OR: [OnRomajiScalarWhereInput!]
+  NOT: [OnRomajiScalarWhereInput!]
+}
+
+type OnRomajiSubscriptionPayload {
+  mutation: MutationType!
+  node: OnRomaji
+  updatedFields: [String!]
+  previousValues: OnRomajiPreviousValues
+}
+
+input OnRomajiSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: OnRomajiWhereInput
+  AND: [OnRomajiSubscriptionWhereInput!]
+  OR: [OnRomajiSubscriptionWhereInput!]
+  NOT: [OnRomajiSubscriptionWhereInput!]
+}
+
+input OnRomajiUpdateDataInput {
+  onRomaji: String
+}
+
+input OnRomajiUpdateInput {
+  onRomaji: String
+}
+
+input OnRomajiUpdateManyDataInput {
+  onRomaji: String
+}
+
+input OnRomajiUpdateManyInput {
+  create: [OnRomajiCreateInput!]
+  update: [OnRomajiUpdateWithWhereUniqueNestedInput!]
+  upsert: [OnRomajiUpsertWithWhereUniqueNestedInput!]
+  delete: [OnRomajiWhereUniqueInput!]
+  connect: [OnRomajiWhereUniqueInput!]
+  set: [OnRomajiWhereUniqueInput!]
+  disconnect: [OnRomajiWhereUniqueInput!]
+  deleteMany: [OnRomajiScalarWhereInput!]
+  updateMany: [OnRomajiUpdateManyWithWhereNestedInput!]
+}
+
+input OnRomajiUpdateManyMutationInput {
+  onRomaji: String
+}
+
+input OnRomajiUpdateManyWithWhereNestedInput {
+  where: OnRomajiScalarWhereInput!
+  data: OnRomajiUpdateManyDataInput!
+}
+
+input OnRomajiUpdateWithWhereUniqueNestedInput {
+  where: OnRomajiWhereUniqueInput!
+  data: OnRomajiUpdateDataInput!
+}
+
+input OnRomajiUpsertWithWhereUniqueNestedInput {
+  where: OnRomajiWhereUniqueInput!
+  update: OnRomajiUpdateDataInput!
+  create: OnRomajiCreateInput!
+}
+
+input OnRomajiWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  onRomaji: String
+  onRomaji_not: String
+  onRomaji_in: [String!]
+  onRomaji_not_in: [String!]
+  onRomaji_lt: String
+  onRomaji_lte: String
+  onRomaji_gt: String
+  onRomaji_gte: String
+  onRomaji_contains: String
+  onRomaji_not_contains: String
+  onRomaji_starts_with: String
+  onRomaji_not_starts_with: String
+  onRomaji_ends_with: String
+  onRomaji_not_ends_with: String
+  AND: [OnRomajiWhereInput!]
+  OR: [OnRomajiWhereInput!]
+  NOT: [OnRomajiWhereInput!]
+}
+
+input OnRomajiWhereUniqueInput {
+  id: ID
+}
+
+input OnScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  on: String
+  on_not: String
+  on_in: [String!]
+  on_not_in: [String!]
+  on_lt: String
+  on_lte: String
+  on_gt: String
+  on_gte: String
+  on_contains: String
+  on_not_contains: String
+  on_starts_with: String
+  on_not_starts_with: String
+  on_ends_with: String
+  on_not_ends_with: String
+  AND: [OnScalarWhereInput!]
+  OR: [OnScalarWhereInput!]
+  NOT: [OnScalarWhereInput!]
+}
+
+type OnSubscriptionPayload {
+  mutation: MutationType!
+  node: On
+  updatedFields: [String!]
+  previousValues: OnPreviousValues
+}
+
+input OnSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: OnWhereInput
+  AND: [OnSubscriptionWhereInput!]
+  OR: [OnSubscriptionWhereInput!]
+  NOT: [OnSubscriptionWhereInput!]
+}
+
+input OnUpdateDataInput {
+  on: String
+}
+
+input OnUpdateInput {
+  on: String
+}
+
+input OnUpdateManyDataInput {
+  on: String
+}
+
+input OnUpdateManyInput {
+  create: [OnCreateInput!]
+  update: [OnUpdateWithWhereUniqueNestedInput!]
+  upsert: [OnUpsertWithWhereUniqueNestedInput!]
+  delete: [OnWhereUniqueInput!]
+  connect: [OnWhereUniqueInput!]
+  set: [OnWhereUniqueInput!]
+  disconnect: [OnWhereUniqueInput!]
+  deleteMany: [OnScalarWhereInput!]
+  updateMany: [OnUpdateManyWithWhereNestedInput!]
+}
+
+input OnUpdateManyMutationInput {
+  on: String
+}
+
+input OnUpdateManyWithWhereNestedInput {
+  where: OnScalarWhereInput!
+  data: OnUpdateManyDataInput!
+}
+
+input OnUpdateWithWhereUniqueNestedInput {
+  where: OnWhereUniqueInput!
+  data: OnUpdateDataInput!
+}
+
+input OnUpsertWithWhereUniqueNestedInput {
+  where: OnWhereUniqueInput!
+  update: OnUpdateDataInput!
+  create: OnCreateInput!
+}
+
+input OnWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  on: String
+  on_not: String
+  on_in: [String!]
+  on_not_in: [String!]
+  on_lt: String
+  on_lte: String
+  on_gt: String
+  on_gte: String
+  on_contains: String
+  on_not_contains: String
+  on_starts_with: String
+  on_not_starts_with: String
+  on_ends_with: String
+  on_not_ends_with: String
+  AND: [OnWhereInput!]
+  OR: [OnWhereInput!]
+  NOT: [OnWhereInput!]
+}
+
+input OnWhereUniqueInput {
+  id: ID
+}
+
 type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
@@ -835,6 +1705,21 @@ type Query {
   kanji(where: KanjiWhereUniqueInput!): Kanji
   kanjis(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji]!
   kanjisConnection(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): KanjiConnection!
+  kun(where: KunWhereUniqueInput!): Kun
+  kuns(where: KunWhereInput, orderBy: KunOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kun]!
+  kunsConnection(where: KunWhereInput, orderBy: KunOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): KunConnection!
+  kunRomaji(where: KunRomajiWhereUniqueInput!): KunRomaji
+  kunRomajis(where: KunRomajiWhereInput, orderBy: KunRomajiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [KunRomaji]!
+  kunRomajisConnection(where: KunRomajiWhereInput, orderBy: KunRomajiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): KunRomajiConnection!
+  meaning(where: MeaningWhereUniqueInput!): Meaning
+  meanings(where: MeaningWhereInput, orderBy: MeaningOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Meaning]!
+  meaningsConnection(where: MeaningWhereInput, orderBy: MeaningOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MeaningConnection!
+  on(where: OnWhereUniqueInput!): On
+  ons(where: OnWhereInput, orderBy: OnOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [On]!
+  onsConnection(where: OnWhereInput, orderBy: OnOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OnConnection!
+  onRomaji(where: OnRomajiWhereUniqueInput!): OnRomaji
+  onRomajis(where: OnRomajiWhereInput, orderBy: OnRomajiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OnRomaji]!
+  onRomajisConnection(where: OnRomajiWhereInput, orderBy: OnRomajiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OnRomajiConnection!
   word(where: WordWhereUniqueInput!): Word
   words(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Word]!
   wordsConnection(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WordConnection!
@@ -849,6 +1734,11 @@ type Query {
 
 type Subscription {
   kanji(where: KanjiSubscriptionWhereInput): KanjiSubscriptionPayload
+  kun(where: KunSubscriptionWhereInput): KunSubscriptionPayload
+  kunRomaji(where: KunRomajiSubscriptionWhereInput): KunRomajiSubscriptionPayload
+  meaning(where: MeaningSubscriptionWhereInput): MeaningSubscriptionPayload
+  on(where: OnSubscriptionWhereInput): OnSubscriptionPayload
+  onRomaji(where: OnRomajiSubscriptionWhereInput): OnRomajiSubscriptionPayload
   word(where: WordSubscriptionWhereInput): WordSubscriptionPayload
   wordExample(where: WordExampleSubscriptionWhereInput): WordExampleSubscriptionPayload
   wordUsage(where: WordUsageSubscriptionWhereInput): WordUsageSubscriptionPayload
