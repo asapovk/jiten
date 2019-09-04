@@ -16,13 +16,17 @@ const KanjiList = (props) => {
 
     const tableColumns = [
         {
-            title: 'Cлово', dataIndex: 'writing', render: (row, value) => {
+            title: ' ', dataIndex: 'writing', render: (row, value) => {
                 return <Link to={`/kanji/${value}`}>{value}</Link>
             }
         },
-        { title: 'Перевод', dataIndex: 'translation' },
-        { title: 'Хирагана', dataIndex: 'hiragana' }
+        { title: 'Значение', dataIndex: 'meaning' },
+        { title: 'Он-чтение', dataIndex: 'on' },
+        { title: 'Он-чтение латиницей', dataIndex: 'onRomaji' },
+        { title: 'кун-чтение', dataIndex: 'kun' },
+        { title: 'кун-чтение латиницей', dataIndex: 'kunRomaji' }
     ]
+
 
     return (
 
