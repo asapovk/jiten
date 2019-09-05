@@ -35,6 +35,8 @@ import { makeExecutableSchema } from 'graphql-tools'
 import { importSchema } from 'graphql-import'
 import resolvers from './graphql/resolvers'
 
+import { prisma } from './generated/index'
+
 const app = express()
 const port = process.env.PORT || 4000
 const typeDefs = importSchema(path.join(__dirname, "graphql", "schema.graphql"))
@@ -111,12 +113,29 @@ app.listen({ port }, () => {
         res.send("You should't to that 🔪")
     })
     /// API !
-    app.get('/api/kanji/', (req, res) => {
-
+    app.post('/api/kanji/', async (req, res) => {
+        const writing = req.body.writing
+        console.log(writing)
         res.type('json')
-        res.send(
-            { "message": "Hello!" }
-        )
+
+        const kanji = await prisma.kanjis({
+            where: {
+                writing: writing
+            }
+        })
+        res.send(kanji)
+    })
+    app.post('/api/word/', async (req, res) => {
+        const writing = req.body.writing
+        console.log(writing)
+        res.type('json')
+
+        const words = await prisma.words({
+            where: {
+                writing: writing
+            }
+        })
+        res.send(words)
     })
 
 
