@@ -8,7 +8,7 @@ type Word {
   romaji: String
   imageUrl: String
   videoUrl: String
-  kanji: [Kanji!] 
+  kanji: [Kanji] 
   patterns: [WordExample!]  
   antipatterns:  [WordExample!] 
   hiragana: String

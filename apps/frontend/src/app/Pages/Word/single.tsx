@@ -6,7 +6,8 @@ import { WordActions } from '../../../store/actions'
 import { useMappedState } from 'redux-react-hook'
 import { ApplicationState } from '../../../store'
 import { avatarStyles, avatarContainerStyles } from './styles'
-
+import { kanji } from 'src/store/kanji/reducer';
+import { Link } from 'react-router-dom'
 const WordSingle = (props) => {
     const { sidebarHidden } = props
 
@@ -27,6 +28,8 @@ const WordSingle = (props) => {
     const romaji = word ? word.romaji : ''
     const imageUrl = word && word.imageUrl ? word.imageUrl : ''
     const usage = word && word.usage ? word.usage : []
+    const kanji = word && Array.isArray(word.kanji) ?
+        word.kanji : []
 
     return (
         <Fragment>
@@ -57,6 +60,12 @@ const WordSingle = (props) => {
                                             }
                                         </Flexbox>
                                     </Flexbox>
+                                </Flexbox>
+                                <Flexbox column>
+                                    <Flexbox p={20}>
+                                        <T1 children={'Кандзи'} />
+                                    </Flexbox>
+                                    <Flexbox p={20}>{kanji.map((item: any) => <Link to={'/kanji/' + item.writing}>{item.writing}</Link>)}</Flexbox>
                                 </Flexbox>
                             </Flexbox>
                         </div>

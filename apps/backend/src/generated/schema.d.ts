@@ -173,7 +173,7 @@ export interface Word {
 
   videoUrl?: Maybe<string>;
 
-  kanji?: Maybe<Kanji[]>;
+  kanji?: Maybe<(Maybe<Kanji>)[]>;
 
   patterns?: Maybe<WordExample[]>;
 

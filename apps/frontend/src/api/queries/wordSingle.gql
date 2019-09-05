@@ -9,6 +9,9 @@ query wordSingle (
         hiragana
         romaji
         imageUrl
+        kanji {
+            writing
+        }
         usage {
             question
             answer
