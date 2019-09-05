@@ -10,12 +10,12 @@ export const avatarStyles = () => {
 
 export const avatarContainerStyles = (sidebarHidden: boolean) => {
     return css({
-        width: '10%',
+        width: '100px',
         position: 'fixed',
-        top: '120px',
+        top: '100px',
         left: '300px',
         transition: 'left .25s ease-out'
     }, sidebarHidden && {
-        left: '100px'
+        left: '80px'
     })
 }
