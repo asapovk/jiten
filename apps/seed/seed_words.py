@@ -84,61 +84,39 @@ def get_google_translation(list):
 
 def process():
     print("[CSV --> JSON DICTIONARY CONVERSION STARTED...]")
-    with io.open('JDic - JLPT1vocab_test.csv', 'r', encoding="utf8") as csvfile:
+    with io.open('JDic-JLPT1vocab.csv', 'r', encoding="utf8") as csvfile:
         reader = csv.DictReader(csvfile, delimiter = ',', fieldnames=("number", "hiragana", "latintranscription", "writing", "translation", "other", "usage", "synonyms"))
 
         array = [row for row in reader]
-        i = 1
-
-        #list_of_elements = []
-        #for element in array:
-        #    element['translation'] = element['translation'].split(';')
-        #    list_of_elements.append(element['translation'])
-        #print("[TRANSLATION STARTED...]")
-        #elements_translated = get_google_translation(list_of_elements)
-        #print("[TRANSLATION FINISHED!]")
-
-        # <--- ### DEBUG ONLY ###
-        #print([element['translation'] for element in array])
-        #print(elements_translated)
-        #print([element['translation'] for element in array])
-        #m = 0
-        #for k in elements_translated:
-        #    m+=1
-        #print("Number of lists in list: %d" % m)
-        #s = 0
-        #for element in array:
-        #    s+=1
-        #print("Number of elements in array: %d" % s)
-        # --->
-
+        i=0
         for n, element in enumerate(array):
-            print(">>> [CONVERTING WORD: %d] >>>" % i)
-            element['number'] = int(element['number'])
-            element['translation'] = get_google_translation(element['translation']).split(';')
-
-            if len(element['writing']) == 0:
-
-                us = get_usage(element['hiragana'])
-                element['usage'] = us
-                if us == None:   
-                    element['usage'] = [{'question': " ", 'answer': " "}]
-                print("Usage is ")    
-                print(element['usage'])
-                print("[NO WRITING OF WORD: %d]" % i)
-                print("[HIRAGANA OF WORD: %d]" % i, element['hiragana'])
-            else:
-                us = get_usage(element['writing'])
-                element['usage'] = us
-                if us == None:   
-                    element['usage'] = [{'question': " ", 'answer': " "}]
-                print("Usage is ")  
-                print(element['usage'])
-                print("[WRITING OF WORD: %d]" % i, element['writing'])
-                print("[HIRAGANA OF WORD: %d]" % i, element['hiragana'])
             i+=1
+            if i > 476:    
+                print(">>> [CONVERTING WORD: %d] >>>" % i)
+                element['number'] = int(element['number'])
+                element['translation'] = get_google_translation(element['translation']).split(';')
 
-            create_word(element['writing'], element['translation'], element['latintranscription'], element['hiragana'], element['usage'])
+                if len(element['writing']) == 0:
+
+                    us = get_usage(element['hiragana'])
+                    element['usage'] = us
+                    if us == None:   
+                        element['usage'] = [{'question': " ", 'answer': " "}]
+                    print("Usage is ")    
+                    print(element['usage'])
+                    print("[NO WRITING OF WORD: %d]" % i)
+                    print("[HIRAGANA OF WORD: %d]" % i, element['hiragana'])
+                else:
+                    us = get_usage(element['writing'])
+                    element['usage'] = us
+                    if us == None:   
+                        element['usage'] = [{'question': " ", 'answer': " "}]
+                    print("Usage is ")  
+                    print(element['usage'])
+                    print("[WRITING OF WORD: %d]" % i, element['writing'])
+                    print("[HIRAGANA OF WORD: %d]" % i, element['hiragana'])
+
+                create_word(element['writing'], element['translation'], element['latintranscription'], element['hiragana'], element['usage'])
            # break
             
         #output = json.dumps(array)

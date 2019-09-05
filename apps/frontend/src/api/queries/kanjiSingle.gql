@@ -14,16 +14,14 @@ query kanjiSingle (
         usageFirst {
             writing
             translation
+            hiragana
+            romaji
         }
         usageLast {
             writing
             translation
-        }
-        phonetics {
-            meaning
-            writing
-            on
-            kun
+            hiragana
+            romaji
         }
     }
 }

@@ -6,14 +6,14 @@ import { WordActions, KanjiActions } from '../../../../store/actions'
 import { useMappedState } from 'redux-react-hook'
 import { ApplicationState } from '../../../../store'
 import { Link } from 'react-router-dom'
-import { Message } from '.'
-const WordList = (props) => {
+import { Word } from '../../../../../../backend/src/generated/schema'
+interface UsageWordListProps {
+    words: any//Word[] | []
+}
 
+const UsageWordList = (props: UsageWordListProps) => {
+    const { words } = props
 
-    const mappedState = useCallback((state: ApplicationState) => ({
-        words: state.word.words
-    }), [])
-    const { words } = useMappedState(mappedState)
     const tableColumns = [
         {
             title: 'Cлово', dataIndex: 'writing', render: (row, value) => {
@@ -26,11 +26,9 @@ const WordList = (props) => {
     ]
     return (
         <Flexbox column mt={50}>
-            {
-                words.length > 0 ?
-                    <Table data={words} columns={tableColumns} />
-                    : <Message />
-            }
+
+            <Table data={words} columns={tableColumns} />
+
         </Flexbox>
 
     )
@@ -38,4 +36,4 @@ const WordList = (props) => {
 
 }
 
-export default WordList
+export default UsageWordList

@@ -6,6 +6,7 @@ import { KanjiActions } from '../../../../store/actions'
 import { useMappedState } from 'redux-react-hook'
 import { ApplicationState } from '../../../../store'
 import { Link } from 'react-router-dom'
+import { Message } from '.'
 
 const KanjiList = (props) => {
 
@@ -18,7 +19,7 @@ const KanjiList = (props) => {
         {
             title: ' ', dataIndex: 'writing', render: (row, value) => {
                 return <Link to={`/kanji/${value}`}>
-                    <D1 children={value} />
+                    {value}
                 </Link>
             }
         },
@@ -45,7 +46,7 @@ const KanjiList = (props) => {
             {
                 kanji.length > 0 ?
                     <Table data={tableData} columns={tableColumns} />
-                    : null
+                    : <Message />
             }
         </Flexbox>
 

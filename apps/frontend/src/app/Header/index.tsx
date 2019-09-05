@@ -35,7 +35,11 @@ const Header = () => {
                         <D1 children={'Jiten'} />
                         {location.pathname !== '/' ?
 
-                            <Link to='/'>{'На главную'}</Link>
+                            <Flexbox ml={'2rem'}>
+                                <Link to='/'>
+                                    {'На главную'}
+                                </Link>
+                            </Flexbox>
 
                             : null
                         }

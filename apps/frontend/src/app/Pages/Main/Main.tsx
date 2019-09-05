@@ -6,7 +6,7 @@ import { WordActions, KanjiActions } from '../../../store/actions'
 import { useMappedState } from 'redux-react-hook'
 import { ApplicationState } from '../../../store'
 import { Link } from 'react-router-dom'
-import { WordList, KanjiList } from './components'
+import { WordList, KanjiList, Message } from './components'
 
 const WordPage = (props) => {
 

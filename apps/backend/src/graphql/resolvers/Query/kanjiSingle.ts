@@ -34,6 +34,19 @@ export default async (req: any, args: KanjiSingleQueryArgs, { db }, info) => {
             imageUrl
           }
         `)
+
+
+        const usageFirstWords = await prisma.words({
+            where: {
+                writing_starts_with: args.input.writing
+            }
+        })
+        const usageLastWords = await prisma.words({
+            where: {
+                writing_ends_with: args.input.writing
+            }
+        })
+
         console.log('KANJIS')
         console.log(kanjis)
         const transformedKanji = kanjis.map(item => {
@@ -41,7 +54,9 @@ export default async (req: any, args: KanjiSingleQueryArgs, { db }, info) => {
                 ...item,
                 kun: item.kun.map(i => { return i.kun }),
                 on: item.on.map(i => { return i.on }),
-                meaning: item.meaning.map(i => { return i.meaning })
+                meaning: item.meaning.map(i => { return i.meaning }),
+                usageFirst: usageFirstWords,
+                usageLast: usageLastWords
             }
         })
 

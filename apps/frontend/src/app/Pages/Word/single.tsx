@@ -49,7 +49,7 @@ const WordSingle = (props) => {
                                         <Flexbox p={10}>
                                             <div >{romaji}</div>
                                         </Flexbox>
-                                        <Flexbox p={10}>
+                                        <Flexbox p={10} column>
                                             {
                                                 translation.map((item, index) =>
                                                     <div css={{ marginLeft: '5px' }} key={index}>{item}</div>
