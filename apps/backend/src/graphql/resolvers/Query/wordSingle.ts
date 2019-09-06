@@ -26,6 +26,22 @@ export default async (req: any, args: WordSingleQueryArgs, { db }, info) => {
                 question
                 answer
             }
+            usageMeaning {
+                question
+                answer
+            }
+            usageDifference {
+                question
+                answer
+            }
+            usageWatsay {
+                question
+                answer
+            }
+            usageOther {
+                question
+                answer
+            }
           }
         `)
         // TO EDIT!!!   
