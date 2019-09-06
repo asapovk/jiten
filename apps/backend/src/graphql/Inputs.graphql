@@ -11,6 +11,11 @@ input WordCreateInput {
     antipatterns:  [WordExampleCreateInput!] 
     hiragana: String!
     usage: [WordUsageCreateInput]
+
+    usageMeaning: [WordUsageCreateInput] 
+    usageDifference: [WordUsageCreateInput] 
+    usageWatsay: [WordUsageCreateInput]
+    usageOther: [WordUsageCreateInput] 
 }
 
 
@@ -25,6 +30,11 @@ input WordUpdateInput {
     antipatterns:  [WordExampleUpdateInput!] 
     hiragana: String!
     usage: [WordUsageCreateInput]
+
+    usageMeaning: [WordUsageCreateInput] 
+    usageDifference: [WordUsageCreateInput] 
+    usageWatsay: [WordUsageCreateInput]
+    usageOther: [WordUsageCreateInput] 
 }
 
 input WordExampleCreateInput {

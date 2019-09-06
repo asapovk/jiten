@@ -44,7 +44,7 @@ const KanjiSingle = (props) => {
         <Fragment>
             <Flexbox justifyContent={"flex-end"} mr={100} mt={50}>
                 <div css={container}>
-                    <Widget>
+                    <Widget >
                         <div css={avatarStyles}>
                             <Flexbox column>
                                 <Flexbox mb={20}>
@@ -57,19 +57,19 @@ const KanjiSingle = (props) => {
                                         )
                                     }
                                 </Flexbox>
-                                <Flexbox p={10}>
+                                <Flexbox p={10} column>
                                     <D4 children={'Кунёми:'} color={'highlight'} />
                                     {
                                         kun.map((item, index) =>
-                                            <div css={{ marginLeft: '5px' }} key={index}>{item}</div>
+                                            <div css={{ marginLeft: '10px' }} key={index}>{item}</div>
                                         )
                                     }
                                 </Flexbox>
-                                <Flexbox p={10} >
+                                <Flexbox p={10} column>
                                     <D4 children={'Онёми:'} color={'highlight'} />
                                     {
                                         on.map((item, index) =>
-                                            <div css={{ marginLeft: '5px' }} key={index}>{item}</div>
+                                            <div css={{ marginLeft: '10px' }} key={index}>{item}</div>
                                         )
                                     }
                                 </Flexbox>
@@ -78,23 +78,27 @@ const KanjiSingle = (props) => {
                     </Widget>
                 </div>
                 <Flexbox w={'75%'} h={1000} ml={300}>
-                    <Flexbox column>
-                        <Flexbox mb={20}>
-                            <Widget>
-                                <Flexbox column p={20}>
-                                    <D2 children={'Примеры с ' + props.match.params.name + ' в начале'} />
-                                    <UsageWOrdList words={usageFirst} />
-                                </Flexbox>
-                            </Widget>
-                        </Flexbox>
-                        <Flexbox mb={20}>
-                            <Widget>
-                                <Flexbox column p={20}>
-                                    <D2 children={'Примеры с ' + props.match.params.name + ' в конце'} />
-                                    <UsageWOrdList words={usageLast} />
-                                </Flexbox>
-                            </Widget>
-                        </Flexbox>
+                    <Flexbox column w={'100%'}>
+                        {usageFirst.length > 0 ?
+                            <Flexbox mb={20} >
+                                <Widget style={{ width: '100%' }}>
+                                    <Flexbox column p={20} >
+                                        <D2 children={'Примеры с ' + props.match.params.name + ' в начале'} />
+                                        <UsageWOrdList words={usageFirst} />
+                                    </Flexbox>
+                                </Widget>
+                            </Flexbox>
+                            : null}
+                        {usageLast.length > 0 ?
+                            <Flexbox mb={20} >
+                                <Widget style={{ width: '100%' }}>
+                                    <Flexbox column p={20}>
+                                        <D2 children={'Примеры с ' + props.match.params.name + ' в конце'} />
+                                        <UsageWOrdList words={usageLast} />
+                                    </Flexbox>
+                                </Widget>
+                            </Flexbox>
+                            : null}
                     </Flexbox>
                 </Flexbox>
             </Flexbox>

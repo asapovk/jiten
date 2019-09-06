@@ -13,6 +13,11 @@ type Word {
   antipatterns:  [WordExample!] 
   hiragana: String
   usage: [WordUsage]
+
+  usageMeaning: [WordUsage] 
+  usageDifference: [WordUsage] 
+  usageWatsay: [WordUsage] 
+  usageOther: [WordUsage] 
 }
 
 type WordUsage {

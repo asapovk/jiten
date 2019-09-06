@@ -13,6 +13,8 @@ export default async (_, args: CreateWordMutationArgs) => {
 
     try {
 
+
+
         //Check if already exist
         const existWords: Word[] | null = await prisma.words({
             where: {
@@ -20,28 +22,75 @@ export default async (_, args: CreateWordMutationArgs) => {
             }
         })
 
-        if (existWords.length !== 0) {
-            return existWords[0]
+        var wordId: any = null
+
+        if (Array.isArray(existWords) && existWords.length !== 0) {
+            wordId = existWords[0].id
+
+
+            const updateddWord: Word = await prisma.updateWord({
+                data: {
+                    writing: args.input.writing,
+                    translation: {
+                        set: args.input.translation
+                    },
+                    romaji: args.input.romaji,
+                    hiragana: args.input.hiragana,
+                    usage: {
+                        create: args.input.usage as any
+                    },
+                    usageMeaning: {
+                        create: args.input.usageMeaning as any
+                    },
+                    usageDifference: {
+                        create: args.input.usageDifference as any
+                    },
+                    usageWatsay: {
+                        create: args.input.usageWatsay as any
+                    },
+                    usageOther: {
+                        create: args.input.usageOther as any
+                    }
+
+                }, where: {
+                    id: wordId
+                }
+            })
+            console.log('UPDATED_WORD')
+            console.log(updateddWord)
+            return updateddWord
+        }
+        else {
+            const createddWord: Word = await prisma.createWord(
+                {
+                    writing: args.input.writing,
+                    translation: {
+                        set: args.input.translation
+                    },
+                    romaji: args.input.romaji,
+                    hiragana: args.input.hiragana,
+                    usage: {
+                        create: args.input.usage as any
+                    },
+                    usageMeaning: {
+                        create: args.input.usageMeaning as any
+                    },
+                    usageDifference: {
+                        create: args.input.usageDifference as any
+                    },
+                    usageWatsay: {
+                        create: args.input.usageWatsay as any
+                    },
+                    usageOther: {
+                        create: args.input.usageOther as any
+                    }
+
+                })
+            console.log('CREATED_WORD')
+            console.log(createddWord)
+            return createddWord
         }
 
-
-
-        const createddWord: Word = await prisma.createWord({
-            writing: args.input.writing,
-            translation: {
-                set: args.input.translation
-            },
-            romaji: args.input.romaji,
-            hiragana: args.input.hiragana,
-            usage: {
-                create: args.input.usage as any
-            }
-
-        })
-
-        console.log('CREATED_WORD')
-        console.log(createddWord)
-        return createddWord
     }
     catch (error) {
         console.log(error.message)

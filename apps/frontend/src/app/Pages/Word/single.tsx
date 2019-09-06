@@ -35,15 +35,15 @@ const WordSingle = (props) => {
         <Fragment>
             <Flexbox justifyContent={"flex-end"} mr={100} mt={50}>
                 <div css={container}>
-                    <Widget key={Date.now()}>
+                    <Widget key={Date.now()} >
                         <div css={avatarStyles}>
                             <Flexbox column>
                                 <Flexbox mb={20} >
                                     <img height={200} width={'100%'} src={imageUrl} />
                                 </Flexbox>
-                                <Flexbox >
-                                    <Flexbox p={10}>
-                                        <div css={{ writingMode: 'vertical-rl', fontSize: '50px' }}>{writing}</div>
+                                <Flexbox justifyContent={'space-between'}>
+                                    <Flexbox p={10} w={'30px'}>
+                                        <div css={{ fontSize: '50px' }}>{writing}</div>
                                     </Flexbox>
                                     <Flexbox column>
                                         <Flexbox p={10}>
@@ -73,9 +73,9 @@ const WordSingle = (props) => {
                 </div>
                 <Flexbox w={'75%'} h={1000} ml={300}>
                     <Flexbox column>
-                        <Flexbox mb={20}>
-                            <Widget>
-                                <Flexbox column>
+                        <Flexbox mb={20} w={'100%'}>
+                            <div style={{ width: '100%' }}>
+                                <Flexbox column w={'100%'}>
                                     {
                                         usage.map((item, index) =>
                                             <Flexbox key={index} column p={20}>
@@ -91,7 +91,7 @@ const WordSingle = (props) => {
                                         )
                                     }
                                 </Flexbox>
-                            </Widget>
+                            </div>
                         </Flexbox>
                     </Flexbox>
                 </Flexbox>

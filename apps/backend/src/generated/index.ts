@@ -900,6 +900,18 @@ export interface WordWhereInput {
   usage_every?: Maybe<WordUsageWhereInput>;
   usage_some?: Maybe<WordUsageWhereInput>;
   usage_none?: Maybe<WordUsageWhereInput>;
+  usageMeaning_every?: Maybe<WordUsageWhereInput>;
+  usageMeaning_some?: Maybe<WordUsageWhereInput>;
+  usageMeaning_none?: Maybe<WordUsageWhereInput>;
+  usageDifference_every?: Maybe<WordUsageWhereInput>;
+  usageDifference_some?: Maybe<WordUsageWhereInput>;
+  usageDifference_none?: Maybe<WordUsageWhereInput>;
+  usageWatsay_every?: Maybe<WordUsageWhereInput>;
+  usageWatsay_some?: Maybe<WordUsageWhereInput>;
+  usageWatsay_none?: Maybe<WordUsageWhereInput>;
+  usageOther_every?: Maybe<WordUsageWhereInput>;
+  usageOther_some?: Maybe<WordUsageWhereInput>;
+  usageOther_none?: Maybe<WordUsageWhereInput>;
   AND?: Maybe<WordWhereInput[] | WordWhereInput>;
   OR?: Maybe<WordWhereInput[] | WordWhereInput>;
   NOT?: Maybe<WordWhereInput[] | WordWhereInput>;
@@ -1177,6 +1189,10 @@ export interface WordCreateInput {
   antipatterns?: Maybe<WordExampleCreateManyInput>;
   hiragana?: Maybe<String>;
   usage?: Maybe<WordUsageCreateManyInput>;
+  usageMeaning?: Maybe<WordUsageCreateManyInput>;
+  usageDifference?: Maybe<WordUsageCreateManyInput>;
+  usageWatsay?: Maybe<WordUsageCreateManyInput>;
+  usageOther?: Maybe<WordUsageCreateManyInput>;
 }
 
 export interface WordCreatetranslationInput {
@@ -1805,6 +1821,10 @@ export interface WordUpdateDataInput {
   antipatterns?: Maybe<WordExampleUpdateManyInput>;
   hiragana?: Maybe<String>;
   usage?: Maybe<WordUsageUpdateManyInput>;
+  usageMeaning?: Maybe<WordUsageUpdateManyInput>;
+  usageDifference?: Maybe<WordUsageUpdateManyInput>;
+  usageWatsay?: Maybe<WordUsageUpdateManyInput>;
+  usageOther?: Maybe<WordUsageUpdateManyInput>;
 }
 
 export interface WordUpdatetranslationInput {
@@ -2468,6 +2488,10 @@ export interface WordUpdateInput {
   antipatterns?: Maybe<WordExampleUpdateManyInput>;
   hiragana?: Maybe<String>;
   usage?: Maybe<WordUsageUpdateManyInput>;
+  usageMeaning?: Maybe<WordUsageUpdateManyInput>;
+  usageDifference?: Maybe<WordUsageUpdateManyInput>;
+  usageWatsay?: Maybe<WordUsageUpdateManyInput>;
+  usageOther?: Maybe<WordUsageUpdateManyInput>;
 }
 
 export interface WordUpdateManyMutationInput {
@@ -3148,6 +3172,42 @@ export interface WordPromise extends Promise<Word>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  usageMeaning: <T = FragmentableArray<WordUsage>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageDifference: <T = FragmentableArray<WordUsage>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageWatsay: <T = FragmentableArray<WordUsage>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageOther: <T = FragmentableArray<WordUsage>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface WordSubscription
@@ -3205,6 +3265,42 @@ export interface WordSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  usageMeaning: <T = Promise<AsyncIterator<WordUsageSubscription>>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageDifference: <T = Promise<AsyncIterator<WordUsageSubscription>>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageWatsay: <T = Promise<AsyncIterator<WordUsageSubscription>>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageOther: <T = Promise<AsyncIterator<WordUsageSubscription>>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface WordNullablePromise
@@ -3254,6 +3350,42 @@ export interface WordNullablePromise
   }) => T;
   hiragana: () => Promise<String>;
   usage: <T = FragmentableArray<WordUsage>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageMeaning: <T = FragmentableArray<WordUsage>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageDifference: <T = FragmentableArray<WordUsage>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageWatsay: <T = FragmentableArray<WordUsage>>(args?: {
+    where?: WordUsageWhereInput;
+    orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  usageOther: <T = FragmentableArray<WordUsage>>(args?: {
     where?: WordUsageWhereInput;
     orderBy?: WordUsageOrderByInput;
     skip?: Int;

@@ -38,6 +38,14 @@ export interface WordCreateInput {
   hiragana: string;
 
   usage?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
+
+  usageMeaning?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
+
+  usageDifference?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
+
+  usageWatsay?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
+
+  usageOther?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
 }
 
 export interface WordExampleCreateInput {
@@ -98,6 +106,14 @@ export interface WordUpdateInput {
   hiragana: string;
 
   usage?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
+
+  usageMeaning?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
+
+  usageDifference?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
+
+  usageWatsay?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
+
+  usageOther?: Maybe<(Maybe<WordUsageCreateInput>)[]>;
 }
 
 export interface WordExampleUpdateInput {
@@ -182,6 +198,14 @@ export interface Word {
   hiragana?: Maybe<string>;
 
   usage?: Maybe<(Maybe<WordUsage>)[]>;
+
+  usageMeaning?: Maybe<(Maybe<WordUsage>)[]>;
+
+  usageDifference?: Maybe<(Maybe<WordUsage>)[]>;
+
+  usageWatsay?: Maybe<(Maybe<WordUsage>)[]>;
+
+  usageOther?: Maybe<(Maybe<WordUsage>)[]>;
 }
 
 export interface Kanji {

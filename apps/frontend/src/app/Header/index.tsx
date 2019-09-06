@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Fragment, useRef } from 'react';
-import { Button, Flexbox, Modal, D1 } from 'ui';
+import { Button, Flexbox, Modal, D1, Icon } from 'ui';
 import useReactRouter from 'use-react-router';
 import getRoutes from '../routes';
 import { HeaderStyles } from './styles';
@@ -27,8 +27,8 @@ const Header = () => {
     }
 
     return (
-        <Flexbox css={css.container}>
-            <span css={css.title} children={currentRoute ? currentRoute.title : ''} />
+        <Flexbox css={css.container} justifyContent={'space-between'}>
+            <Flexbox><Icon type={'rest'} size={'4rem'} style={{ color: 'red' }} /></Flexbox>
             <Flexbox alignItems='center' justifyContent='flex-end'>
                 {currentRoute && (
                     <Fragment>
@@ -44,6 +44,7 @@ const Header = () => {
                             : null
                         }
                     </Fragment>
+
                 )}
             </Flexbox>
         </Flexbox>

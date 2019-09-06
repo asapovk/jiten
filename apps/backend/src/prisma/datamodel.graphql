@@ -11,6 +11,11 @@ type Word {
   antipatterns:  [WordExample!]  @relation(name: "WordAntiPattern")
   hiragana: String
   usage: [WordUsage] @relation(name: "WordUsage" )
+
+  usageMeaning: [WordUsage] @relation(name: "WordUsageMeaning" )
+  usageDifference: [WordUsage] @relation(name: "WordUsageDifference" )
+  usageWatsay: [WordUsage] @relation(name: "WordUsageWatsay" )
+  usageOther: [WordUsage] @relation(name: "WordUsageOther" )
 }
 
 type WordUsage {
@@ -18,6 +23,8 @@ type WordUsage {
   question: String!
   answer: String!
 }
+
+
 
 type WordExample {
   id: ID! @id

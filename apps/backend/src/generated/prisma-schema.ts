@@ -1757,6 +1757,10 @@ type Word {
   antipatterns(where: WordExampleWhereInput, orderBy: WordExampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordExample!]
   hiragana: String
   usage(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage!]
+  usageMeaning(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage!]
+  usageDifference(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage!]
+  usageWatsay(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage!]
+  usageOther(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage!]
 }
 
 type WordConnection {
@@ -1778,6 +1782,10 @@ input WordCreateInput {
   antipatterns: WordExampleCreateManyInput
   hiragana: String
   usage: WordUsageCreateManyInput
+  usageMeaning: WordUsageCreateManyInput
+  usageDifference: WordUsageCreateManyInput
+  usageWatsay: WordUsageCreateManyInput
+  usageOther: WordUsageCreateManyInput
 }
 
 input WordCreateManyInput {
@@ -2148,6 +2156,10 @@ input WordUpdateDataInput {
   antipatterns: WordExampleUpdateManyInput
   hiragana: String
   usage: WordUsageUpdateManyInput
+  usageMeaning: WordUsageUpdateManyInput
+  usageDifference: WordUsageUpdateManyInput
+  usageWatsay: WordUsageUpdateManyInput
+  usageOther: WordUsageUpdateManyInput
 }
 
 input WordUpdateInput {
@@ -2162,6 +2174,10 @@ input WordUpdateInput {
   antipatterns: WordExampleUpdateManyInput
   hiragana: String
   usage: WordUsageUpdateManyInput
+  usageMeaning: WordUsageUpdateManyInput
+  usageDifference: WordUsageUpdateManyInput
+  usageWatsay: WordUsageUpdateManyInput
+  usageOther: WordUsageUpdateManyInput
 }
 
 input WordUpdateManyDataInput {
@@ -2523,6 +2539,18 @@ input WordWhereInput {
   usage_every: WordUsageWhereInput
   usage_some: WordUsageWhereInput
   usage_none: WordUsageWhereInput
+  usageMeaning_every: WordUsageWhereInput
+  usageMeaning_some: WordUsageWhereInput
+  usageMeaning_none: WordUsageWhereInput
+  usageDifference_every: WordUsageWhereInput
+  usageDifference_some: WordUsageWhereInput
+  usageDifference_none: WordUsageWhereInput
+  usageWatsay_every: WordUsageWhereInput
+  usageWatsay_some: WordUsageWhereInput
+  usageWatsay_none: WordUsageWhereInput
+  usageOther_every: WordUsageWhereInput
+  usageOther_some: WordUsageWhereInput
+  usageOther_none: WordUsageWhereInput
   AND: [WordWhereInput!]
   OR: [WordWhereInput!]
   NOT: [WordWhereInput!]
