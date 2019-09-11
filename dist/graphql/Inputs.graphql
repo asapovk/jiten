@@ -1,0 +1,121 @@
+#
+# Word
+#
+input WordCreateInput {
+    translation: [String!]!
+    writing: String! 
+    romaji: String!
+    imageUrl: String
+    videoUrl: String
+    patterns: [WordExampleCreateInput!]  
+    antipatterns:  [WordExampleCreateInput!] 
+    hiragana: String!
+    usage: [WordUsageCreateInput]
+
+    usageMeaning: [WordUsageCreateInput] 
+    usageDifference: [WordUsageCreateInput] 
+    usageWatsay: [WordUsageCreateInput]
+    usageOther: [WordUsageCreateInput] 
+}
+
+
+input WordUpdateInput {
+    id: String!
+    translation: [String!]!
+    writing: String! 
+    romaji: String!
+    imageUrl: String
+    videoUrl: String
+    patterns: [WordExampleUpdateInput!]  
+    antipatterns:  [WordExampleUpdateInput!] 
+    hiragana: String!
+    usage: [WordUsageCreateInput]
+
+    usageMeaning: [WordUsageCreateInput] 
+    usageDifference: [WordUsageCreateInput] 
+    usageWatsay: [WordUsageCreateInput]
+    usageOther: [WordUsageCreateInput] 
+}
+
+input WordExampleCreateInput {
+    original: String!
+    translation: String!
+}
+
+input WordUsageCreateInput {
+    question: String!
+    answer: String!
+}
+
+input FetchWordInput {
+    searchInput: String
+    searchType: String
+}
+input WordSingleInput {
+    writing: String!
+}
+
+
+input WordExampleUpdateInput {
+    id: String!
+    original: String
+    translation: String
+}
+
+input WordUsageUpdateInput {
+    id: String!
+    question: String
+    answer: String
+}
+
+
+input WordDeleteInput {
+    id: Int!
+}
+
+#
+# Kanji
+#
+input KanjiCreateInput {
+    writing: String!
+    meaning: [String!]!
+    on: [String!]!
+    onRomaji: [String!]!
+    kun: [String!]!
+    kunRomaji: [String!]!
+    imageUrl: String,
+    videoUrl: String,
+    jlpt: Int,
+    strokes: Int,
+    origin: String,
+    memo: String,
+}
+input KanjiUpdateInput {
+    kanjiId: String!
+    writing: String!
+    meaning: [String]!
+    on: [String!]!
+    onRomaji: [String!]!
+    kun: [String!]!
+    kunRomaji: [String!]!
+    imageUrl: String,
+    videoUrl: String,
+    jlpt: Int,
+    strokes: Int,
+    origin: String,
+    memo: String,
+}
+
+input FetchKanjiInput {
+    searchInput: String
+    searchType: String
+}
+
+input KanjiDeleteInput {
+    kanjiId: Int!
+}
+
+
+input KanjiSingleInput {
+    writing: String!
+}

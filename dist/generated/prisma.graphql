@@ -1,0 +1,2496 @@
+# source: http://localhost:4466
+# timestamp: Tue Aug 27 2019 09:35:14 GMT+0300 (Eastern European Summer Time)
+
+type AggregateKanji {
+  count: Int!
+}
+
+type AggregateWord {
+  count: Int!
+}
+
+type AggregateWordExample {
+  count: Int!
+}
+
+type AggregateWordUsage {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type Kanji implements Node {
+  id: ID!
+  writing: String!
+  meaning: [String!]!
+  on: [String!]!
+  kun: [String!]!
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  old(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji!]
+  modern(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji!]
+  memo: String
+  usageFirst(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Word!]
+  usageLast(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Word!]
+  radicals(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji!]
+  phonetics(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji!]
+}
+
+"""A connection to a list of items."""
+type KanjiConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [KanjiEdge]!
+  aggregate: AggregateKanji!
+}
+
+input KanjiCreateInput {
+  id: ID
+  writing: String!
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  memo: String
+  meaning: KanjiCreatemeaningInput
+  on: KanjiCreateonInput
+  kun: KanjiCreatekunInput
+  old: KanjiCreateManyInput
+  modern: KanjiCreateManyInput
+  usageFirst: WordCreateManyInput
+  usageLast: WordCreateManyInput
+  radicals: KanjiCreateManyInput
+  phonetics: KanjiCreateManyInput
+}
+
+input KanjiCreatekunInput {
+  set: [String!]
+}
+
+input KanjiCreateManyInput {
+  create: [KanjiCreateInput!]
+  connect: [KanjiWhereUniqueInput!]
+}
+
+input KanjiCreatemeaningInput {
+  set: [String!]
+}
+
+input KanjiCreateonInput {
+  set: [String!]
+}
+
+"""An edge in a connection."""
+type KanjiEdge {
+  """The item at the end of the edge."""
+  node: Kanji!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum KanjiOrderByInput {
+  id_ASC
+  id_DESC
+  writing_ASC
+  writing_DESC
+  imageUrl_ASC
+  imageUrl_DESC
+  videoUrl_ASC
+  videoUrl_DESC
+  jlpt_ASC
+  jlpt_DESC
+  strokes_ASC
+  strokes_DESC
+  origin_ASC
+  origin_DESC
+  memo_ASC
+  memo_DESC
+}
+
+type KanjiPreviousValues {
+  id: ID!
+  writing: String!
+  meaning: [String!]!
+  on: [String!]!
+  kun: [String!]!
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  memo: String
+}
+
+input KanjiScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [KanjiScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [KanjiScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [KanjiScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  writing: String
+
+  """All values that are not equal to given value."""
+  writing_not: String
+
+  """All values that are contained in given list."""
+  writing_in: [String!]
+
+  """All values that are not contained in given list."""
+  writing_not_in: [String!]
+
+  """All values less than the given value."""
+  writing_lt: String
+
+  """All values less than or equal the given value."""
+  writing_lte: String
+
+  """All values greater than the given value."""
+  writing_gt: String
+
+  """All values greater than or equal the given value."""
+  writing_gte: String
+
+  """All values containing the given string."""
+  writing_contains: String
+
+  """All values not containing the given string."""
+  writing_not_contains: String
+
+  """All values starting with the given string."""
+  writing_starts_with: String
+
+  """All values not starting with the given string."""
+  writing_not_starts_with: String
+
+  """All values ending with the given string."""
+  writing_ends_with: String
+
+  """All values not ending with the given string."""
+  writing_not_ends_with: String
+  imageUrl: String
+
+  """All values that are not equal to given value."""
+  imageUrl_not: String
+
+  """All values that are contained in given list."""
+  imageUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  imageUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  imageUrl_lt: String
+
+  """All values less than or equal the given value."""
+  imageUrl_lte: String
+
+  """All values greater than the given value."""
+  imageUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  imageUrl_gte: String
+
+  """All values containing the given string."""
+  imageUrl_contains: String
+
+  """All values not containing the given string."""
+  imageUrl_not_contains: String
+
+  """All values starting with the given string."""
+  imageUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  imageUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  imageUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  imageUrl_not_ends_with: String
+  videoUrl: String
+
+  """All values that are not equal to given value."""
+  videoUrl_not: String
+
+  """All values that are contained in given list."""
+  videoUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  videoUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  videoUrl_lt: String
+
+  """All values less than or equal the given value."""
+  videoUrl_lte: String
+
+  """All values greater than the given value."""
+  videoUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  videoUrl_gte: String
+
+  """All values containing the given string."""
+  videoUrl_contains: String
+
+  """All values not containing the given string."""
+  videoUrl_not_contains: String
+
+  """All values starting with the given string."""
+  videoUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  videoUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  videoUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  videoUrl_not_ends_with: String
+  jlpt: Int
+
+  """All values that are not equal to given value."""
+  jlpt_not: Int
+
+  """All values that are contained in given list."""
+  jlpt_in: [Int!]
+
+  """All values that are not contained in given list."""
+  jlpt_not_in: [Int!]
+
+  """All values less than the given value."""
+  jlpt_lt: Int
+
+  """All values less than or equal the given value."""
+  jlpt_lte: Int
+
+  """All values greater than the given value."""
+  jlpt_gt: Int
+
+  """All values greater than or equal the given value."""
+  jlpt_gte: Int
+  strokes: Int
+
+  """All values that are not equal to given value."""
+  strokes_not: Int
+
+  """All values that are contained in given list."""
+  strokes_in: [Int!]
+
+  """All values that are not contained in given list."""
+  strokes_not_in: [Int!]
+
+  """All values less than the given value."""
+  strokes_lt: Int
+
+  """All values less than or equal the given value."""
+  strokes_lte: Int
+
+  """All values greater than the given value."""
+  strokes_gt: Int
+
+  """All values greater than or equal the given value."""
+  strokes_gte: Int
+  origin: String
+
+  """All values that are not equal to given value."""
+  origin_not: String
+
+  """All values that are contained in given list."""
+  origin_in: [String!]
+
+  """All values that are not contained in given list."""
+  origin_not_in: [String!]
+
+  """All values less than the given value."""
+  origin_lt: String
+
+  """All values less than or equal the given value."""
+  origin_lte: String
+
+  """All values greater than the given value."""
+  origin_gt: String
+
+  """All values greater than or equal the given value."""
+  origin_gte: String
+
+  """All values containing the given string."""
+  origin_contains: String
+
+  """All values not containing the given string."""
+  origin_not_contains: String
+
+  """All values starting with the given string."""
+  origin_starts_with: String
+
+  """All values not starting with the given string."""
+  origin_not_starts_with: String
+
+  """All values ending with the given string."""
+  origin_ends_with: String
+
+  """All values not ending with the given string."""
+  origin_not_ends_with: String
+  memo: String
+
+  """All values that are not equal to given value."""
+  memo_not: String
+
+  """All values that are contained in given list."""
+  memo_in: [String!]
+
+  """All values that are not contained in given list."""
+  memo_not_in: [String!]
+
+  """All values less than the given value."""
+  memo_lt: String
+
+  """All values less than or equal the given value."""
+  memo_lte: String
+
+  """All values greater than the given value."""
+  memo_gt: String
+
+  """All values greater than or equal the given value."""
+  memo_gte: String
+
+  """All values containing the given string."""
+  memo_contains: String
+
+  """All values not containing the given string."""
+  memo_not_contains: String
+
+  """All values starting with the given string."""
+  memo_starts_with: String
+
+  """All values not starting with the given string."""
+  memo_not_starts_with: String
+
+  """All values ending with the given string."""
+  memo_ends_with: String
+
+  """All values not ending with the given string."""
+  memo_not_ends_with: String
+}
+
+type KanjiSubscriptionPayload {
+  mutation: MutationType!
+  node: Kanji
+  updatedFields: [String!]
+  previousValues: KanjiPreviousValues
+}
+
+input KanjiSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [KanjiSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [KanjiSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [KanjiSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: KanjiWhereInput
+}
+
+input KanjiUpdateDataInput {
+  writing: String
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  memo: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+  old: KanjiUpdateManyInput
+  modern: KanjiUpdateManyInput
+  usageFirst: WordUpdateManyInput
+  usageLast: WordUpdateManyInput
+  radicals: KanjiUpdateManyInput
+  phonetics: KanjiUpdateManyInput
+}
+
+input KanjiUpdateInput {
+  writing: String
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  memo: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+  old: KanjiUpdateManyInput
+  modern: KanjiUpdateManyInput
+  usageFirst: WordUpdateManyInput
+  usageLast: WordUpdateManyInput
+  radicals: KanjiUpdateManyInput
+  phonetics: KanjiUpdateManyInput
+}
+
+input KanjiUpdatekunInput {
+  set: [String!]
+}
+
+input KanjiUpdateManyDataInput {
+  writing: String
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  memo: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+}
+
+input KanjiUpdateManyInput {
+  create: [KanjiCreateInput!]
+  connect: [KanjiWhereUniqueInput!]
+  set: [KanjiWhereUniqueInput!]
+  disconnect: [KanjiWhereUniqueInput!]
+  delete: [KanjiWhereUniqueInput!]
+  update: [KanjiUpdateWithWhereUniqueNestedInput!]
+  updateMany: [KanjiUpdateManyWithWhereNestedInput!]
+  deleteMany: [KanjiScalarWhereInput!]
+  upsert: [KanjiUpsertWithWhereUniqueNestedInput!]
+}
+
+input KanjiUpdateManyMutationInput {
+  writing: String
+  imageUrl: String
+  videoUrl: String
+  jlpt: Int
+  strokes: Int
+  origin: String
+  memo: String
+  meaning: KanjiUpdatemeaningInput
+  on: KanjiUpdateonInput
+  kun: KanjiUpdatekunInput
+}
+
+input KanjiUpdateManyWithWhereNestedInput {
+  where: KanjiScalarWhereInput!
+  data: KanjiUpdateManyDataInput!
+}
+
+input KanjiUpdatemeaningInput {
+  set: [String!]
+}
+
+input KanjiUpdateonInput {
+  set: [String!]
+}
+
+input KanjiUpdateWithWhereUniqueNestedInput {
+  where: KanjiWhereUniqueInput!
+  data: KanjiUpdateDataInput!
+}
+
+input KanjiUpsertWithWhereUniqueNestedInput {
+  where: KanjiWhereUniqueInput!
+  update: KanjiUpdateDataInput!
+  create: KanjiCreateInput!
+}
+
+input KanjiWhereInput {
+  """Logical AND on all given filters."""
+  AND: [KanjiWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [KanjiWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [KanjiWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  writing: String
+
+  """All values that are not equal to given value."""
+  writing_not: String
+
+  """All values that are contained in given list."""
+  writing_in: [String!]
+
+  """All values that are not contained in given list."""
+  writing_not_in: [String!]
+
+  """All values less than the given value."""
+  writing_lt: String
+
+  """All values less than or equal the given value."""
+  writing_lte: String
+
+  """All values greater than the given value."""
+  writing_gt: String
+
+  """All values greater than or equal the given value."""
+  writing_gte: String
+
+  """All values containing the given string."""
+  writing_contains: String
+
+  """All values not containing the given string."""
+  writing_not_contains: String
+
+  """All values starting with the given string."""
+  writing_starts_with: String
+
+  """All values not starting with the given string."""
+  writing_not_starts_with: String
+
+  """All values ending with the given string."""
+  writing_ends_with: String
+
+  """All values not ending with the given string."""
+  writing_not_ends_with: String
+  imageUrl: String
+
+  """All values that are not equal to given value."""
+  imageUrl_not: String
+
+  """All values that are contained in given list."""
+  imageUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  imageUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  imageUrl_lt: String
+
+  """All values less than or equal the given value."""
+  imageUrl_lte: String
+
+  """All values greater than the given value."""
+  imageUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  imageUrl_gte: String
+
+  """All values containing the given string."""
+  imageUrl_contains: String
+
+  """All values not containing the given string."""
+  imageUrl_not_contains: String
+
+  """All values starting with the given string."""
+  imageUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  imageUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  imageUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  imageUrl_not_ends_with: String
+  videoUrl: String
+
+  """All values that are not equal to given value."""
+  videoUrl_not: String
+
+  """All values that are contained in given list."""
+  videoUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  videoUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  videoUrl_lt: String
+
+  """All values less than or equal the given value."""
+  videoUrl_lte: String
+
+  """All values greater than the given value."""
+  videoUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  videoUrl_gte: String
+
+  """All values containing the given string."""
+  videoUrl_contains: String
+
+  """All values not containing the given string."""
+  videoUrl_not_contains: String
+
+  """All values starting with the given string."""
+  videoUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  videoUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  videoUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  videoUrl_not_ends_with: String
+  jlpt: Int
+
+  """All values that are not equal to given value."""
+  jlpt_not: Int
+
+  """All values that are contained in given list."""
+  jlpt_in: [Int!]
+
+  """All values that are not contained in given list."""
+  jlpt_not_in: [Int!]
+
+  """All values less than the given value."""
+  jlpt_lt: Int
+
+  """All values less than or equal the given value."""
+  jlpt_lte: Int
+
+  """All values greater than the given value."""
+  jlpt_gt: Int
+
+  """All values greater than or equal the given value."""
+  jlpt_gte: Int
+  strokes: Int
+
+  """All values that are not equal to given value."""
+  strokes_not: Int
+
+  """All values that are contained in given list."""
+  strokes_in: [Int!]
+
+  """All values that are not contained in given list."""
+  strokes_not_in: [Int!]
+
+  """All values less than the given value."""
+  strokes_lt: Int
+
+  """All values less than or equal the given value."""
+  strokes_lte: Int
+
+  """All values greater than the given value."""
+  strokes_gt: Int
+
+  """All values greater than or equal the given value."""
+  strokes_gte: Int
+  origin: String
+
+  """All values that are not equal to given value."""
+  origin_not: String
+
+  """All values that are contained in given list."""
+  origin_in: [String!]
+
+  """All values that are not contained in given list."""
+  origin_not_in: [String!]
+
+  """All values less than the given value."""
+  origin_lt: String
+
+  """All values less than or equal the given value."""
+  origin_lte: String
+
+  """All values greater than the given value."""
+  origin_gt: String
+
+  """All values greater than or equal the given value."""
+  origin_gte: String
+
+  """All values containing the given string."""
+  origin_contains: String
+
+  """All values not containing the given string."""
+  origin_not_contains: String
+
+  """All values starting with the given string."""
+  origin_starts_with: String
+
+  """All values not starting with the given string."""
+  origin_not_starts_with: String
+
+  """All values ending with the given string."""
+  origin_ends_with: String
+
+  """All values not ending with the given string."""
+  origin_not_ends_with: String
+  memo: String
+
+  """All values that are not equal to given value."""
+  memo_not: String
+
+  """All values that are contained in given list."""
+  memo_in: [String!]
+
+  """All values that are not contained in given list."""
+  memo_not_in: [String!]
+
+  """All values less than the given value."""
+  memo_lt: String
+
+  """All values less than or equal the given value."""
+  memo_lte: String
+
+  """All values greater than the given value."""
+  memo_gt: String
+
+  """All values greater than or equal the given value."""
+  memo_gte: String
+
+  """All values containing the given string."""
+  memo_contains: String
+
+  """All values not containing the given string."""
+  memo_not_contains: String
+
+  """All values starting with the given string."""
+  memo_starts_with: String
+
+  """All values not starting with the given string."""
+  memo_not_starts_with: String
+
+  """All values ending with the given string."""
+  memo_ends_with: String
+
+  """All values not ending with the given string."""
+  memo_not_ends_with: String
+  old_every: KanjiWhereInput
+  old_some: KanjiWhereInput
+  old_none: KanjiWhereInput
+  modern_every: KanjiWhereInput
+  modern_some: KanjiWhereInput
+  modern_none: KanjiWhereInput
+  usageFirst_every: WordWhereInput
+  usageFirst_some: WordWhereInput
+  usageFirst_none: WordWhereInput
+  usageLast_every: WordWhereInput
+  usageLast_some: WordWhereInput
+  usageLast_none: WordWhereInput
+  radicals_every: KanjiWhereInput
+  radicals_some: KanjiWhereInput
+  radicals_none: KanjiWhereInput
+  phonetics_every: KanjiWhereInput
+  phonetics_some: KanjiWhereInput
+  phonetics_none: KanjiWhereInput
+}
+
+input KanjiWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createWordUsage(data: WordUsageCreateInput!): WordUsage!
+  createWord(data: WordCreateInput!): Word!
+  createKanji(data: KanjiCreateInput!): Kanji!
+  createWordExample(data: WordExampleCreateInput!): WordExample!
+  updateWordUsage(data: WordUsageUpdateInput!, where: WordUsageWhereUniqueInput!): WordUsage
+  updateWord(data: WordUpdateInput!, where: WordWhereUniqueInput!): Word
+  updateKanji(data: KanjiUpdateInput!, where: KanjiWhereUniqueInput!): Kanji
+  updateWordExample(data: WordExampleUpdateInput!, where: WordExampleWhereUniqueInput!): WordExample
+  deleteWordUsage(where: WordUsageWhereUniqueInput!): WordUsage
+  deleteWord(where: WordWhereUniqueInput!): Word
+  deleteKanji(where: KanjiWhereUniqueInput!): Kanji
+  deleteWordExample(where: WordExampleWhereUniqueInput!): WordExample
+  upsertWordUsage(where: WordUsageWhereUniqueInput!, create: WordUsageCreateInput!, update: WordUsageUpdateInput!): WordUsage!
+  upsertWord(where: WordWhereUniqueInput!, create: WordCreateInput!, update: WordUpdateInput!): Word!
+  upsertKanji(where: KanjiWhereUniqueInput!, create: KanjiCreateInput!, update: KanjiUpdateInput!): Kanji!
+  upsertWordExample(where: WordExampleWhereUniqueInput!, create: WordExampleCreateInput!, update: WordExampleUpdateInput!): WordExample!
+  updateManyWordUsages(data: WordUsageUpdateManyMutationInput!, where: WordUsageWhereInput): BatchPayload!
+  updateManyWords(data: WordUpdateManyMutationInput!, where: WordWhereInput): BatchPayload!
+  updateManyKanjis(data: KanjiUpdateManyMutationInput!, where: KanjiWhereInput): BatchPayload!
+  updateManyWordExamples(data: WordExampleUpdateManyMutationInput!, where: WordExampleWhereInput): BatchPayload!
+  deleteManyWordUsages(where: WordUsageWhereInput): BatchPayload!
+  deleteManyWords(where: WordWhereInput): BatchPayload!
+  deleteManyKanjis(where: KanjiWhereInput): BatchPayload!
+  deleteManyWordExamples(where: WordExampleWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  wordUsages(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage]!
+  words(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Word]!
+  kanjis(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji]!
+  wordExamples(where: WordExampleWhereInput, orderBy: WordExampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordExample]!
+  wordUsage(where: WordUsageWhereUniqueInput!): WordUsage
+  word(where: WordWhereUniqueInput!): Word
+  kanji(where: KanjiWhereUniqueInput!): Kanji
+  wordExample(where: WordExampleWhereUniqueInput!): WordExample
+  wordUsagesConnection(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WordUsageConnection!
+  wordsConnection(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WordConnection!
+  kanjisConnection(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): KanjiConnection!
+  wordExamplesConnection(where: WordExampleWhereInput, orderBy: WordExampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WordExampleConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  wordUsage(where: WordUsageSubscriptionWhereInput): WordUsageSubscriptionPayload
+  word(where: WordSubscriptionWhereInput): WordSubscriptionPayload
+  kanji(where: KanjiSubscriptionWhereInput): KanjiSubscriptionPayload
+  wordExample(where: WordExampleSubscriptionWhereInput): WordExampleSubscriptionPayload
+}
+
+type Word implements Node {
+  id: ID!
+  translation: [String!]!
+  writing: String!
+  synonims(where: WordWhereInput, orderBy: WordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Word!]
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  kanji(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji!]
+  patterns(where: WordExampleWhereInput, orderBy: WordExampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordExample!]
+  antipatterns(where: WordExampleWhereInput, orderBy: WordExampleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordExample!]
+  hiragana: String
+  usage(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage!]
+}
+
+"""A connection to a list of items."""
+type WordConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [WordEdge]!
+  aggregate: AggregateWord!
+}
+
+input WordCreateInput {
+  id: ID
+  writing: String!
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  hiragana: String
+  translation: WordCreatetranslationInput
+  synonims: WordCreateManyInput
+  kanji: KanjiCreateManyInput
+  patterns: WordExampleCreateManyInput
+  antipatterns: WordExampleCreateManyInput
+  usage: WordUsageCreateManyInput
+}
+
+input WordCreateManyInput {
+  create: [WordCreateInput!]
+  connect: [WordWhereUniqueInput!]
+}
+
+input WordCreatetranslationInput {
+  set: [String!]
+}
+
+"""An edge in a connection."""
+type WordEdge {
+  """The item at the end of the edge."""
+  node: Word!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+type WordExample implements Node {
+  id: ID!
+  original: String!
+  translation: String!
+}
+
+"""A connection to a list of items."""
+type WordExampleConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [WordExampleEdge]!
+  aggregate: AggregateWordExample!
+}
+
+input WordExampleCreateInput {
+  id: ID
+  original: String!
+  translation: String!
+}
+
+input WordExampleCreateManyInput {
+  create: [WordExampleCreateInput!]
+  connect: [WordExampleWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type WordExampleEdge {
+  """The item at the end of the edge."""
+  node: WordExample!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum WordExampleOrderByInput {
+  id_ASC
+  id_DESC
+  original_ASC
+  original_DESC
+  translation_ASC
+  translation_DESC
+}
+
+type WordExamplePreviousValues {
+  id: ID!
+  original: String!
+  translation: String!
+}
+
+input WordExampleScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WordExampleScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WordExampleScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WordExampleScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  original: String
+
+  """All values that are not equal to given value."""
+  original_not: String
+
+  """All values that are contained in given list."""
+  original_in: [String!]
+
+  """All values that are not contained in given list."""
+  original_not_in: [String!]
+
+  """All values less than the given value."""
+  original_lt: String
+
+  """All values less than or equal the given value."""
+  original_lte: String
+
+  """All values greater than the given value."""
+  original_gt: String
+
+  """All values greater than or equal the given value."""
+  original_gte: String
+
+  """All values containing the given string."""
+  original_contains: String
+
+  """All values not containing the given string."""
+  original_not_contains: String
+
+  """All values starting with the given string."""
+  original_starts_with: String
+
+  """All values not starting with the given string."""
+  original_not_starts_with: String
+
+  """All values ending with the given string."""
+  original_ends_with: String
+
+  """All values not ending with the given string."""
+  original_not_ends_with: String
+  translation: String
+
+  """All values that are not equal to given value."""
+  translation_not: String
+
+  """All values that are contained in given list."""
+  translation_in: [String!]
+
+  """All values that are not contained in given list."""
+  translation_not_in: [String!]
+
+  """All values less than the given value."""
+  translation_lt: String
+
+  """All values less than or equal the given value."""
+  translation_lte: String
+
+  """All values greater than the given value."""
+  translation_gt: String
+
+  """All values greater than or equal the given value."""
+  translation_gte: String
+
+  """All values containing the given string."""
+  translation_contains: String
+
+  """All values not containing the given string."""
+  translation_not_contains: String
+
+  """All values starting with the given string."""
+  translation_starts_with: String
+
+  """All values not starting with the given string."""
+  translation_not_starts_with: String
+
+  """All values ending with the given string."""
+  translation_ends_with: String
+
+  """All values not ending with the given string."""
+  translation_not_ends_with: String
+}
+
+type WordExampleSubscriptionPayload {
+  mutation: MutationType!
+  node: WordExample
+  updatedFields: [String!]
+  previousValues: WordExamplePreviousValues
+}
+
+input WordExampleSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WordExampleSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WordExampleSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WordExampleSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: WordExampleWhereInput
+}
+
+input WordExampleUpdateDataInput {
+  original: String
+  translation: String
+}
+
+input WordExampleUpdateInput {
+  original: String
+  translation: String
+}
+
+input WordExampleUpdateManyDataInput {
+  original: String
+  translation: String
+}
+
+input WordExampleUpdateManyInput {
+  create: [WordExampleCreateInput!]
+  connect: [WordExampleWhereUniqueInput!]
+  set: [WordExampleWhereUniqueInput!]
+  disconnect: [WordExampleWhereUniqueInput!]
+  delete: [WordExampleWhereUniqueInput!]
+  update: [WordExampleUpdateWithWhereUniqueNestedInput!]
+  updateMany: [WordExampleUpdateManyWithWhereNestedInput!]
+  deleteMany: [WordExampleScalarWhereInput!]
+  upsert: [WordExampleUpsertWithWhereUniqueNestedInput!]
+}
+
+input WordExampleUpdateManyMutationInput {
+  original: String
+  translation: String
+}
+
+input WordExampleUpdateManyWithWhereNestedInput {
+  where: WordExampleScalarWhereInput!
+  data: WordExampleUpdateManyDataInput!
+}
+
+input WordExampleUpdateWithWhereUniqueNestedInput {
+  where: WordExampleWhereUniqueInput!
+  data: WordExampleUpdateDataInput!
+}
+
+input WordExampleUpsertWithWhereUniqueNestedInput {
+  where: WordExampleWhereUniqueInput!
+  update: WordExampleUpdateDataInput!
+  create: WordExampleCreateInput!
+}
+
+input WordExampleWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WordExampleWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WordExampleWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WordExampleWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  original: String
+
+  """All values that are not equal to given value."""
+  original_not: String
+
+  """All values that are contained in given list."""
+  original_in: [String!]
+
+  """All values that are not contained in given list."""
+  original_not_in: [String!]
+
+  """All values less than the given value."""
+  original_lt: String
+
+  """All values less than or equal the given value."""
+  original_lte: String
+
+  """All values greater than the given value."""
+  original_gt: String
+
+  """All values greater than or equal the given value."""
+  original_gte: String
+
+  """All values containing the given string."""
+  original_contains: String
+
+  """All values not containing the given string."""
+  original_not_contains: String
+
+  """All values starting with the given string."""
+  original_starts_with: String
+
+  """All values not starting with the given string."""
+  original_not_starts_with: String
+
+  """All values ending with the given string."""
+  original_ends_with: String
+
+  """All values not ending with the given string."""
+  original_not_ends_with: String
+  translation: String
+
+  """All values that are not equal to given value."""
+  translation_not: String
+
+  """All values that are contained in given list."""
+  translation_in: [String!]
+
+  """All values that are not contained in given list."""
+  translation_not_in: [String!]
+
+  """All values less than the given value."""
+  translation_lt: String
+
+  """All values less than or equal the given value."""
+  translation_lte: String
+
+  """All values greater than the given value."""
+  translation_gt: String
+
+  """All values greater than or equal the given value."""
+  translation_gte: String
+
+  """All values containing the given string."""
+  translation_contains: String
+
+  """All values not containing the given string."""
+  translation_not_contains: String
+
+  """All values starting with the given string."""
+  translation_starts_with: String
+
+  """All values not starting with the given string."""
+  translation_not_starts_with: String
+
+  """All values ending with the given string."""
+  translation_ends_with: String
+
+  """All values not ending with the given string."""
+  translation_not_ends_with: String
+}
+
+input WordExampleWhereUniqueInput {
+  id: ID
+}
+
+enum WordOrderByInput {
+  id_ASC
+  id_DESC
+  writing_ASC
+  writing_DESC
+  romaji_ASC
+  romaji_DESC
+  imageUrl_ASC
+  imageUrl_DESC
+  videoUrl_ASC
+  videoUrl_DESC
+  hiragana_ASC
+  hiragana_DESC
+}
+
+type WordPreviousValues {
+  id: ID!
+  translation: [String!]!
+  writing: String!
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  hiragana: String
+}
+
+input WordScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WordScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WordScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WordScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  writing: String
+
+  """All values that are not equal to given value."""
+  writing_not: String
+
+  """All values that are contained in given list."""
+  writing_in: [String!]
+
+  """All values that are not contained in given list."""
+  writing_not_in: [String!]
+
+  """All values less than the given value."""
+  writing_lt: String
+
+  """All values less than or equal the given value."""
+  writing_lte: String
+
+  """All values greater than the given value."""
+  writing_gt: String
+
+  """All values greater than or equal the given value."""
+  writing_gte: String
+
+  """All values containing the given string."""
+  writing_contains: String
+
+  """All values not containing the given string."""
+  writing_not_contains: String
+
+  """All values starting with the given string."""
+  writing_starts_with: String
+
+  """All values not starting with the given string."""
+  writing_not_starts_with: String
+
+  """All values ending with the given string."""
+  writing_ends_with: String
+
+  """All values not ending with the given string."""
+  writing_not_ends_with: String
+  romaji: String
+
+  """All values that are not equal to given value."""
+  romaji_not: String
+
+  """All values that are contained in given list."""
+  romaji_in: [String!]
+
+  """All values that are not contained in given list."""
+  romaji_not_in: [String!]
+
+  """All values less than the given value."""
+  romaji_lt: String
+
+  """All values less than or equal the given value."""
+  romaji_lte: String
+
+  """All values greater than the given value."""
+  romaji_gt: String
+
+  """All values greater than or equal the given value."""
+  romaji_gte: String
+
+  """All values containing the given string."""
+  romaji_contains: String
+
+  """All values not containing the given string."""
+  romaji_not_contains: String
+
+  """All values starting with the given string."""
+  romaji_starts_with: String
+
+  """All values not starting with the given string."""
+  romaji_not_starts_with: String
+
+  """All values ending with the given string."""
+  romaji_ends_with: String
+
+  """All values not ending with the given string."""
+  romaji_not_ends_with: String
+  imageUrl: String
+
+  """All values that are not equal to given value."""
+  imageUrl_not: String
+
+  """All values that are contained in given list."""
+  imageUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  imageUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  imageUrl_lt: String
+
+  """All values less than or equal the given value."""
+  imageUrl_lte: String
+
+  """All values greater than the given value."""
+  imageUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  imageUrl_gte: String
+
+  """All values containing the given string."""
+  imageUrl_contains: String
+
+  """All values not containing the given string."""
+  imageUrl_not_contains: String
+
+  """All values starting with the given string."""
+  imageUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  imageUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  imageUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  imageUrl_not_ends_with: String
+  videoUrl: String
+
+  """All values that are not equal to given value."""
+  videoUrl_not: String
+
+  """All values that are contained in given list."""
+  videoUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  videoUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  videoUrl_lt: String
+
+  """All values less than or equal the given value."""
+  videoUrl_lte: String
+
+  """All values greater than the given value."""
+  videoUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  videoUrl_gte: String
+
+  """All values containing the given string."""
+  videoUrl_contains: String
+
+  """All values not containing the given string."""
+  videoUrl_not_contains: String
+
+  """All values starting with the given string."""
+  videoUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  videoUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  videoUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  videoUrl_not_ends_with: String
+  hiragana: String
+
+  """All values that are not equal to given value."""
+  hiragana_not: String
+
+  """All values that are contained in given list."""
+  hiragana_in: [String!]
+
+  """All values that are not contained in given list."""
+  hiragana_not_in: [String!]
+
+  """All values less than the given value."""
+  hiragana_lt: String
+
+  """All values less than or equal the given value."""
+  hiragana_lte: String
+
+  """All values greater than the given value."""
+  hiragana_gt: String
+
+  """All values greater than or equal the given value."""
+  hiragana_gte: String
+
+  """All values containing the given string."""
+  hiragana_contains: String
+
+  """All values not containing the given string."""
+  hiragana_not_contains: String
+
+  """All values starting with the given string."""
+  hiragana_starts_with: String
+
+  """All values not starting with the given string."""
+  hiragana_not_starts_with: String
+
+  """All values ending with the given string."""
+  hiragana_ends_with: String
+
+  """All values not ending with the given string."""
+  hiragana_not_ends_with: String
+}
+
+type WordSubscriptionPayload {
+  mutation: MutationType!
+  node: Word
+  updatedFields: [String!]
+  previousValues: WordPreviousValues
+}
+
+input WordSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WordSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WordSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WordSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: WordWhereInput
+}
+
+input WordUpdateDataInput {
+  writing: String
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  hiragana: String
+  translation: WordUpdatetranslationInput
+  synonims: WordUpdateManyInput
+  kanji: KanjiUpdateManyInput
+  patterns: WordExampleUpdateManyInput
+  antipatterns: WordExampleUpdateManyInput
+  usage: WordUsageUpdateManyInput
+}
+
+input WordUpdateInput {
+  writing: String
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  hiragana: String
+  translation: WordUpdatetranslationInput
+  synonims: WordUpdateManyInput
+  kanji: KanjiUpdateManyInput
+  patterns: WordExampleUpdateManyInput
+  antipatterns: WordExampleUpdateManyInput
+  usage: WordUsageUpdateManyInput
+}
+
+input WordUpdateManyDataInput {
+  writing: String
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  hiragana: String
+  translation: WordUpdatetranslationInput
+}
+
+input WordUpdateManyInput {
+  create: [WordCreateInput!]
+  connect: [WordWhereUniqueInput!]
+  set: [WordWhereUniqueInput!]
+  disconnect: [WordWhereUniqueInput!]
+  delete: [WordWhereUniqueInput!]
+  update: [WordUpdateWithWhereUniqueNestedInput!]
+  updateMany: [WordUpdateManyWithWhereNestedInput!]
+  deleteMany: [WordScalarWhereInput!]
+  upsert: [WordUpsertWithWhereUniqueNestedInput!]
+}
+
+input WordUpdateManyMutationInput {
+  writing: String
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  hiragana: String
+  translation: WordUpdatetranslationInput
+}
+
+input WordUpdateManyWithWhereNestedInput {
+  where: WordScalarWhereInput!
+  data: WordUpdateManyDataInput!
+}
+
+input WordUpdatetranslationInput {
+  set: [String!]
+}
+
+input WordUpdateWithWhereUniqueNestedInput {
+  where: WordWhereUniqueInput!
+  data: WordUpdateDataInput!
+}
+
+input WordUpsertWithWhereUniqueNestedInput {
+  where: WordWhereUniqueInput!
+  update: WordUpdateDataInput!
+  create: WordCreateInput!
+}
+
+type WordUsage implements Node {
+  id: ID!
+  question: String!
+  answer: String!
+}
+
+"""A connection to a list of items."""
+type WordUsageConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [WordUsageEdge]!
+  aggregate: AggregateWordUsage!
+}
+
+input WordUsageCreateInput {
+  id: ID
+  question: String!
+  answer: String!
+}
+
+input WordUsageCreateManyInput {
+  create: [WordUsageCreateInput!]
+  connect: [WordUsageWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type WordUsageEdge {
+  """The item at the end of the edge."""
+  node: WordUsage!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum WordUsageOrderByInput {
+  id_ASC
+  id_DESC
+  question_ASC
+  question_DESC
+  answer_ASC
+  answer_DESC
+}
+
+type WordUsagePreviousValues {
+  id: ID!
+  question: String!
+  answer: String!
+}
+
+input WordUsageScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WordUsageScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WordUsageScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WordUsageScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  question: String
+
+  """All values that are not equal to given value."""
+  question_not: String
+
+  """All values that are contained in given list."""
+  question_in: [String!]
+
+  """All values that are not contained in given list."""
+  question_not_in: [String!]
+
+  """All values less than the given value."""
+  question_lt: String
+
+  """All values less than or equal the given value."""
+  question_lte: String
+
+  """All values greater than the given value."""
+  question_gt: String
+
+  """All values greater than or equal the given value."""
+  question_gte: String
+
+  """All values containing the given string."""
+  question_contains: String
+
+  """All values not containing the given string."""
+  question_not_contains: String
+
+  """All values starting with the given string."""
+  question_starts_with: String
+
+  """All values not starting with the given string."""
+  question_not_starts_with: String
+
+  """All values ending with the given string."""
+  question_ends_with: String
+
+  """All values not ending with the given string."""
+  question_not_ends_with: String
+  answer: String
+
+  """All values that are not equal to given value."""
+  answer_not: String
+
+  """All values that are contained in given list."""
+  answer_in: [String!]
+
+  """All values that are not contained in given list."""
+  answer_not_in: [String!]
+
+  """All values less than the given value."""
+  answer_lt: String
+
+  """All values less than or equal the given value."""
+  answer_lte: String
+
+  """All values greater than the given value."""
+  answer_gt: String
+
+  """All values greater than or equal the given value."""
+  answer_gte: String
+
+  """All values containing the given string."""
+  answer_contains: String
+
+  """All values not containing the given string."""
+  answer_not_contains: String
+
+  """All values starting with the given string."""
+  answer_starts_with: String
+
+  """All values not starting with the given string."""
+  answer_not_starts_with: String
+
+  """All values ending with the given string."""
+  answer_ends_with: String
+
+  """All values not ending with the given string."""
+  answer_not_ends_with: String
+}
+
+type WordUsageSubscriptionPayload {
+  mutation: MutationType!
+  node: WordUsage
+  updatedFields: [String!]
+  previousValues: WordUsagePreviousValues
+}
+
+input WordUsageSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WordUsageSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WordUsageSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WordUsageSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: WordUsageWhereInput
+}
+
+input WordUsageUpdateDataInput {
+  question: String
+  answer: String
+}
+
+input WordUsageUpdateInput {
+  question: String
+  answer: String
+}
+
+input WordUsageUpdateManyDataInput {
+  question: String
+  answer: String
+}
+
+input WordUsageUpdateManyInput {
+  create: [WordUsageCreateInput!]
+  connect: [WordUsageWhereUniqueInput!]
+  set: [WordUsageWhereUniqueInput!]
+  disconnect: [WordUsageWhereUniqueInput!]
+  delete: [WordUsageWhereUniqueInput!]
+  update: [WordUsageUpdateWithWhereUniqueNestedInput!]
+  updateMany: [WordUsageUpdateManyWithWhereNestedInput!]
+  deleteMany: [WordUsageScalarWhereInput!]
+  upsert: [WordUsageUpsertWithWhereUniqueNestedInput!]
+}
+
+input WordUsageUpdateManyMutationInput {
+  question: String
+  answer: String
+}
+
+input WordUsageUpdateManyWithWhereNestedInput {
+  where: WordUsageScalarWhereInput!
+  data: WordUsageUpdateManyDataInput!
+}
+
+input WordUsageUpdateWithWhereUniqueNestedInput {
+  where: WordUsageWhereUniqueInput!
+  data: WordUsageUpdateDataInput!
+}
+
+input WordUsageUpsertWithWhereUniqueNestedInput {
+  where: WordUsageWhereUniqueInput!
+  update: WordUsageUpdateDataInput!
+  create: WordUsageCreateInput!
+}
+
+input WordUsageWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WordUsageWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WordUsageWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WordUsageWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  question: String
+
+  """All values that are not equal to given value."""
+  question_not: String
+
+  """All values that are contained in given list."""
+  question_in: [String!]
+
+  """All values that are not contained in given list."""
+  question_not_in: [String!]
+
+  """All values less than the given value."""
+  question_lt: String
+
+  """All values less than or equal the given value."""
+  question_lte: String
+
+  """All values greater than the given value."""
+  question_gt: String
+
+  """All values greater than or equal the given value."""
+  question_gte: String
+
+  """All values containing the given string."""
+  question_contains: String
+
+  """All values not containing the given string."""
+  question_not_contains: String
+
+  """All values starting with the given string."""
+  question_starts_with: String
+
+  """All values not starting with the given string."""
+  question_not_starts_with: String
+
+  """All values ending with the given string."""
+  question_ends_with: String
+
+  """All values not ending with the given string."""
+  question_not_ends_with: String
+  answer: String
+
+  """All values that are not equal to given value."""
+  answer_not: String
+
+  """All values that are contained in given list."""
+  answer_in: [String!]
+
+  """All values that are not contained in given list."""
+  answer_not_in: [String!]
+
+  """All values less than the given value."""
+  answer_lt: String
+
+  """All values less than or equal the given value."""
+  answer_lte: String
+
+  """All values greater than the given value."""
+  answer_gt: String
+
+  """All values greater than or equal the given value."""
+  answer_gte: String
+
+  """All values containing the given string."""
+  answer_contains: String
+
+  """All values not containing the given string."""
+  answer_not_contains: String
+
+  """All values starting with the given string."""
+  answer_starts_with: String
+
+  """All values not starting with the given string."""
+  answer_not_starts_with: String
+
+  """All values ending with the given string."""
+  answer_ends_with: String
+
+  """All values not ending with the given string."""
+  answer_not_ends_with: String
+}
+
+input WordUsageWhereUniqueInput {
+  id: ID
+}
+
+input WordWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WordWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WordWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WordWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  writing: String
+
+  """All values that are not equal to given value."""
+  writing_not: String
+
+  """All values that are contained in given list."""
+  writing_in: [String!]
+
+  """All values that are not contained in given list."""
+  writing_not_in: [String!]
+
+  """All values less than the given value."""
+  writing_lt: String
+
+  """All values less than or equal the given value."""
+  writing_lte: String
+
+  """All values greater than the given value."""
+  writing_gt: String
+
+  """All values greater than or equal the given value."""
+  writing_gte: String
+
+  """All values containing the given string."""
+  writing_contains: String
+
+  """All values not containing the given string."""
+  writing_not_contains: String
+
+  """All values starting with the given string."""
+  writing_starts_with: String
+
+  """All values not starting with the given string."""
+  writing_not_starts_with: String
+
+  """All values ending with the given string."""
+  writing_ends_with: String
+
+  """All values not ending with the given string."""
+  writing_not_ends_with: String
+  romaji: String
+
+  """All values that are not equal to given value."""
+  romaji_not: String
+
+  """All values that are contained in given list."""
+  romaji_in: [String!]
+
+  """All values that are not contained in given list."""
+  romaji_not_in: [String!]
+
+  """All values less than the given value."""
+  romaji_lt: String
+
+  """All values less than or equal the given value."""
+  romaji_lte: String
+
+  """All values greater than the given value."""
+  romaji_gt: String
+
+  """All values greater than or equal the given value."""
+  romaji_gte: String
+
+  """All values containing the given string."""
+  romaji_contains: String
+
+  """All values not containing the given string."""
+  romaji_not_contains: String
+
+  """All values starting with the given string."""
+  romaji_starts_with: String
+
+  """All values not starting with the given string."""
+  romaji_not_starts_with: String
+
+  """All values ending with the given string."""
+  romaji_ends_with: String
+
+  """All values not ending with the given string."""
+  romaji_not_ends_with: String
+  imageUrl: String
+
+  """All values that are not equal to given value."""
+  imageUrl_not: String
+
+  """All values that are contained in given list."""
+  imageUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  imageUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  imageUrl_lt: String
+
+  """All values less than or equal the given value."""
+  imageUrl_lte: String
+
+  """All values greater than the given value."""
+  imageUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  imageUrl_gte: String
+
+  """All values containing the given string."""
+  imageUrl_contains: String
+
+  """All values not containing the given string."""
+  imageUrl_not_contains: String
+
+  """All values starting with the given string."""
+  imageUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  imageUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  imageUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  imageUrl_not_ends_with: String
+  videoUrl: String
+
+  """All values that are not equal to given value."""
+  videoUrl_not: String
+
+  """All values that are contained in given list."""
+  videoUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  videoUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  videoUrl_lt: String
+
+  """All values less than or equal the given value."""
+  videoUrl_lte: String
+
+  """All values greater than the given value."""
+  videoUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  videoUrl_gte: String
+
+  """All values containing the given string."""
+  videoUrl_contains: String
+
+  """All values not containing the given string."""
+  videoUrl_not_contains: String
+
+  """All values starting with the given string."""
+  videoUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  videoUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  videoUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  videoUrl_not_ends_with: String
+  hiragana: String
+
+  """All values that are not equal to given value."""
+  hiragana_not: String
+
+  """All values that are contained in given list."""
+  hiragana_in: [String!]
+
+  """All values that are not contained in given list."""
+  hiragana_not_in: [String!]
+
+  """All values less than the given value."""
+  hiragana_lt: String
+
+  """All values less than or equal the given value."""
+  hiragana_lte: String
+
+  """All values greater than the given value."""
+  hiragana_gt: String
+
+  """All values greater than or equal the given value."""
+  hiragana_gte: String
+
+  """All values containing the given string."""
+  hiragana_contains: String
+
+  """All values not containing the given string."""
+  hiragana_not_contains: String
+
+  """All values starting with the given string."""
+  hiragana_starts_with: String
+
+  """All values not starting with the given string."""
+  hiragana_not_starts_with: String
+
+  """All values ending with the given string."""
+  hiragana_ends_with: String
+
+  """All values not ending with the given string."""
+  hiragana_not_ends_with: String
+  synonims_every: WordWhereInput
+  synonims_some: WordWhereInput
+  synonims_none: WordWhereInput
+  kanji_every: KanjiWhereInput
+  kanji_some: KanjiWhereInput
+  kanji_none: KanjiWhereInput
+  patterns_every: WordExampleWhereInput
+  patterns_some: WordExampleWhereInput
+  patterns_none: WordExampleWhereInput
+  antipatterns_every: WordExampleWhereInput
+  antipatterns_some: WordExampleWhereInput
+  antipatterns_none: WordExampleWhereInput
+  usage_every: WordUsageWhereInput
+  usage_some: WordUsageWhereInput
+  usage_none: WordUsageWhereInput
+}
+
+input WordWhereUniqueInput {
+  id: ID
+}

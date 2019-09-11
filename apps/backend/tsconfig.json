@@ -11,7 +11,8 @@
         "downlevelIteration": true,
         "sourceMap": true,
         "lib": [
-            "esnext"
+            "esnext",
+            "dom"
         ],
         "strict": false,
         "types": [
@@ -21,10 +22,9 @@
         "esModuleInterop": true,
         "baseUrl": "src",
         "rootDir": "src",
-        "outDir": "../dist"
+        "outDir": "../../dist"
     },
     "exclude": [
-        "node_modules",
         "public",
         "dist"
     ]

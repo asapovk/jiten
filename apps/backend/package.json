@@ -9,7 +9,7 @@
         "clear": "rm -rf ./node_modules && rm -rf ./BE/node_modules && rm -rf ./FE/node_modules",
         "playground": "ts-node ./src/scripts/postgraphilePlayground.ts",
         "patch": "git pull && npm version patch && git push",
-        "build": "npx typescript --build && cp -R ./src/graphql/*.graphql ../../dist/graphql"
+        "build": "npx typescript --build && cp -R ./src/graphql/*.graphql ../../dist/graphql && cp -R ./src/prisma/*.graphql ../../dist/prisma && cp -R ./src/generated/*.graphql ../../dist/generated"
     },
     "bin": "dist/index.js",
     "author": "Konstantin Astapov",

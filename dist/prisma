@@ -1,0 +1,83 @@
+type Word {
+  id: ID! @id
+  translation: [String!]! @scalarList(strategy: RELATION)
+  writing: String! 
+  synonims: [Word!] 
+  romaji: String
+  imageUrl: String
+  videoUrl: String
+  kanji: [Kanji!] @relation(name: "KanjiOfWord" )
+  patterns: [WordExample!]  @relation(name: "WordPattern")
+  antipatterns:  [WordExample!]  @relation(name: "WordAntiPattern")
+  hiragana: String
+  usage: [WordUsage] @relation(name: "WordUsage" )
+
+  usageMeaning: [WordUsage] @relation(name: "WordUsageMeaning" )
+  usageDifference: [WordUsage] @relation(name: "WordUsageDifference" )
+  usageWatsay: [WordUsage] @relation(name: "WordUsageWatsay" )
+  usageOther: [WordUsage] @relation(name: "WordUsageOther" )
+}
+
+type WordUsage {
+  id: ID! @id
+  question: String!
+  answer: String!
+}
+
+
+
+type WordExample {
+  id: ID! @id
+  original: String!
+  translation: String!
+}
+
+
+type Kanji {
+    id: ID! @id
+    writing: String!
+    meaning: [Meaning!]! @relation(name: "MeaningOfKanji")
+    on: [On] @relation(name: "OnOfKanji")
+    onRomaji: [OnRomaji] @relation(name: "OnRomajiOfKanji")
+    kun: [Kun] @relation(name: "KunOfKanji")
+    kunRomaji: [KunRomaji] @relation(name: "KunRomajiOfKanji")
+    imageUrl: String
+    videoUrl: String
+    jlpt: Int
+    strokes: Int
+    origin: String
+    old: [Kanji]  @relation(name: "OldKanji" )
+    modern: [Kanji]  @relation(name: "ModernKanji" )
+    memo: String
+    usageFirst: [Word]   @relation(name: "UsageFirstWords")
+    usageLast: [Word]   @relation(name: "UsageLastWords" )
+    radicals: [Kanji]  @relation(name: "RadicalsKanji" )
+    phonetics: [Kanji]  @relation(name: "PhoneticsKanji" )
+}
+
+
+type Meaning {
+  id: ID! @id
+  meaning: String!
+}
+
+
+type On{
+  id: ID! @id
+  on: String!
+}
+
+type OnRomaji{
+  id: ID! @id
+  onRomaji: String!
+}
+
+type Kun{
+  id: ID! @id
+  kun: String!
+}
+
+type KunRomaji{
+  id: ID! @id
+  kunRomaji: String!
+}

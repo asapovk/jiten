@@ -1,0 +1,27 @@
+#import * from "Types.graphql";
+#import * from "Inputs.graphql";
+
+type WordMutation {
+    create(input: WordCreateInput!): Word! 
+    update(input: WordUpdateInput!): Word! 
+    delete(input: WordDeleteInput!): Boolean! 
+}
+
+type KanjiMutation {
+    create(input: KanjiCreateInput!): Kanji! 
+    update(input: KanjiUpdateInput!): Kanji! 
+    delete(input: KanjiDeleteInput!): Boolean! 
+}
+
+
+type Query {
+    words (input: FetchWordInput): [Word]!
+    kanjis (input: FetchKanjiInput): [Kanji]!
+    kanjiSingle (input: KanjiSingleInput!): Kanji!
+    wordSingle  (input: WordSingleInput!) : Word!
+}
+
+type Mutation {
+    createWord (input: WordCreateInput!): Word!
+    createKanji (input: KanjiCreateInput!): Kanji!
+}
