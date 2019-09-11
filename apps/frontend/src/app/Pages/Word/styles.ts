@@ -13,7 +13,7 @@ export const avatarContainerStyles = (sidebarHidden: boolean) => {
         width: '100px',
         position: 'fixed',
         top: '100px',
-        left: '300px',
+        left: '100px',
         transition: 'left .25s ease-out'
     }, sidebarHidden && {
         left: '80px'
