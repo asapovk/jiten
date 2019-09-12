@@ -8,4 +8,6 @@ var kanjiSingle_1 = require("./kanjiSingle");
 exports.kanjiSingle = kanjiSingle_1.default;
 var wordSingle_1 = require("./wordSingle");
 exports.wordSingle = wordSingle_1.default;
+var wordsAPI_1 = require("./wordsAPI");
+exports.wordsAPI = wordsAPI_1.default;
 //# sourceMappingURL=index.js.map

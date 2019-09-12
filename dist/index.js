@@ -106,7 +106,7 @@ app.listen({ port }, () => {
         res.type('json');
         const kanji = await index_1.prisma.kanjis({
             where: {
-                writing: writing
+                writing_in: writing
             }
         });
         res.send(kanji);
@@ -117,7 +117,7 @@ app.listen({ port }, () => {
         res.type('json');
         const words = await index_1.prisma.words({
             where: {
-                writing: writing
+                writing_in: writing
             }
         });
         res.send(words);

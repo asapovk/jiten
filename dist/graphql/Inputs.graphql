@@ -51,6 +51,12 @@ input FetchWordInput {
     searchInput: String
     searchType: String
 }
+
+input FetchWordsAPIInput {
+    writing: [String!]!
+}
+
+
 input WordSingleInput {
     writing: String!
 }
