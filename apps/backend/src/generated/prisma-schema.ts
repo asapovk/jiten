@@ -2,7 +2,11 @@
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-export const typeDefs = /* GraphQL */ `type AggregateKanji {
+export const typeDefs = /* GraphQL */ `type AggregateHistory {
+  count: Int!
+}
+
+type AggregateKanji {
   count: Int!
 }
 
@@ -40,6 +44,326 @@ type AggregateWordUsage {
 
 type BatchPayload {
   count: Long!
+}
+
+type History {
+  id: ID!
+  author: String!
+  origin: String!
+  usage: String!
+  newTranslation: String!
+  time: String!
+}
+
+type HistoryConnection {
+  pageInfo: PageInfo!
+  edges: [HistoryEdge]!
+  aggregate: AggregateHistory!
+}
+
+input HistoryCreateInput {
+  id: ID
+  author: String!
+  origin: String!
+  usage: String!
+  newTranslation: String!
+  time: String!
+}
+
+input HistoryCreateManyInput {
+  create: [HistoryCreateInput!]
+  connect: [HistoryWhereUniqueInput!]
+}
+
+type HistoryEdge {
+  node: History!
+  cursor: String!
+}
+
+enum HistoryOrderByInput {
+  id_ASC
+  id_DESC
+  author_ASC
+  author_DESC
+  origin_ASC
+  origin_DESC
+  usage_ASC
+  usage_DESC
+  newTranslation_ASC
+  newTranslation_DESC
+  time_ASC
+  time_DESC
+}
+
+type HistoryPreviousValues {
+  id: ID!
+  author: String!
+  origin: String!
+  usage: String!
+  newTranslation: String!
+  time: String!
+}
+
+input HistoryScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  author: String
+  author_not: String
+  author_in: [String!]
+  author_not_in: [String!]
+  author_lt: String
+  author_lte: String
+  author_gt: String
+  author_gte: String
+  author_contains: String
+  author_not_contains: String
+  author_starts_with: String
+  author_not_starts_with: String
+  author_ends_with: String
+  author_not_ends_with: String
+  origin: String
+  origin_not: String
+  origin_in: [String!]
+  origin_not_in: [String!]
+  origin_lt: String
+  origin_lte: String
+  origin_gt: String
+  origin_gte: String
+  origin_contains: String
+  origin_not_contains: String
+  origin_starts_with: String
+  origin_not_starts_with: String
+  origin_ends_with: String
+  origin_not_ends_with: String
+  usage: String
+  usage_not: String
+  usage_in: [String!]
+  usage_not_in: [String!]
+  usage_lt: String
+  usage_lte: String
+  usage_gt: String
+  usage_gte: String
+  usage_contains: String
+  usage_not_contains: String
+  usage_starts_with: String
+  usage_not_starts_with: String
+  usage_ends_with: String
+  usage_not_ends_with: String
+  newTranslation: String
+  newTranslation_not: String
+  newTranslation_in: [String!]
+  newTranslation_not_in: [String!]
+  newTranslation_lt: String
+  newTranslation_lte: String
+  newTranslation_gt: String
+  newTranslation_gte: String
+  newTranslation_contains: String
+  newTranslation_not_contains: String
+  newTranslation_starts_with: String
+  newTranslation_not_starts_with: String
+  newTranslation_ends_with: String
+  newTranslation_not_ends_with: String
+  time: String
+  time_not: String
+  time_in: [String!]
+  time_not_in: [String!]
+  time_lt: String
+  time_lte: String
+  time_gt: String
+  time_gte: String
+  time_contains: String
+  time_not_contains: String
+  time_starts_with: String
+  time_not_starts_with: String
+  time_ends_with: String
+  time_not_ends_with: String
+  AND: [HistoryScalarWhereInput!]
+  OR: [HistoryScalarWhereInput!]
+  NOT: [HistoryScalarWhereInput!]
+}
+
+type HistorySubscriptionPayload {
+  mutation: MutationType!
+  node: History
+  updatedFields: [String!]
+  previousValues: HistoryPreviousValues
+}
+
+input HistorySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: HistoryWhereInput
+  AND: [HistorySubscriptionWhereInput!]
+  OR: [HistorySubscriptionWhereInput!]
+  NOT: [HistorySubscriptionWhereInput!]
+}
+
+input HistoryUpdateDataInput {
+  author: String
+  origin: String
+  usage: String
+  newTranslation: String
+  time: String
+}
+
+input HistoryUpdateInput {
+  author: String
+  origin: String
+  usage: String
+  newTranslation: String
+  time: String
+}
+
+input HistoryUpdateManyDataInput {
+  author: String
+  origin: String
+  usage: String
+  newTranslation: String
+  time: String
+}
+
+input HistoryUpdateManyInput {
+  create: [HistoryCreateInput!]
+  update: [HistoryUpdateWithWhereUniqueNestedInput!]
+  upsert: [HistoryUpsertWithWhereUniqueNestedInput!]
+  delete: [HistoryWhereUniqueInput!]
+  connect: [HistoryWhereUniqueInput!]
+  set: [HistoryWhereUniqueInput!]
+  disconnect: [HistoryWhereUniqueInput!]
+  deleteMany: [HistoryScalarWhereInput!]
+  updateMany: [HistoryUpdateManyWithWhereNestedInput!]
+}
+
+input HistoryUpdateManyMutationInput {
+  author: String
+  origin: String
+  usage: String
+  newTranslation: String
+  time: String
+}
+
+input HistoryUpdateManyWithWhereNestedInput {
+  where: HistoryScalarWhereInput!
+  data: HistoryUpdateManyDataInput!
+}
+
+input HistoryUpdateWithWhereUniqueNestedInput {
+  where: HistoryWhereUniqueInput!
+  data: HistoryUpdateDataInput!
+}
+
+input HistoryUpsertWithWhereUniqueNestedInput {
+  where: HistoryWhereUniqueInput!
+  update: HistoryUpdateDataInput!
+  create: HistoryCreateInput!
+}
+
+input HistoryWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  author: String
+  author_not: String
+  author_in: [String!]
+  author_not_in: [String!]
+  author_lt: String
+  author_lte: String
+  author_gt: String
+  author_gte: String
+  author_contains: String
+  author_not_contains: String
+  author_starts_with: String
+  author_not_starts_with: String
+  author_ends_with: String
+  author_not_ends_with: String
+  origin: String
+  origin_not: String
+  origin_in: [String!]
+  origin_not_in: [String!]
+  origin_lt: String
+  origin_lte: String
+  origin_gt: String
+  origin_gte: String
+  origin_contains: String
+  origin_not_contains: String
+  origin_starts_with: String
+  origin_not_starts_with: String
+  origin_ends_with: String
+  origin_not_ends_with: String
+  usage: String
+  usage_not: String
+  usage_in: [String!]
+  usage_not_in: [String!]
+  usage_lt: String
+  usage_lte: String
+  usage_gt: String
+  usage_gte: String
+  usage_contains: String
+  usage_not_contains: String
+  usage_starts_with: String
+  usage_not_starts_with: String
+  usage_ends_with: String
+  usage_not_ends_with: String
+  newTranslation: String
+  newTranslation_not: String
+  newTranslation_in: [String!]
+  newTranslation_not_in: [String!]
+  newTranslation_lt: String
+  newTranslation_lte: String
+  newTranslation_gt: String
+  newTranslation_gte: String
+  newTranslation_contains: String
+  newTranslation_not_contains: String
+  newTranslation_starts_with: String
+  newTranslation_not_starts_with: String
+  newTranslation_ends_with: String
+  newTranslation_not_ends_with: String
+  time: String
+  time_not: String
+  time_in: [String!]
+  time_not_in: [String!]
+  time_lt: String
+  time_lte: String
+  time_gt: String
+  time_gte: String
+  time_contains: String
+  time_not_contains: String
+  time_starts_with: String
+  time_not_starts_with: String
+  time_ends_with: String
+  time_not_ends_with: String
+  AND: [HistoryWhereInput!]
+  OR: [HistoryWhereInput!]
+  NOT: [HistoryWhereInput!]
+}
+
+input HistoryWhereUniqueInput {
+  id: ID
 }
 
 type Kanji {
@@ -1284,6 +1608,12 @@ input MeaningWhereUniqueInput {
 }
 
 type Mutation {
+  createHistory(data: HistoryCreateInput!): History!
+  updateHistory(data: HistoryUpdateInput!, where: HistoryWhereUniqueInput!): History
+  updateManyHistories(data: HistoryUpdateManyMutationInput!, where: HistoryWhereInput): BatchPayload!
+  upsertHistory(where: HistoryWhereUniqueInput!, create: HistoryCreateInput!, update: HistoryUpdateInput!): History!
+  deleteHistory(where: HistoryWhereUniqueInput!): History
+  deleteManyHistories(where: HistoryWhereInput): BatchPayload!
   createKanji(data: KanjiCreateInput!): Kanji!
   updateKanji(data: KanjiUpdateInput!, where: KanjiWhereUniqueInput!): Kanji
   updateManyKanjis(data: KanjiUpdateManyMutationInput!, where: KanjiWhereInput): BatchPayload!
@@ -1702,6 +2032,9 @@ type PageInfo {
 }
 
 type Query {
+  history(where: HistoryWhereUniqueInput!): History
+  histories(where: HistoryWhereInput, orderBy: HistoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [History]!
+  historiesConnection(where: HistoryWhereInput, orderBy: HistoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HistoryConnection!
   kanji(where: KanjiWhereUniqueInput!): Kanji
   kanjis(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Kanji]!
   kanjisConnection(where: KanjiWhereInput, orderBy: KanjiOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): KanjiConnection!
@@ -1733,6 +2066,7 @@ type Query {
 }
 
 type Subscription {
+  history(where: HistorySubscriptionWhereInput): HistorySubscriptionPayload
   kanji(where: KanjiSubscriptionWhereInput): KanjiSubscriptionPayload
   kun(where: KunSubscriptionWhereInput): KunSubscriptionPayload
   kunRomaji(where: KunRomajiSubscriptionWhereInput): KunRomajiSubscriptionPayload
@@ -1761,6 +2095,7 @@ type Word {
   usageDifference(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage!]
   usageWatsay(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage!]
   usageOther(where: WordUsageWhereInput, orderBy: WordUsageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WordUsage!]
+  updateHistory(where: HistoryWhereInput, orderBy: HistoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [History!]
 }
 
 type WordConnection {
@@ -1786,6 +2121,7 @@ input WordCreateInput {
   usageDifference: WordUsageCreateManyInput
   usageWatsay: WordUsageCreateManyInput
   usageOther: WordUsageCreateManyInput
+  updateHistory: HistoryCreateManyInput
 }
 
 input WordCreateManyInput {
@@ -2160,6 +2496,7 @@ input WordUpdateDataInput {
   usageDifference: WordUsageUpdateManyInput
   usageWatsay: WordUsageUpdateManyInput
   usageOther: WordUsageUpdateManyInput
+  updateHistory: HistoryUpdateManyInput
 }
 
 input WordUpdateInput {
@@ -2178,6 +2515,7 @@ input WordUpdateInput {
   usageDifference: WordUsageUpdateManyInput
   usageWatsay: WordUsageUpdateManyInput
   usageOther: WordUsageUpdateManyInput
+  updateHistory: HistoryUpdateManyInput
 }
 
 input WordUpdateManyDataInput {
@@ -2551,6 +2889,9 @@ input WordWhereInput {
   usageOther_every: WordUsageWhereInput
   usageOther_some: WordUsageWhereInput
   usageOther_none: WordUsageWhereInput
+  updateHistory_every: HistoryWhereInput
+  updateHistory_some: HistoryWhereInput
+  updateHistory_none: HistoryWhereInput
   AND: [WordWhereInput!]
   OR: [WordWhereInput!]
   NOT: [WordWhereInput!]

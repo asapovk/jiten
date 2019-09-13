@@ -8,13 +8,17 @@ import { UpdateWordMutationArgs } from '../../../../generated/schema'
 export default async (_, args: UpdateWordMutationArgs) => {
     try {
 
-        const res: Word = await prisma.updateWord({
-            where: {
-                id: args.input.id
-            },
-            data: {
-                translation: {
-                    set: ['test']
+        const res: Word = await prisma.createWord({
+            writing: 'test',
+            romaji: 'test',
+            hiragana: 'test',
+            updateHistory: {
+                create: {
+                    origin: 'test',
+                    usage: 'test',
+                    newTranslation: 'test',
+                    time: 'test',
+                    author: 'test'
                 }
             }
         });

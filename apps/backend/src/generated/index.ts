@@ -16,6 +16,7 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
+  history: (where?: HistoryWhereInput) => Promise<boolean>;
   kanji: (where?: KanjiWhereInput) => Promise<boolean>;
   kun: (where?: KunWhereInput) => Promise<boolean>;
   kunRomaji: (where?: KunRomajiWhereInput) => Promise<boolean>;
@@ -46,6 +47,25 @@ export interface Prisma {
    * Queries
    */
 
+  history: (where: HistoryWhereUniqueInput) => HistoryNullablePromise;
+  histories: (args?: {
+    where?: HistoryWhereInput;
+    orderBy?: HistoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<History>;
+  historiesConnection: (args?: {
+    where?: HistoryWhereInput;
+    orderBy?: HistoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => HistoryConnectionPromise;
   kanji: (where: KanjiWhereUniqueInput) => KanjiNullablePromise;
   kanjis: (args?: {
     where?: KanjiWhereInput;
@@ -225,6 +245,22 @@ export interface Prisma {
    * Mutations
    */
 
+  createHistory: (data: HistoryCreateInput) => HistoryPromise;
+  updateHistory: (args: {
+    data: HistoryUpdateInput;
+    where: HistoryWhereUniqueInput;
+  }) => HistoryPromise;
+  updateManyHistories: (args: {
+    data: HistoryUpdateManyMutationInput;
+    where?: HistoryWhereInput;
+  }) => BatchPayloadPromise;
+  upsertHistory: (args: {
+    where: HistoryWhereUniqueInput;
+    create: HistoryCreateInput;
+    update: HistoryUpdateInput;
+  }) => HistoryPromise;
+  deleteHistory: (where: HistoryWhereUniqueInput) => HistoryPromise;
+  deleteManyHistories: (where?: HistoryWhereInput) => BatchPayloadPromise;
   createKanji: (data: KanjiCreateInput) => KanjiPromise;
   updateKanji: (args: {
     data: KanjiUpdateInput;
@@ -380,6 +416,9 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  history: (
+    where?: HistorySubscriptionWhereInput
+  ) => HistorySubscriptionPayloadSubscription;
   kanji: (
     where?: KanjiSubscriptionWhereInput
   ) => KanjiSubscriptionPayloadSubscription;
@@ -414,6 +453,20 @@ export interface ClientConstructor<T> {
 /**
  * Types
  */
+
+export type HistoryOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "author_ASC"
+  | "author_DESC"
+  | "origin_ASC"
+  | "origin_DESC"
+  | "usage_ASC"
+  | "usage_DESC"
+  | "newTranslation_ASC"
+  | "newTranslation_DESC"
+  | "time_ASC"
+  | "time_DESC";
 
 export type MeaningOrderByInput =
   | "id_ASC"
@@ -486,6 +539,100 @@ export type WordUsageOrderByInput =
   | "answer_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
+
+export type HistoryWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface HistoryWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  author?: Maybe<String>;
+  author_not?: Maybe<String>;
+  author_in?: Maybe<String[] | String>;
+  author_not_in?: Maybe<String[] | String>;
+  author_lt?: Maybe<String>;
+  author_lte?: Maybe<String>;
+  author_gt?: Maybe<String>;
+  author_gte?: Maybe<String>;
+  author_contains?: Maybe<String>;
+  author_not_contains?: Maybe<String>;
+  author_starts_with?: Maybe<String>;
+  author_not_starts_with?: Maybe<String>;
+  author_ends_with?: Maybe<String>;
+  author_not_ends_with?: Maybe<String>;
+  origin?: Maybe<String>;
+  origin_not?: Maybe<String>;
+  origin_in?: Maybe<String[] | String>;
+  origin_not_in?: Maybe<String[] | String>;
+  origin_lt?: Maybe<String>;
+  origin_lte?: Maybe<String>;
+  origin_gt?: Maybe<String>;
+  origin_gte?: Maybe<String>;
+  origin_contains?: Maybe<String>;
+  origin_not_contains?: Maybe<String>;
+  origin_starts_with?: Maybe<String>;
+  origin_not_starts_with?: Maybe<String>;
+  origin_ends_with?: Maybe<String>;
+  origin_not_ends_with?: Maybe<String>;
+  usage?: Maybe<String>;
+  usage_not?: Maybe<String>;
+  usage_in?: Maybe<String[] | String>;
+  usage_not_in?: Maybe<String[] | String>;
+  usage_lt?: Maybe<String>;
+  usage_lte?: Maybe<String>;
+  usage_gt?: Maybe<String>;
+  usage_gte?: Maybe<String>;
+  usage_contains?: Maybe<String>;
+  usage_not_contains?: Maybe<String>;
+  usage_starts_with?: Maybe<String>;
+  usage_not_starts_with?: Maybe<String>;
+  usage_ends_with?: Maybe<String>;
+  usage_not_ends_with?: Maybe<String>;
+  newTranslation?: Maybe<String>;
+  newTranslation_not?: Maybe<String>;
+  newTranslation_in?: Maybe<String[] | String>;
+  newTranslation_not_in?: Maybe<String[] | String>;
+  newTranslation_lt?: Maybe<String>;
+  newTranslation_lte?: Maybe<String>;
+  newTranslation_gt?: Maybe<String>;
+  newTranslation_gte?: Maybe<String>;
+  newTranslation_contains?: Maybe<String>;
+  newTranslation_not_contains?: Maybe<String>;
+  newTranslation_starts_with?: Maybe<String>;
+  newTranslation_not_starts_with?: Maybe<String>;
+  newTranslation_ends_with?: Maybe<String>;
+  newTranslation_not_ends_with?: Maybe<String>;
+  time?: Maybe<String>;
+  time_not?: Maybe<String>;
+  time_in?: Maybe<String[] | String>;
+  time_not_in?: Maybe<String[] | String>;
+  time_lt?: Maybe<String>;
+  time_lte?: Maybe<String>;
+  time_gt?: Maybe<String>;
+  time_gte?: Maybe<String>;
+  time_contains?: Maybe<String>;
+  time_not_contains?: Maybe<String>;
+  time_starts_with?: Maybe<String>;
+  time_not_starts_with?: Maybe<String>;
+  time_ends_with?: Maybe<String>;
+  time_not_ends_with?: Maybe<String>;
+  AND?: Maybe<HistoryWhereInput[] | HistoryWhereInput>;
+  OR?: Maybe<HistoryWhereInput[] | HistoryWhereInput>;
+  NOT?: Maybe<HistoryWhereInput[] | HistoryWhereInput>;
+}
 
 export type KanjiWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
@@ -912,6 +1059,9 @@ export interface WordWhereInput {
   usageOther_every?: Maybe<WordUsageWhereInput>;
   usageOther_some?: Maybe<WordUsageWhereInput>;
   usageOther_none?: Maybe<WordUsageWhereInput>;
+  updateHistory_every?: Maybe<HistoryWhereInput>;
+  updateHistory_some?: Maybe<HistoryWhereInput>;
+  updateHistory_none?: Maybe<HistoryWhereInput>;
   AND?: Maybe<WordWhereInput[] | WordWhereInput>;
   OR?: Maybe<WordWhereInput[] | WordWhereInput>;
   NOT?: Maybe<WordWhereInput[] | WordWhereInput>;
@@ -1044,6 +1194,31 @@ export type WordExampleWhereUniqueInput = AtLeastOne<{
 export type WordUsageWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
+
+export interface HistoryCreateInput {
+  id?: Maybe<ID_Input>;
+  author: String;
+  origin: String;
+  usage: String;
+  newTranslation: String;
+  time: String;
+}
+
+export interface HistoryUpdateInput {
+  author?: Maybe<String>;
+  origin?: Maybe<String>;
+  usage?: Maybe<String>;
+  newTranslation?: Maybe<String>;
+  time?: Maybe<String>;
+}
+
+export interface HistoryUpdateManyMutationInput {
+  author?: Maybe<String>;
+  origin?: Maybe<String>;
+  usage?: Maybe<String>;
+  newTranslation?: Maybe<String>;
+  time?: Maybe<String>;
+}
 
 export interface KanjiCreateInput {
   id?: Maybe<ID_Input>;
@@ -1193,6 +1368,7 @@ export interface WordCreateInput {
   usageDifference?: Maybe<WordUsageCreateManyInput>;
   usageWatsay?: Maybe<WordUsageCreateManyInput>;
   usageOther?: Maybe<WordUsageCreateManyInput>;
+  updateHistory?: Maybe<HistoryCreateManyInput>;
 }
 
 export interface WordCreatetranslationInput {
@@ -1224,6 +1400,11 @@ export interface WordUsageCreateInput {
   id?: Maybe<ID_Input>;
   question: String;
   answer: String;
+}
+
+export interface HistoryCreateManyInput {
+  create?: Maybe<HistoryCreateInput[] | HistoryCreateInput>;
+  connect?: Maybe<HistoryWhereUniqueInput[] | HistoryWhereUniqueInput>;
 }
 
 export interface KanjiCreateManyWithoutRadicalsInput {
@@ -1825,6 +2006,7 @@ export interface WordUpdateDataInput {
   usageDifference?: Maybe<WordUsageUpdateManyInput>;
   usageWatsay?: Maybe<WordUsageUpdateManyInput>;
   usageOther?: Maybe<WordUsageUpdateManyInput>;
+  updateHistory?: Maybe<HistoryUpdateManyInput>;
 }
 
 export interface WordUpdatetranslationInput {
@@ -2304,6 +2486,149 @@ export interface WordUsageUpdateManyDataInput {
   answer?: Maybe<String>;
 }
 
+export interface HistoryUpdateManyInput {
+  create?: Maybe<HistoryCreateInput[] | HistoryCreateInput>;
+  update?: Maybe<
+    | HistoryUpdateWithWhereUniqueNestedInput[]
+    | HistoryUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | HistoryUpsertWithWhereUniqueNestedInput[]
+    | HistoryUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<HistoryWhereUniqueInput[] | HistoryWhereUniqueInput>;
+  connect?: Maybe<HistoryWhereUniqueInput[] | HistoryWhereUniqueInput>;
+  set?: Maybe<HistoryWhereUniqueInput[] | HistoryWhereUniqueInput>;
+  disconnect?: Maybe<HistoryWhereUniqueInput[] | HistoryWhereUniqueInput>;
+  deleteMany?: Maybe<HistoryScalarWhereInput[] | HistoryScalarWhereInput>;
+  updateMany?: Maybe<
+    | HistoryUpdateManyWithWhereNestedInput[]
+    | HistoryUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface HistoryUpdateWithWhereUniqueNestedInput {
+  where: HistoryWhereUniqueInput;
+  data: HistoryUpdateDataInput;
+}
+
+export interface HistoryUpdateDataInput {
+  author?: Maybe<String>;
+  origin?: Maybe<String>;
+  usage?: Maybe<String>;
+  newTranslation?: Maybe<String>;
+  time?: Maybe<String>;
+}
+
+export interface HistoryUpsertWithWhereUniqueNestedInput {
+  where: HistoryWhereUniqueInput;
+  update: HistoryUpdateDataInput;
+  create: HistoryCreateInput;
+}
+
+export interface HistoryScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  author?: Maybe<String>;
+  author_not?: Maybe<String>;
+  author_in?: Maybe<String[] | String>;
+  author_not_in?: Maybe<String[] | String>;
+  author_lt?: Maybe<String>;
+  author_lte?: Maybe<String>;
+  author_gt?: Maybe<String>;
+  author_gte?: Maybe<String>;
+  author_contains?: Maybe<String>;
+  author_not_contains?: Maybe<String>;
+  author_starts_with?: Maybe<String>;
+  author_not_starts_with?: Maybe<String>;
+  author_ends_with?: Maybe<String>;
+  author_not_ends_with?: Maybe<String>;
+  origin?: Maybe<String>;
+  origin_not?: Maybe<String>;
+  origin_in?: Maybe<String[] | String>;
+  origin_not_in?: Maybe<String[] | String>;
+  origin_lt?: Maybe<String>;
+  origin_lte?: Maybe<String>;
+  origin_gt?: Maybe<String>;
+  origin_gte?: Maybe<String>;
+  origin_contains?: Maybe<String>;
+  origin_not_contains?: Maybe<String>;
+  origin_starts_with?: Maybe<String>;
+  origin_not_starts_with?: Maybe<String>;
+  origin_ends_with?: Maybe<String>;
+  origin_not_ends_with?: Maybe<String>;
+  usage?: Maybe<String>;
+  usage_not?: Maybe<String>;
+  usage_in?: Maybe<String[] | String>;
+  usage_not_in?: Maybe<String[] | String>;
+  usage_lt?: Maybe<String>;
+  usage_lte?: Maybe<String>;
+  usage_gt?: Maybe<String>;
+  usage_gte?: Maybe<String>;
+  usage_contains?: Maybe<String>;
+  usage_not_contains?: Maybe<String>;
+  usage_starts_with?: Maybe<String>;
+  usage_not_starts_with?: Maybe<String>;
+  usage_ends_with?: Maybe<String>;
+  usage_not_ends_with?: Maybe<String>;
+  newTranslation?: Maybe<String>;
+  newTranslation_not?: Maybe<String>;
+  newTranslation_in?: Maybe<String[] | String>;
+  newTranslation_not_in?: Maybe<String[] | String>;
+  newTranslation_lt?: Maybe<String>;
+  newTranslation_lte?: Maybe<String>;
+  newTranslation_gt?: Maybe<String>;
+  newTranslation_gte?: Maybe<String>;
+  newTranslation_contains?: Maybe<String>;
+  newTranslation_not_contains?: Maybe<String>;
+  newTranslation_starts_with?: Maybe<String>;
+  newTranslation_not_starts_with?: Maybe<String>;
+  newTranslation_ends_with?: Maybe<String>;
+  newTranslation_not_ends_with?: Maybe<String>;
+  time?: Maybe<String>;
+  time_not?: Maybe<String>;
+  time_in?: Maybe<String[] | String>;
+  time_not_in?: Maybe<String[] | String>;
+  time_lt?: Maybe<String>;
+  time_lte?: Maybe<String>;
+  time_gt?: Maybe<String>;
+  time_gte?: Maybe<String>;
+  time_contains?: Maybe<String>;
+  time_not_contains?: Maybe<String>;
+  time_starts_with?: Maybe<String>;
+  time_not_starts_with?: Maybe<String>;
+  time_ends_with?: Maybe<String>;
+  time_not_ends_with?: Maybe<String>;
+  AND?: Maybe<HistoryScalarWhereInput[] | HistoryScalarWhereInput>;
+  OR?: Maybe<HistoryScalarWhereInput[] | HistoryScalarWhereInput>;
+  NOT?: Maybe<HistoryScalarWhereInput[] | HistoryScalarWhereInput>;
+}
+
+export interface HistoryUpdateManyWithWhereNestedInput {
+  where: HistoryScalarWhereInput;
+  data: HistoryUpdateManyDataInput;
+}
+
+export interface HistoryUpdateManyDataInput {
+  author?: Maybe<String>;
+  origin?: Maybe<String>;
+  usage?: Maybe<String>;
+  newTranslation?: Maybe<String>;
+  time?: Maybe<String>;
+}
+
 export interface WordUpsertWithWhereUniqueNestedInput {
   where: WordWhereUniqueInput;
   update: WordUpdateDataInput;
@@ -2492,6 +2817,7 @@ export interface WordUpdateInput {
   usageDifference?: Maybe<WordUsageUpdateManyInput>;
   usageWatsay?: Maybe<WordUsageUpdateManyInput>;
   usageOther?: Maybe<WordUsageUpdateManyInput>;
+  updateHistory?: Maybe<HistoryUpdateManyInput>;
 }
 
 export interface WordUpdateManyMutationInput {
@@ -2521,6 +2847,17 @@ export interface WordUsageUpdateInput {
 export interface WordUsageUpdateManyMutationInput {
   question?: Maybe<String>;
   answer?: Maybe<String>;
+}
+
+export interface HistorySubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<HistoryWhereInput>;
+  AND?: Maybe<HistorySubscriptionWhereInput[] | HistorySubscriptionWhereInput>;
+  OR?: Maybe<HistorySubscriptionWhereInput[] | HistorySubscriptionWhereInput>;
+  NOT?: Maybe<HistorySubscriptionWhereInput[] | HistorySubscriptionWhereInput>;
 }
 
 export interface KanjiSubscriptionWhereInput {
@@ -2646,6 +2983,123 @@ export interface WordUsageSubscriptionWhereInput {
 
 export interface NodeNode {
   id: ID_Output;
+}
+
+export interface History {
+  id: ID_Output;
+  author: String;
+  origin: String;
+  usage: String;
+  newTranslation: String;
+  time: String;
+}
+
+export interface HistoryPromise extends Promise<History>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  author: () => Promise<String>;
+  origin: () => Promise<String>;
+  usage: () => Promise<String>;
+  newTranslation: () => Promise<String>;
+  time: () => Promise<String>;
+}
+
+export interface HistorySubscription
+  extends Promise<AsyncIterator<History>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  author: () => Promise<AsyncIterator<String>>;
+  origin: () => Promise<AsyncIterator<String>>;
+  usage: () => Promise<AsyncIterator<String>>;
+  newTranslation: () => Promise<AsyncIterator<String>>;
+  time: () => Promise<AsyncIterator<String>>;
+}
+
+export interface HistoryNullablePromise
+  extends Promise<History | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  author: () => Promise<String>;
+  origin: () => Promise<String>;
+  usage: () => Promise<String>;
+  newTranslation: () => Promise<String>;
+  time: () => Promise<String>;
+}
+
+export interface HistoryConnection {
+  pageInfo: PageInfo;
+  edges: HistoryEdge[];
+}
+
+export interface HistoryConnectionPromise
+  extends Promise<HistoryConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<HistoryEdge>>() => T;
+  aggregate: <T = AggregateHistoryPromise>() => T;
+}
+
+export interface HistoryConnectionSubscription
+  extends Promise<AsyncIterator<HistoryConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<HistoryEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateHistorySubscription>() => T;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface HistoryEdge {
+  node: History;
+  cursor: String;
+}
+
+export interface HistoryEdgePromise extends Promise<HistoryEdge>, Fragmentable {
+  node: <T = HistoryPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface HistoryEdgeSubscription
+  extends Promise<AsyncIterator<HistoryEdge>>,
+    Fragmentable {
+  node: <T = HistorySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateHistory {
+  count: Int;
+}
+
+export interface AggregateHistoryPromise
+  extends Promise<AggregateHistory>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateHistorySubscription
+  extends Promise<AsyncIterator<AggregateHistory>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface Kanji {
@@ -3208,6 +3662,15 @@ export interface WordPromise extends Promise<Word>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  updateHistory: <T = FragmentableArray<History>>(args?: {
+    where?: HistoryWhereInput;
+    orderBy?: HistoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface WordSubscription
@@ -3295,6 +3758,15 @@ export interface WordSubscription
   usageOther: <T = Promise<AsyncIterator<WordUsageSubscription>>>(args?: {
     where?: WordUsageWhereInput;
     orderBy?: WordUsageOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  updateHistory: <T = Promise<AsyncIterator<HistorySubscription>>>(args?: {
+    where?: HistoryWhereInput;
+    orderBy?: HistoryOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -3394,6 +3866,15 @@ export interface WordNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  updateHistory: <T = FragmentableArray<History>>(args?: {
+    where?: HistoryWhereInput;
+    orderBy?: HistoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface WordExample {
@@ -3471,29 +3952,6 @@ export interface KanjiConnectionSubscription
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<KanjiEdgeSubscription>>>() => T;
   aggregate: <T = AggregateKanjiSubscription>() => T;
-}
-
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface KanjiEdge {
@@ -3983,6 +4441,62 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
+export interface HistorySubscriptionPayload {
+  mutation: MutationType;
+  node: History;
+  updatedFields: String[];
+  previousValues: HistoryPreviousValues;
+}
+
+export interface HistorySubscriptionPayloadPromise
+  extends Promise<HistorySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = HistoryPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = HistoryPreviousValuesPromise>() => T;
+}
+
+export interface HistorySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<HistorySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = HistorySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = HistoryPreviousValuesSubscription>() => T;
+}
+
+export interface HistoryPreviousValues {
+  id: ID_Output;
+  author: String;
+  origin: String;
+  usage: String;
+  newTranslation: String;
+  time: String;
+}
+
+export interface HistoryPreviousValuesPromise
+  extends Promise<HistoryPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  author: () => Promise<String>;
+  origin: () => Promise<String>;
+  usage: () => Promise<String>;
+  newTranslation: () => Promise<String>;
+  time: () => Promise<String>;
+}
+
+export interface HistoryPreviousValuesSubscription
+  extends Promise<AsyncIterator<HistoryPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  author: () => Promise<AsyncIterator<String>>;
+  origin: () => Promise<AsyncIterator<String>>;
+  usage: () => Promise<AsyncIterator<String>>;
+  newTranslation: () => Promise<AsyncIterator<String>>;
+  time: () => Promise<AsyncIterator<String>>;
+}
+
 export interface KanjiSubscriptionPayload {
   mutation: MutationType;
   node: Kanji;
@@ -4448,6 +4962,10 @@ export type Long = string;
 export const models: Model[] = [
   {
     name: "Word",
+    embedded: false
+  },
+  {
+    name: "History",
     embedded: false
   },
   {

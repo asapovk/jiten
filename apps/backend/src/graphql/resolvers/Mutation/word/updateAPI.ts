@@ -10,15 +10,23 @@ export default async (_, args: UpdateWordMutationArgs) => {
 
         const res: Word = await prisma.updateWord({
             where: {
-                id: args.input.id
+                id: 'test'
             },
             data: {
-                translation: {
-                    set: ['test']
+                writing: 'test',
+                romaji: 'test',
+                hiragana: 'test',
+                updateHistory: {
+                    create: {
+                        origin: 'test',
+                        usage: 'test',
+                        newTranslation: 'test',
+                        time: 'test',
+                        author: 'test'
+                    }
                 }
             }
         });
-        return res
 
     } catch (error) {
         throw error;
