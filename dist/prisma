@@ -16,6 +16,17 @@ type Word {
   usageDifference: [WordUsage] @relation(name: "WordUsageDifference" )
   usageWatsay: [WordUsage] @relation(name: "WordUsageWatsay" )
   usageOther: [WordUsage] @relation(name: "WordUsageOther" )
+
+  updateHistory: [History] @relation(name: "WordUpdateHistory")
+}
+
+type History{
+    id: ID! @id
+    author: String!
+    origin: String!
+    usage: String!
+    newTranslation: String!
+    time: String! 
 }
 
 type WordUsage {

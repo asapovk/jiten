@@ -1,18 +1,20 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const updateWord_1 = __importDefault(require("../../../data/updateWord"));
+const generated_1 = require("../../../../generated");
 /**
  * @resolver
  */
-exports.default = async (args) => {
+exports.default = async (_, args) => {
     try {
-        const res = await updateWord_1.default({
-            userId: args.input.wordId,
-            writing: args.input.writing,
-            translation: args.input.translation
+        const res = await generated_1.prisma.updateWord({
+            where: {
+                id: args.input.id
+            },
+            data: {
+                translation: {
+                    set: ['test']
+                }
+            }
         });
         return res;
     }

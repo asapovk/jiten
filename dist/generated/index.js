@@ -14,6 +14,10 @@ exports.models = [
         embedded: false
     },
     {
+        name: "History",
+        embedded: false
+    },
+    {
         name: "WordUsage",
         embedded: false
     },
