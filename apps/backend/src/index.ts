@@ -36,15 +36,21 @@ import { importSchema } from 'graphql-import'
 import resolvers from './graphql/resolvers'
 
 import { prisma } from './generated/index'
+import api from './api'
 
 const app = express()
 const port = process.env.PORT || 4000
 const typeDefs = importSchema(path.join(__dirname, "graphql", "schema.graphql"))
 const prismaTypeDefs = importSchema(path.join(__dirname, "generated", "prisma.graphql"))
 
+
+
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(compression());
+
+//NEW API!
+app.use(api)
 
 const apolloServer = new ApolloServer({
     schema: makeExecutableSchema({
@@ -111,107 +117,6 @@ app.listen({ port }, () => {
     app.get('/', (req, res) => {
         res.type('text')
         res.send("You should't to that 🔪")
-    })
-    /// API !
-    app.post('/api/kanji/', async (req, res) => {
-        const writing = req.body.writing
-        console.log(writing)
-        res.type('json')
-
-        const kanji = await prisma.kanjis({
-            where: {
-                writing_in: writing
-            }
-        })
-        res.send(kanji)
-    })
-    app.post('/api/word/', async (req, res) => {
-        const writing = req.body.writing
-        console.log(writing)
-        res.type('json')
-
-        const words = await prisma.words({
-            where: {
-                writing_in: writing
-            }
-        })
-        res.send(words)
-    })
-    app.post('/api/create/word', async (req, res) => {
-        const writing = req.body.writing
-        const translation = req.body.translation ? req.body.translation : ''
-        const hiragana = req.body.hiragana ? req.body.hiragana : ''
-        const romaji = req.body.romaji ? req.body.romaji : ''
-
-        const author = req.body.author ? req.body.author : ''
-        const origin = req.body.origin ? req.body.origin : ''
-        const usage = req.body.usage ? req.body.usage : ''
-        const time = Date.now().toString()
-
-        const createdWord = await prisma.createWord(
-            {
-                writing: writing,
-                hiragana: hiragana,
-                romaji: romaji,
-                translation: {
-                    set: [translation]
-                },
-                updateHistory: {
-                    create: {
-                        origin,
-                        usage,
-                        newTranslation: translation,
-                        time,
-                        author
-                    }
-                }
-            });
-        res.send(createdWord)
-
-    })
-
-    app.put('/api/word', async (req, res) => {
-        const writing = req.body.writing
-
-        const translation = req.body.translation ? req.body.translation : ''
-        const author = req.body.author ? req.body.author : ''
-        const origin = req.body.origin ? req.body.origin : ''
-        const usage = req.body.usage ? req.body.usage : ''
-        const time = Date.now().toString()
-
-        const existWords = await prisma.words({
-            where: {
-                writing: writing
-            }
-        })
-
-        var wordId: any = null
-
-        if (Array.isArray(existWords) && existWords.length !== 0) {
-            wordId = existWords[0].id
-
-            const updatedWord = await prisma.updateWord({
-                where: {
-                    id: wordId
-                },
-                data: {
-                    translation: {
-                        set: [translation, ...existWords[0].translation]
-                    },
-                    updateHistory: {
-                        create: {
-                            origin,
-                            usage,
-                            newTranslation: translation,
-                            time,
-                            author
-                        }
-                    }
-                }
-            });
-            res.send(updatedWord)
-        }
-        res.send(null)
     })
 
 })
