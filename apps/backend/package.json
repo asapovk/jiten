@@ -15,6 +15,7 @@
     "author": "Konstantin Astapov",
     "license": "ISC",
     "dependencies": {
+        "@types/lodash": "^4.14.149",
         "@types/nodemailer": "^6.2.0",
         "apollo-server": "^2.4.8",
         "apollo-server-express": "^2.4.8",
@@ -30,6 +31,7 @@
         "graphql-import": "^0.7.1",
         "graphql-iso-date": "^3.6.1",
         "graphql-type-json": "^0.3.0",
+        "lodash": "^4.17.15",
         "moment": "^2.22.2",
         "node-cache-promise": "^1.0.0",
         "nodemailer": "^6.1.1",

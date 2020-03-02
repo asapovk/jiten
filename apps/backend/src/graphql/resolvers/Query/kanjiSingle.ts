@@ -8,7 +8,6 @@ import { KanjiSingleQueryArgs } from '../../../generated/schema'
  * @resolver
  */
 export default async (req: any, args: KanjiSingleQueryArgs, { db }, info) => {
-    console.log('SINGLE QUERY CALL!')
     try {
 
         const query = {
@@ -47,8 +46,6 @@ export default async (req: any, args: KanjiSingleQueryArgs, { db }, info) => {
             }
         })
 
-        console.log('KANJIS')
-        console.log(kanjis)
         const transformedKanji = kanjis.map(item => {
             return {
                 ...item,
@@ -60,7 +57,6 @@ export default async (req: any, args: KanjiSingleQueryArgs, { db }, info) => {
             }
         })
 
-        console.log(transformedKanji)
         return transformedKanji ? transformedKanji[0] : null
     } catch (error) {
         throw error;
