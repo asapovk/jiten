@@ -1,0 +1,18 @@
+variables:
+    TEST: "shintokaido@172.16.200.193"
+    
+  stages:
+      - deploy_test
+  deploy_test:
+    stage: deploy_test
+    only:
+      - dev
+    script:
+      - yarn
+      - yarn build:sandbox
+      - rsync -r -avv --del -compress-level=9 -e "ssh -p 22" dist/public/up-gate.mod.js $TEST:/opt/node-apps/connect/include
+      - rsync -r -avv --del --exclude="packages" -compress-level=9 -e "ssh -p 22" ./ $TEST:/opt/node-apps/up-gate
+      - ssh $TEST 'cd /home/shintokaido/jiten/ && yarn fork:sandbox'
+    environment:
+      name: deploy_test
+  
