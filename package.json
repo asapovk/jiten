@@ -1,21 +1,18 @@
 {
-    "name": "ebird",
+    "name": "oj-jiten",
     "version": "1.0.0",
     "private": true,
-    "main": "packages/backend/src/index.ts",
+    "main": "apps/backend/src/index.ts",
     "workspaces": [
-        "packages/*"
+        "apps/*"
     ],
     "scripts": {
-        "build:sandbox": "rm -rf ./dist && yarn workspace @ebird/backend build && yarn workspace @ebird/frontend build:sandbox",
-        "build:production": "rm -rf ./dist && yarn workspace @ebird/backend build && yarn workspace @ebird/frontend build:production",
-        
-        "fork:sandbox": "NODE_PATH=./dist pm2 start dist --name connect-ebird --update-env -- -env environment/sandbox",
-        "fork:production": "NODE_PATH=./dist pm2 start dist --name connect-ebird --update-env -- -env environment/sandbox",
-        
-        "start": "ENV=debug yarn workspace @ebird/frontend start",
-
-        "gen": "yarn workspace @ebird/backend gen",
-        "schema": "yarn workspace @ebird/backend schema"
+        "build:sandbox": "rm -rf ./dist && yarn workspace @oj-jiten/backend build && yarn workspace @oj-jiten/frontend build:sandbox",
+        "build:production": "rm -rf ./dist && yarn workspace @oj-jiten/backend build && yarn workspace @oj-jiten/frontend build:production",
+        "fork:sandbox": "NODE_PATH=./apps/backend pm2 start dist --name oj-jiten --update-env -- -env environment/sandbox",
+        "fork:production": "NODE_PATH=./apps/backend pm2 start dist --name oj-jiten --update-env -- -env environment/sandbox",
+        "start": "ENV=debug yarn workspace @oj-jiten/frontend start",
+        "gen": "yarn workspace @oj-jiten/backend gen",
+        "schema": "yarn workspace @oj-jiten/backend schema"
     }
 }

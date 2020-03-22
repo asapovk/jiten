@@ -1,7 +1,7 @@
 {
-    "name": "@template/backend",
+    "name": "@oj-jiten/backend",
     "version": "1.0.0",
-    "description": "GraphQL TypeScript Prisma template",
+    "description": "Jp-Ru online dictionary",
     "main": "index",
     "scripts": {
         "gen": "rm -f ./src/generated/schema.d.ts && gql-gen --config schema.yml",
@@ -43,7 +43,7 @@
         "pug": "^2.0.3",
         "redis": "^2.8.0",
         "request": "^2.88.0",
-        "typescript": "^3.2.2",
+        "typescript": "^3.9.0",
         "uuid": "^3.3.2"
     },
     "devDependencies": {
