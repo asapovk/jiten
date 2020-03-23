@@ -9,5 +9,5 @@ LOGGER_LOG=true
 LOGGER_WARN=true
 LOGGER_ERROR=true
 REACT_EXTERNAL=false
-PLAYGROUND=false
+PLAYGROUND=true
 PRISMA_HOST=http://jiten.shin-to.ru:4466
