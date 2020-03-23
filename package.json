@@ -7,7 +7,7 @@
         "apps/*"
     ],
     "scripts": {
-        "build:sandbox": "rm -rf ./dist && yarn workspace @oj-jiten/backend build && yarn workspace @oj-jiten/frontend build:sandbox",
+        "build:sandbox": "rm -rf ./dist && yarn workspace @oj-jiten/backend build",
         "build:production": "rm -rf ./dist && yarn workspace @oj-jiten/backend build && yarn workspace @oj-jiten/frontend build:production",
         "fork:sandbox": "NODE_PATH=./apps/backend pm2 start dist --name oj-jiten --update-env -- -env environment/sandbox",
         "fork:production": "NODE_PATH=./apps/backend pm2 start dist --name oj-jiten --update-env -- -env environment/sandbox",
