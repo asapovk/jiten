@@ -8,6 +8,7 @@ interface GetWordsWithKanjiInput {
     writing: string
 }
 interface GetWordsWithKanji {
+    questionWord: Word,
     usageFirstWords: Word[],
     usageLastWords: Word[]
 }
@@ -20,7 +21,7 @@ interface GetQuizQuestionsInput {
 
 interface QuizQuestions {
     quizQuestions: Array<{
-        question: string
+        question: Word,
         answersFirst: Word[],
         answersLast: Word[]
     }>
@@ -52,6 +53,12 @@ class Words {
             _.last(kanjisOfWord)!.writing
             : null
 
+        const questionWord = await prisma.words({
+            where: {
+                writing: args.writing
+            }
+        })
+
         const usageFirstWords = await prisma.words({
             where: {
                 writing_starts_with: firstKanjiWriting
@@ -63,9 +70,11 @@ class Words {
             }
         })
         return {
+            questionWord: questionWord[0],
             usageFirstWords,
             usageLastWords
         }
+
 
     }
 
@@ -102,7 +111,7 @@ class Words {
                 }
             }
             questions.push({
-                questions: writing,
+                questions: result.questionWord,
                 answersFirst: valuesFirst,
                 answersLast: valuesLast
             })
